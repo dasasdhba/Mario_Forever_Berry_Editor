@@ -105,7 +105,7 @@ func jump_event(delta :float) ->void:
 	if jump_state == -1 && is_on_floor():
 		jump_state = 0
 		
-	if jump_state == 0:
+	if jump_state == 0 && is_on_floor():
 		j_timer += delta
 		if j_timer >= jump_interval:
 			j_timer = 0
