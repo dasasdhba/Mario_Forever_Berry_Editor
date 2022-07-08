@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/hammer.wav-e2765c59129828a240b8d848d21c9359.sample"
+
+[deps]
+
+source_file="res://resource/audio/sound/enemy/hammer.wav"
+dest_files=[ "res://.import/hammer.wav-e2765c59129828a240b8d848d21c9359.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

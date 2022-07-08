@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/gear.wav-4c14a9c0dffc647ec9d6ab366f51ac57.sample"
+
+[deps]
+
+source_file="res://resource/audio/sound/enemy/gear.wav"
+dest_files=[ "res://.import/gear.wav-4c14a9c0dffc647ec9d6ab366f51ac57.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

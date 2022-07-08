@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/thwomp_volcano.ogg-9210fe1925b3cd3dc1428b9ce387a86b.oggstr"
+
+[deps]
+
+source_file="res://resource/audio/music/thwomp_volcano.ogg"
+dest_files=[ "res://.import/thwomp_volcano.ogg-9210fe1925b3cd3dc1428b9ce387a86b.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

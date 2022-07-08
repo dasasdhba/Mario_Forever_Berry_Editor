@@ -1,0 +1,136 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "Area2D",
+"class": "AreaShared",
+"language": "GDScript",
+"path": "res://script/class/area_shared.gd"
+}, {
+"base": "Node2D",
+"class": "Brush2D",
+"language": "GDScript",
+"path": "res://addons/brush2d/brush2d.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "Gravity",
+"language": "GDScript",
+"path": "res://script/class/gravity.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "MovingBlock",
+"language": "GDScript",
+"path": "res://script/class/moving_block.gd"
+}, {
+"base": "Node2D",
+"class": "RectBox2D",
+"language": "GDScript",
+"path": "res://script/class/rect_box2d.gd"
+}, {
+"base": "Node2D",
+"class": "RectCollision2D",
+"language": "GDScript",
+"path": "res://script/class/rect_collision2d.gd"
+}, {
+"base": "Node2D",
+"class": "Room2D",
+"language": "GDScript",
+"path": "res://script/class/room2d.gd"
+}, {
+"base": "BitmapFont",
+"class": "TextureFont",
+"language": "GDScript",
+"path": "res://addons/texture_fonts/Classes/TextureFont.gd"
+}, {
+"base": "ViewportContainer",
+"class": "ViewportControl",
+"language": "GDScript",
+"path": "res://script/class/viewport_control.gd"
+}, {
+"base": "Area2D",
+"class": "Water",
+"language": "GDScript",
+"path": "res://script/class/water.gd"
+} ]
+_global_script_class_icons={
+"AreaShared": "res://script/class/icon/area_shared.png",
+"Brush2D": "res://addons/brush2d/icon.png",
+"Gravity": "res://script/class/icon/gravity.png",
+"MovingBlock": "res://script/class/icon/moving_block.png",
+"RectBox2D": "res://script/class/icon/rect_box2d.png",
+"RectCollision2D": "res://script/class/icon/rect_collision2d.png",
+"Room2D": "res://script/class/icon/room2d.png",
+"TextureFont": "res://addons/texture_fonts/Assets/TextureFont.svg",
+"ViewportControl": "res://script/class/icon/viewport_control.png",
+"Water": "res://script/class/icon/water.png"
+}
+
+[application]
+
+config/name="Mario Forever Berry Editor"
+run/main_scene="res://scene/main.tscn"
+config/icon="res://system/icon/icon.png"
+config/windows_native_icon="res://system/icon/icon_win.ico"
+
+[audio]
+
+default_bus_layout="res://system/default_bus_layout.tres"
+
+[autoload]
+
+Berry="*res://system/singleton/berry.res"
+Global="*res://system/singleton/global.res"
+Audio="*res://system/singleton/audio.res"
+View="*res://system/singleton/view.res"
+Scene="*res://system/singleton/scene.res"
+Player="*res://system/singleton/player.res"
+Lib="*res://system/singleton/lib.res"
+
+[debug]
+
+gdscript/warnings/unassigned_variable=false
+gdscript/warnings/unused_signal=false
+gdscript/warnings/return_value_discarded=false
+
+[display]
+
+window/size/width=640
+window/size/height=480
+window/stretch/mode="2d"
+window/stretch/aspect="keep"
+
+[editor_plugins]
+
+enabled=PoolStringArray( "res://addons/brush2d/plugin.cfg", "res://addons/texture_fonts/plugin.cfg" )
+
+[global]
+
+fps=false
+frame=false
+
+[input]
+
+ui_jump={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":90,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+ui_fire={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":88,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+
+[rendering]
+
+quality/intended_usage/framebuffer_allocation=0
+quality/intended_usage/framebuffer_allocation.mobile=0
+2d/snapping/use_gpu_pixel_snap=true
+batching/precision/uv_contract=true

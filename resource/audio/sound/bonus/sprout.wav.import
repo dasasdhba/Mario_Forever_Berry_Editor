@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/sprout.wav-23bab00c9d5fcd16ab598f06a1c50a8f.sample"
+
+[deps]
+
+source_file="res://resource/audio/sound/bonus/sprout.wav"
+dest_files=[ "res://.import/sprout.wav-23bab00c9d5fcd16ab598f06a1c50a8f.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/kick_6.wav-a14c7e8895caf549f37fe6b2c3e1585f.sample"
+
+[deps]
+
+source_file="res://resource/audio/sound/attack/kick_6.wav"
+dest_files=[ "res://.import/kick_6.wav-a14c7e8895caf549f37fe6b2c3e1585f.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

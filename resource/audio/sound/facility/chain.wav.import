@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/chain.wav-9de4434e89bba4e975ecac0a0c65d013.sample"
+
+[deps]
+
+source_file="res://resource/audio/sound/facility/chain.wav"
+dest_files=[ "res://.import/chain.wav-9de4434e89bba4e975ecac0a0c65d013.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=true
+compress/mode=0

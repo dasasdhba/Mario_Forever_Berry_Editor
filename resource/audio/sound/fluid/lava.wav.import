@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/lava.wav-1e9623aad6c979a10e1d75ad2c96d9c6.sample"
+
+[deps]
+
+source_file="res://resource/audio/sound/fluid/lava.wav"
+dest_files=[ "res://.import/lava.wav-1e9623aad6c979a10e1d75ad2c96d9c6.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

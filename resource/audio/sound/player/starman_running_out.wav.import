@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/starman_running_out.wav-6091a6121d4f43e1004394297e46b3e9.sample"
+
+[deps]
+
+source_file="res://resource/audio/sound/player/starman_running_out.wav"
+dest_files=[ "res://.import/starman_running_out.wav-6091a6121d4f43e1004394297e46b3e9.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

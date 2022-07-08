@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/lakitu_3.wav-77f1284fc9f52ed9e78511a54cbda149.sample"
+
+[deps]
+
+source_file="res://resource/audio/sound/enemy/lakitu_3.wav"
+dest_files=[ "res://.import/lakitu_3.wav-77f1284fc9f52ed9e78511a54cbda149.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

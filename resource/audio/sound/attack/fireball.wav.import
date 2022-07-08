@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/fireball.wav-67ecde27a5c380bb95bf0e96b22c8e15.sample"
+
+[deps]
+
+source_file="res://resource/audio/sound/attack/fireball.wav"
+dest_files=[ "res://.import/fireball.wav-67ecde27a5c380bb95bf0e96b22c8e15.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

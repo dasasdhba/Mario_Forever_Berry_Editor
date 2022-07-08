@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/starman.ogg-812045f2d3c55628dccc99d22500e18b.oggstr"
+
+[deps]
+
+source_file="res://resource/audio/music/starman.ogg"
+dest_files=[ "res://.import/starman.ogg-812045f2d3c55628dccc99d22500e18b.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
