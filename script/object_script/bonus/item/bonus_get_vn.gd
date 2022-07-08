@@ -1,5 +1,5 @@
 # 获取 vn
-extends Node2D
+extends Node
 
 onready var parent: Node = get_parent()
 
