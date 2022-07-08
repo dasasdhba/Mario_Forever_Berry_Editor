@@ -319,7 +319,7 @@ func player_movement(delta) ->void:
 				gravity -= jump_add_idle * delta
 			else:
 				gravity -= jump_add_move * delta
-	else:
+	if on_floor_snap:
 		if control_jump > 0 && !water && !jump_restrict && !crouch:
 			gravity = -jump
 			jump_restrict = true
@@ -365,9 +365,9 @@ func player_movement(delta) ->void:
 		move_direction = clear_direction
 		
 	# 下蹲
-	if down_key && state > 0 && !crouch && is_on_floor():
+	if down_key && state > 0 && !crouch && on_floor_snap:
 		crouch = true
-	if crouch && (!down_key || state == 0 || !is_on_floor()):
+	if crouch && (!down_key || state == 0 || !on_floor_snap):
 		crouch = false
 	
 	var gdir :Vector2 = Berry.get_global_direction(self,gravity_direction)
@@ -457,8 +457,10 @@ func player_movement(delta) ->void:
 				
 		# 挤死判定
 		var crush :KinematicCollision2D = $Crush.move_and_collide(Vector2.ZERO,true,true,true)
-		if crush && !crush.local_shape.one_way_collision:
-			player_death()
+		if crush:
+			for i in crush.collider.get_shape_owners():
+				if !crush.collider.shape_owner_get_owner(i).one_way_collision:
+					player_death()
 	
 # 玩家动画
 func player_animation(delta) ->void:

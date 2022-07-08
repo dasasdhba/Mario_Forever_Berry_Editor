@@ -53,7 +53,7 @@ func _physics_process(delta) ->void:
 		collision_mask = teleport_temp_mask
 	if (mode == MODE.PLAYER_STAND_ON || fall) && !player_detect:
 		for i in $AreaShared.get_overlapping_areas():
-			if i.has_method("_player_bottom") && i.get_parent().is_on_floor():
+			if i.has_method("_player_bottom") && i.get_parent().on_floor_snap:
 				player_detect = true
 				break
 	if mode == MODE.PLAYER_STAND_ON && !player_detect:
