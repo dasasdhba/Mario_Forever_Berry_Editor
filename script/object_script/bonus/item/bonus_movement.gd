@@ -26,6 +26,8 @@ func _item(dir :Vector2 = Vector2.UP) ->void:
 		queue_free()
 		return
 	activate = true
+	$Sprout.z_index = z_index
+	z_index = get_parent().z_index + 1
 	$Sprout.start(dir,get_parent().height)
 	$AudioSprout.play()
 
