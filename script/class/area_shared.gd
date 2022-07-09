@@ -3,11 +3,13 @@ extends Area2D
 class_name AreaShared, "icon/area_shared.png"
 
 # 添加单个 CollisionShape2D
-func add_shape(target :Node, force :bool = false) ->void:
+func add_shape(target :Node, force :bool = false, override :bool = false) ->void:
 	if !(target is CollisionShape2D || target is CollisionPolygon2D):
 		return
 	if has_node(target.name) && !force:
 		return
+	if override:
+		clear()
 	var new :CollisionShape2D = target.duplicate()
 	add_child(new)
 

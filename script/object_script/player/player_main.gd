@@ -563,14 +563,14 @@ func collision_update() ->void:
 	if state == 0 || crouch:
 		$CollisionShapeSmall.disabled = false
 		$CollisionShapeBig.disabled = true
-		$AreaShared.add_shape($CollisionShapeSmall)
+		$AreaShared.add_shape($CollisionShapeSmall,false,true)
 		$AreaTop/CollisionShapeTop.position.y = -7
 		$StompEnemy/RectBox2D.load_collision_shape($CollisionShapeSmall)
 		$Point/Bubble.position.y = -2
 	else:
 		$CollisionShapeSmall.disabled = true
 		$CollisionShapeBig.disabled = false
-		$AreaShared.add_shape($CollisionShapeBig)
+		$AreaShared.add_shape($CollisionShapeBig,false,true)
 		$AreaTop/CollisionShapeTop.position.y = -33
 		$StompEnemy/RectBox2D.load_collision_shape($CollisionShapeBig)
 		$Point/Bubble.position.y = -23
