@@ -1,7 +1,43 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scene/level/level.tscn" type="PackedScene" id=1]
+[ext_resource path="res://script/system_script/sys_pause.gd" type="Script" id=2]
+[ext_resource path="res://resource/font/hud_font.res" type="BitmapFont" id=3]
+
+[sub_resource type="Theme" id=1]
+default_font = ExtResource( 3 )
+
+[sub_resource type="GDScript" id=2]
+script/source = "extends Label
+
+var pause_key:String = \"\"
+
+func _input(event):
+	if event.is_action(\"ui_pause\"):
+		pause_key = OS.get_scancode_string(event.get_scancode_with_modifiers())
+		text = text.replace(\"*\",pause_key)
+"
 
 [node name="Main" type="Node2D"]
+
+[node name="SysPause" type="Node" parent="."]
+pause_mode = 2
+script = ExtResource( 2 )
+
+[node name="Control" type="Control" parent="SysPause"]
+margin_right = 296.0
+margin_bottom = 40.0
+
+[node name="Label" type="Label" parent="SysPause/Control"]
+visible = false
+margin_left = 192.0
+margin_top = 184.0
+margin_right = 477.0
+margin_bottom = 219.0
+theme = SubResource( 1 )
+text = "PAUSED !!!
+PRESS \"*\" TO RESUME"
+align = 1
+script = SubResource( 2 )
 
 [node name="Level" parent="." instance=ExtResource( 1 )]
