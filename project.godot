@@ -91,6 +91,7 @@ Audio="*res://system/singleton/audio.res"
 View="*res://system/singleton/view.res"
 Scene="*res://system/singleton/scene.res"
 Player="*res://system/singleton/player.res"
+Pause="*res://system/singleton/pause.res"
 Lib="*res://system/singleton/lib.res"
 
 [debug]

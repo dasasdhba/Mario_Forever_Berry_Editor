@@ -2,6 +2,7 @@
 extends Node2D
 class_name Room2D, "icon/room2d.png"
 
+export var pause_disabled :bool = false
 export var random_seed :String = ""
 
 var manager :Node = Scene
@@ -14,3 +15,5 @@ func _ready() ->void:
 	manager.current_room = self
 	manager.current_scene = PackedScene.new()
 	manager.current_scene.pack(self)
+	# 暂停
+	Global.pause_disabled = pause_disabled
