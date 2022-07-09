@@ -30,6 +30,7 @@ cell_size = Vector2( 32, 32 )
 cell_custom_transform = Transform2D( 32, 0, 0, 32, 0, 0 )
 collision_layer = 0
 format = 1
+tile_data = PoolIntArray( 262149, 55, 0 )
 __meta__ = {
 "_edit_lock_": true
 }
