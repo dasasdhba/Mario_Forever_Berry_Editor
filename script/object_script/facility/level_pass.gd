@@ -1,7 +1,7 @@
 extends Node2D
 
 export var next_scene :PackedScene
-export var speed :float = 250
+export var speed :float = 187.5
 enum DIR {LEFT = -1, RIGHT = 1}
 export(DIR) var direction :int = DIR.RIGHT
 export var line_res :PackedScene
