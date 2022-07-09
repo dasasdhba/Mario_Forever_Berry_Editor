@@ -3,7 +3,7 @@
 基于 Godot 的 Mario Forever 制作模板。
 **当前 Godot 版本：v3.4.4 Stable**
 
-具体说明详见：咕了
+具体说明详见：[https://www.bilibili.com/video/BV18G411W77H/](https://www.bilibili.com/video/BV18G411W77H/)
 
 目前只是单关版，各种功能尚不完全，且各方面都有待测试，完整版可能要等有生之年（
 
