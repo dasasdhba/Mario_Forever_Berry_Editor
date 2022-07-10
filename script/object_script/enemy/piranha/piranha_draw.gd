@@ -19,6 +19,7 @@ func _ready() ->void:
 		head = $Head.frames
 		$Stem.queue_free()
 		$Head.queue_free()
+		modulate.a = 1
 
 func _draw() ->void:
 	if head_tex == null || length <= 0:
