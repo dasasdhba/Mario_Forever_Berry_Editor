@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://addons/brush2d/brush2d.gd" type="Script" id=1]
 [ext_resource path="res://script/class/room2d.gd" type="Script" id=2]
@@ -10,13 +10,13 @@
 [ext_resource path="res://resource/tileset/tile_pipe.tres" type="TileSet" id=8]
 [ext_resource path="res://resource/tileset/tile_scenery.tres" type="TileSet" id=9]
 [ext_resource path="res://editor/facility/music/music.res" type="PackedScene" id=10]
+[ext_resource path="res://editor/enemy/harzard/ceiling_spikes.res" type="PackedScene" id=11]
 
 [node name="Level" type="Node2D"]
 script = ExtResource( 2 )
 
 [node name="Camera" parent="." instance=ExtResource( 3 )]
 position = Vector2( -16, -24 )
-current = false
 
 [node name="Music" parent="." instance=ExtResource( 10 )]
 position = Vector2( -32, 0 )
@@ -42,7 +42,7 @@ cell_size = Vector2( 32, 32 )
 cell_custom_transform = Transform2D( 32, 0, 0, 32, 0, 0 )
 collision_layer = 0
 format = 1
-tile_data = PoolIntArray( 851968, 0, 1, 851969, 0, 1, 851970, 0, 1, 851971, 0, 1, 851972, 0, 1, 851973, 0, 1, 851974, 0, 1, 851975, 0, 1, 851976, 0, 1, 851977, 0, 1, 851978, 0, 1, 851979, 0, 1, 851980, 0, 1, 851981, 0, 1, 851982, 0, 1, 851983, 0, 1, 851984, 0, 1, 851985, 0, 1, 851986, 0, 1, 851987, 0, 2, 917504, 0, 65537, 917505, 0, 65537, 917506, 0, 65537, 917507, 0, 65537, 917508, 0, 65537, 917509, 0, 65537, 917510, 0, 65537, 917511, 0, 65537, 917512, 0, 65537, 917513, 0, 65537, 917514, 0, 65537, 917515, 0, 65537, 917516, 0, 65537, 917517, 0, 65537, 917518, 0, 65537, 917519, 0, 65537, 917520, 0, 65537, 917521, 0, 65537, 917522, 0, 65537, 917523, 0, 65538 )
+tile_data = PoolIntArray( 851968, 0, 1, 851969, 0, 1, 851970, 0, 1, 851971, 0, 1, 851972, 0, 1, 851973, 0, 1, 851974, 0, 1, 851975, 0, 1, 851982, 0, 1, 851983, 0, 1, 851984, 0, 1, 851985, 0, 1, 851986, 0, 1, 851987, 0, 2, 917504, 0, 65537, 917505, 0, 65537, 917506, 0, 65537, 917507, 0, 65537, 917508, 0, 65537, 917509, 0, 65537, 917510, 0, 65537, 917511, 0, 65537, 917512, 0, 65537, 917513, 0, 65537, 917514, 0, 65537, 917515, 0, 65537, 917516, 0, 65537, 917517, 0, 65537, 917518, 0, 65537, 917519, 0, 65537, 917520, 0, 65537, 917521, 0, 65537, 917522, 0, 65537, 917523, 0, 65538 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -66,6 +66,10 @@ __meta__ = {
 
 [node name="PlayerStart" parent="Brush2D" instance=ExtResource( 4 )]
 position = Vector2( 80, 400 )
+
+[node name="CeilingSpikes2" parent="Brush2D" instance=ExtResource( 11 )]
+position = Vector2( 320, 32 )
+activation_areas = [ Rect2( 0, 0, 640, 480 ) ]
 
 [node name="Background" type="Node2D" parent="."]
 __meta__ = {
