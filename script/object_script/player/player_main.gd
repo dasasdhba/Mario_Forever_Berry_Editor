@@ -448,11 +448,11 @@ func player_movement(delta) ->void:
 	
 		# 滚屏边界限制
 		if view_limit:
-			while !view.is_in_view_direction(global_position+$Point/ViewBorder.relative(),Vector2.ZERO,gdir.tangent()):
-				position -= gravity_direction.tangent()
+			while !view.is_in_view_direction(global_position+$Point/ViewBorder.relative(false,false,true),Vector2.ZERO,gdir.tangent()):
+				position -= move_initial*gravity_direction.tangent() * delta
 				move = 0
-			while !view.is_in_view_direction(global_position+$Point/ViewBorder.relative(true),Vector2.ZERO,-gdir.tangent()):
-				position += gravity_direction.tangent()
+			while !view.is_in_view_direction(global_position+$Point/ViewBorder.relative(true,false,true),Vector2.ZERO,-gdir.tangent()):
+				position += move_initial*gravity_direction.tangent() * delta
 				move = 0
 				
 		# 挤死判定
@@ -461,6 +461,7 @@ func player_movement(delta) ->void:
 			for i in crush.collider.get_shape_owners():
 				if !crush.collider.shape_owner_get_owner(i).one_way_collision:
 					player_death()
+					break
 	
 # 玩家动画
 func player_animation(delta) ->void:
