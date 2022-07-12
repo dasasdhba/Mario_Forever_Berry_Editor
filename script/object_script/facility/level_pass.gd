@@ -30,6 +30,8 @@ func _level_pass() ->void:
 	$Pass.play()
 	$Timer.start()
 	Audio.music_stop(true)
+	scene.current_checkpoint.clear()
+	scene.checkpoint_scene = null
 	for i in scene.current_player:
 		i.clear = true
 		i.clear_direction = direction
