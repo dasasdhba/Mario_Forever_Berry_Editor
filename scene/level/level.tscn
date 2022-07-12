@@ -21,7 +21,10 @@ position = Vector2( -16, -24 )
 position = Vector2( -32, 0 )
 mode = 0
 
-[node name="TileMap" type="Node" parent="."]
+[node name="TileMap" type="Node2D" parent="."]
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="TileScenery" type="TileMap" parent="TileMap"]
 z_index = -200
