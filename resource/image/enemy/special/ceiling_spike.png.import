@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/spikes.png-8002c517bd259569cc296706dc2a0056.stex"
+path="res://.import/ceiling_spike.png-75f7d33c5d9c129b3e514c03ce54bac0.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resource/tileset/image/spikes/spikes.png"
-dest_files=[ "res://.import/spikes.png-8002c517bd259569cc296706dc2a0056.stex" ]
+source_file="res://resource/image/enemy/special/ceiling_spike.png"
+dest_files=[ "res://.import/ceiling_spike.png-75f7d33c5d9c129b3e514c03ce54bac0.stex" ]
 
 [params]
 

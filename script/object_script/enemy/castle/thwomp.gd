@@ -53,7 +53,9 @@ func _physics_process(delta :float) ->void:
 				$Timer.start()
 				$Hit.play()
 				if shake:
-					view.get_current_camera().shake_time = 0.15
+					var camera :Camera2D = view.get_current_camera()
+					if camera != null:
+						camera.shake_time = 0.15
 				
 			gravity = 0
 			

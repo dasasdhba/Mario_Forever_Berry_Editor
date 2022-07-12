@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/ceiling_spike.ogg-9f042af577ba783ef253ea479780273d.oggstr"
+
+[deps]
+
+source_file="res://resource/audio/sound/enemy/ceiling_spike.ogg"
+dest_files=[ "res://.import/ceiling_spike.ogg-9f042af577ba783ef253ea479780273d.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0
