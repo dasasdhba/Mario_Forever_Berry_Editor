@@ -3,15 +3,15 @@ extends StaticBody2D
 export(Array, Rect2) var activation_areas :Array = [Rect2(Vector2.ZERO,Vector2(10016,480))]
 export var infinity :bool = true # 不支持旋转
 export var waiting_time :float = 6
-export var shake_start_time :float = 1
-export var shake_stop_time :float = 3
+export var shake_strong_time :float = 1
+export var shake_weak_time :float = 2
 export var fall_acceleration: float = 2500
 export var fall_height: float = 320 # 必须是正数
 export var rise_wait_time :float = 2
 export var rise_speed: float = 50
 export var shake_time :float = 0.75
 
-export var preview :bool = false
+export var preview :bool = true
 
 export var brush_border :Rect2 = Rect2(-320,-256,640,512)
 export var brush_offset :Vector2 = Vector2(320,64)
@@ -30,12 +30,13 @@ func _brush() ->void:
 	pass
 
 func _physics_process(delta :float) ->void:
-	if infinity:
-		infinity_position()
 	if check_activation():
 		spike_motion(delta)
 	else:
 		timer = 0
+		
+	if infinity:
+		infinity_position()
 
 func infinity_position() ->void:
 	while global_position.x - 320 > view.current_border.position.x:
@@ -58,10 +59,8 @@ func spike_motion(delta :float) -> void:
 	match step:
 		0:
 			timer += delta
-			if timer > waiting_time - shake_start_time:
-				spike_shaking(true)
-			elif timer > waiting_time - shake_stop_time:
-				spike_shaking()
+			if timer > waiting_time - shake_strong_time - shake_weak_time:
+				spike_shaking(timer > waiting_time - shake_strong_time)
 			if timer > waiting_time:
 				timer = 0
 				step = 1
