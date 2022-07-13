@@ -10,12 +10,13 @@ export var force_offset :bool = false
 
 export var preview :bool = true
 export var preview_alpha :float = 0.5
+export var preview_border :bool = true
+export var border_color :Color = Color(0.9,0.4,0.3,0.7)
 
-export var paint_key :int = KEY_A
-export var erase_key :int = KEY_D
+export var paint_button :int = BUTTON_LEFT
+export var erase_button :int = BUTTON_RIGHT
 export var copy_key :int = KEY_C
 export var cut_key :int = KEY_X
-export var disable_key :int = KEY_Z
 export var click_restrict_key : int = KEY_SHIFT
 export var click_only :bool = true
 
@@ -33,6 +34,7 @@ var cut_restrict :bool = false
 var preview_res :Resource = null
 var preview_node :Node
 var preview_list :Array
+var preview_rect :Rect2 = Rect2(Vector2.ZERO,Vector2.ZERO)
 
 var brush_last = null
 var mouse_last :Vector2 = Vector2(INF,INF)
@@ -104,16 +106,17 @@ func remove_child_list(list :Array) ->void:
 	for i in list:
 		remove_child(i)
 
-func _brush_process(res :PackedScene, sel :Array, undo :UndoRedo) ->void:
-	if Input.is_key_pressed(disable_key):
-		free_preview()
-		return
-	
-	var check: Node = res.instance()
-	if !(check is Node2D):
-		check.queue_free()
-		return
-	check.queue_free()
+func _brush_process(res :Resource, sel :Array, undo :UndoRedo) ->void:
+	var check :bool = false
+	if res is PackedScene:
+		var check_node: Node = res.instance()
+		if check_node is Node2D:
+			check = true
+		check_node.queue_free()
+	if !check && copy_list.empty():
+		border = default_border
+		offset = default_offset
+		brush_last = null
 	
 	var pos :Vector2 = get_global_mouse_position() - global_position
 	var grid_pos :Vector2
@@ -128,19 +131,22 @@ func _brush_process(res :PackedScene, sel :Array, undo :UndoRedo) ->void:
 					if is_instance_valid(i):
 						i.queue_free()
 				preview_list.clear()
-			if preview_res != res:
-				preview_res = res
+			if check:
+				if preview_res != res:
+					preview_res = res
+					if is_instance_valid(preview_node):
+						preview_node.queue_free()
+					preview_node = res.instance()
+					add_child(preview_node)
+				if !(brush_last is String) || brush_last != res:
+					get_brush(preview_node)
+					brush_last = res
 				if is_instance_valid(preview_node):
-					preview_node.queue_free()
-				preview_node = res.instance()
-				add_child(preview_node)
-			if !(brush_last is String) || brush_last != res:
-				get_brush(preview_node)
-				brush_last = res
-			if is_instance_valid(preview_node):
-				preview_node.position = grid_pos + offset
-				preview_node.modulate.a = preview_alpha
-				move_child(preview_node,get_child_count())
+					preview_node.position = grid_pos + offset
+					preview_node.modulate.a = preview_alpha
+					move_child(preview_node,get_child_count())
+			else:
+				free_preview()
 		else:
 			if is_instance_valid(preview_node):
 				preview_node.queue_free()
@@ -161,27 +167,28 @@ func _brush_process(res :PackedScene, sel :Array, undo :UndoRedo) ->void:
 				move_child(i,child_count)
 	
 	# paint
-	if Input.is_key_pressed(paint_key) && !paint_restrict:
+	if Input.is_mouse_button_pressed(paint_button) && !paint_restrict:
 		if (!click_only && Input.is_key_pressed(click_restrict_key)) || (click_only && !Input.is_key_pressed(click_restrict_key)):
 			paint_restrict = true
 		if copy_list.empty():
-			var new :Node = res.instance()
-			if !preview && !(brush_last is String) || brush_last != res:
-				get_brush(new)
-				brush_last = res
-			var new_pos :Vector2 = grid_pos + offset
-			var c1 :bool = new_pos.x + border.end.x <= mouse_last.x + border.position.x || new_pos.x + border.position.x >= mouse_last.x + border.end.x
-			var c2 :bool = new_pos.y + border.end.y <= mouse_last.y + border.position.y || new_pos.y + border.position.y >= mouse_last.y + border.end.y
-			if !(c1 || c2):
-				new.queue_free()
-			else:
-				mouse_last = new_pos
-				undo.create_action("brush2d_paint")
-				undo.add_do_method(self, "add_child",new,true)
-				undo.add_do_method(new,"set_owner",get_tree().get_edited_scene_root())
-				undo.add_do_property(new, "position", new_pos)
-				undo.add_undo_method(self, "remove_child",new)
-				undo.commit_action()
+			if check:
+				var new :Node = res.instance()
+				if !preview && !(brush_last is String) || brush_last != res:
+					get_brush(new)
+					brush_last = res
+				var new_pos :Vector2 = grid_pos + offset
+				var c1 :bool = new_pos.x + border.end.x <= mouse_last.x + border.position.x || new_pos.x + border.position.x >= mouse_last.x + border.end.x
+				var c2 :bool = new_pos.y + border.end.y <= mouse_last.y + border.position.y || new_pos.y + border.position.y >= mouse_last.y + border.end.y
+				if !(c1 || c2):
+					new.queue_free()
+				else:
+					mouse_last = new_pos
+					undo.create_action("brush2d_paint")
+					undo.add_do_method(self, "add_child",new,true)
+					undo.add_do_method(new,"set_owner",get_tree().get_edited_scene_root())
+					undo.add_do_property(new, "position", new_pos)
+					undo.add_undo_method(self, "remove_child",new)
+					undo.commit_action()
 		else:
 			if !preview && !(brush_last is Array) || brush_last != copy_list:
 				get_list_brush(copy_list)
@@ -202,12 +209,12 @@ func _brush_process(res :PackedScene, sel :Array, undo :UndoRedo) ->void:
 		mouse_last = Vector2(INF,INF)
 		
 	# erase
-	if Input.is_key_pressed(erase_key) && !erase_restrict:
+	if Input.is_mouse_button_pressed(erase_button) && !erase_restrict:
 		if (!click_only && Input.is_key_pressed(click_restrict_key)) || (click_only && !Input.is_key_pressed(click_restrict_key)):
 			erase_restrict = true
 		var free_list :Array = []
 		for i in get_children():
-			if i == preview_node:
+			if i == preview_node || preview_list.has(i):
 				continue
 			get_brush(i)
 			brush_last = null
@@ -222,7 +229,13 @@ func _brush_process(res :PackedScene, sel :Array, undo :UndoRedo) ->void:
 			undo.add_undo_method(self, "add_child_list",erase_list)
 			undo.commit_action()
 			free_list.clear()
-		
+			
+	# preview border
+	if preview_border:
+		preview_rect = Rect2(grid_pos,border.size)
+		update()
+	
+func _copy_process(res :Resource, sel :Array, undo :UndoRedo) ->void:
 	# copy
 	if Input.is_key_pressed(copy_key) && !copy_restrict:
 		copy_restrict = true
@@ -270,14 +283,19 @@ func free_preview() ->void:
 				i.queue_free()
 		preview_list.clear()
 		
+func _draw() ->void:
+	if !Engine.editor_hint || !preview_border || !working:
+		return
+	draw_rect(preview_rect,border_color,false,2)
+	
 func _process(_delta):
 	if !Engine.editor_hint:
 		return
 		
-	if paint_restrict && !Input.is_key_pressed(paint_key):
+	if paint_restrict && !Input.is_mouse_button_pressed(paint_button):
 		paint_restrict = false
 		
-	if erase_restrict && !Input.is_key_pressed(erase_key):
+	if erase_restrict && !Input.is_mouse_button_pressed(erase_button):
 		erase_restrict = false
 		
 	if copy_restrict && !Input.is_key_pressed(copy_key):
@@ -290,6 +308,9 @@ func _process(_delta):
 		working = false
 		if !preview:
 			free_preview()
+		if !preview_border:
+			update()
 		return
 		
 	free_preview()
+	update()

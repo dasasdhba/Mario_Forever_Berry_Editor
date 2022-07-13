@@ -5,13 +5,14 @@
 # 并且修改 Berry 单例的 multiroom 为 true
 extends Node
 
-var current_scene :PackedScene # 当前 Scene 的 Packed 备份
-var current_room :Room2D # 当前 Room2D 节点
-var current_player :Array # 当前 Room2D 的玩家
+var current_scene :PackedScene = null # 当前 Scene 的 Packed 备份
+var current_room :Room2D = null # 当前 Room2D 节点
+var current_player :Array = [] # 当前 Room2D 的玩家
 
 # Checkpoint
 var current_checkpoint :Array = [] # 当前已激活的 CP 的 name
 var checkpoint_scene :PackedScene = null # Checkpoint 所在 Scene
+var checkpoint_room_name :String = ""
 var checkpoint_position = null
 
 # 是否死亡过

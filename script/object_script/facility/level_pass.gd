@@ -13,8 +13,8 @@ var time_count :bool = false
 var time_snd :float = 0
 
 onready var parent :Node = get_parent()
-onready var scene :Node = Berry.get_scene(self)
 onready var room :Node = Berry.get_room2d(self)
+onready var scene :Node = room.manager
 onready var rand :RandomNumberGenerator = Berry.get_rand(self)
 
 export var brush_border :Rect2 = Rect2(-48,-144,96,288)
@@ -30,6 +30,9 @@ func _level_pass() ->void:
 	$Pass.play()
 	$Timer.start()
 	Audio.music_stop(true)
+	scene.current_checkpoint.clear()
+	scene.checkpoint_scene = null
+	scene.checkpoint_room_name = ""
 	for i in scene.current_player:
 		i.clear = true
 		i.clear_direction = direction

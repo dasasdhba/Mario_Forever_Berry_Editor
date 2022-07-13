@@ -5,7 +5,8 @@ export var brush_offset :Vector2 = Vector2(16,20)
 
 var activate :bool = false
 
-onready var scene :Node = Berry.get_scene(self)
+onready var room :Room2D = Berry.get_room2d(self)
+onready var scene :Node = room.manager
 
 # 用于标识 brush2d 摆放
 func _brush() ->void:
@@ -18,6 +19,8 @@ func _checkpoint() ->bool:
 func _ready() ->void:
 	if !is_connected("area_entered",self,"on_area_entered"):
 		connect("area_entered",self,"on_area_entered")
+	if room.name != scene.checkpoint_room_name:
+		return
 	var length :int = scene.current_checkpoint.size()
 	for i in length:
 		if name == scene.current_checkpoint[i]:
@@ -49,7 +52,8 @@ func on_area_entered(area :Area2D) ->void:
 	activate = true
 	$Activated.play()
 	$AnimatedSprite.animation = "activated"
-	if scene.checkpoint_scene != scene.current_scene:
+	if scene.checkpoint_room_name != room.name:
 		scene.current_checkpoint.clear()
 		scene.checkpoint_scene = scene.current_scene
+		scene.checkpoint_room_name = room.name
 	scene.current_checkpoint.append(name)
