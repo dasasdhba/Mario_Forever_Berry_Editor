@@ -14,20 +14,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://script/class/area_shared.gd"
 }, {
-"base": "Reference",
-"class": "AutotileScript",
-"language": "GDScript",
-"path": "res://addons/fabianlc_gpu_tilemap/autotile scripts/autotile_script.gd"
-}, {
 "base": "Node2D",
 "class": "Brush2D",
 "language": "GDScript",
 "path": "res://addons/brush2d/brush2d.gd"
-}, {
-"base": "ColorRect",
-"class": "GPUTileMap",
-"language": "GDScript",
-"path": "res://addons/fabianlc_gpu_tilemap/gpu_tilemap.gd"
 }, {
 "base": "KinematicBody2D",
 "class": "Gravity",
@@ -71,9 +61,7 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "AreaShared": "res://script/class/icon/area_shared.png",
-"AutotileScript": "",
 "Brush2D": "res://addons/brush2d/icon.png",
-"GPUTileMap": "",
 "Gravity": "res://script/class/icon/gravity.png",
 "MovingBlock": "res://script/class/icon/moving_block.png",
 "RectBox2D": "res://script/class/icon/rect_box2d.png",

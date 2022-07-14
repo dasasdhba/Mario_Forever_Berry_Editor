@@ -10,7 +10,7 @@ func add_shape(target :Node, force :bool = false, override :bool = false) ->void
 		return
 	if override:
 		clear()
-	var new :CollisionShape2D = target.duplicate()
+	var new = target.duplicate()
 	add_child(new)
 
 # 继承 CollisionObject2D 的 shape
