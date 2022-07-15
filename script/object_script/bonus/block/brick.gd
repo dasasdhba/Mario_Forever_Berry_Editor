@@ -37,6 +37,7 @@ func _block(inverse :bool = false, restrict :bool = false, attack :bool = false)
 	$AnimatedSprite.ani_offset.y = ani_offset*(2*(inverse as int)-1)
 	if !inverse && attack:
 		$Bump/AttackEnemy.attack()
+		$Bump/HitCoin.hit_coin()
 	return true
 	
 # 标识该物件可以打碎
