@@ -21,11 +21,12 @@ export var stomp_jump:float = 650
 export var lava_sound_range :float = 128 # 碰岩浆死亡音效范围
 export var one_shot :bool = true # 只判定一次
 export var disabled :bool = false
+export var root_layer :int = 2
 
 var atk_count :int = 0 # 龟壳连击数
 
 onready var parent :Area2D = get_parent()
-onready var root: Node = parent.get_parent()
+onready var root: Node = Berry.get_parent_ext(self,root_layer)
 
 signal attacked(atk)
 
