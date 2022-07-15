@@ -92,19 +92,32 @@ func get_list_brush(list :Array) ->void:
 	
 func add_child_copy(list :Array, pos :Vector2) ->void:
 	var fpos :Vector2 = list[0].position
+	var editor_owner :Node = get_tree().get_edited_scene_root()
 	for i in list:
 		i.position += -fpos + pos
 		add_child(i)
-		i.set_owner(get_tree().get_edited_scene_root())
+		i.set_owner(editor_owner)
+		set_children_owner(i,editor_owner)
 		
 func add_child_list(list :Array) ->void:
+	var editor_owner :Node = get_tree().get_edited_scene_root()
 	for i in list:
 		add_child(i)
-		i.set_owner(get_tree().get_edited_scene_root())
+		i.set_owner(editor_owner)
+		set_children_owner(i,editor_owner)
 		
 func remove_child_list(list :Array) ->void:
 	for i in list:
 		remove_child(i)
+		
+func set_children_owner(node :Node, new_onwer :Node) ->void:
+	var children :Array = node.get_children()
+	if children.empty():
+		return
+	for i in children:
+		if i.owner == null:
+			i.set_owner(new_onwer)
+			set_children_owner(i,new_onwer)
 
 func _brush_process(res :Resource, sel :Array, undo :UndoRedo) ->void:
 	var check :bool = false
@@ -249,7 +262,7 @@ func _copy_process(res :Resource, sel :Array, undo :UndoRedo) ->void:
 			if i.has_method("_brush_process"):
 				continue
 			copy_list.append(i.duplicate())
-			
+	
 	# cut
 	if Input.is_key_pressed(cut_key) && !cut_restrict:
 		cut_restrict = true
