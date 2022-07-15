@@ -1,7 +1,7 @@
 extends Area2D
 
 export var brush_border :Rect2 = Rect2(-44,-51,107,112)
-export var brush_offset :Vector2 = Vector2(16,20)
+export var brush_offset :Vector2 = Vector2(48,52)
 
 var activate :bool = false
 
