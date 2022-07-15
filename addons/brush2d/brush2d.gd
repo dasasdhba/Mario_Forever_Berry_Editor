@@ -232,7 +232,7 @@ func _brush_process(res :Resource, sel :Array, undo :UndoRedo) ->void:
 			
 	# preview border
 	if preview_border:
-		preview_rect = Rect2(grid_pos,border.size)
+		preview_rect = Rect2(grid_pos+offset+border.position,border.size)
 		update()
 	
 func _copy_process(res :Resource, sel :Array, undo :UndoRedo) ->void:
