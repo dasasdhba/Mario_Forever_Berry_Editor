@@ -34,5 +34,5 @@ func _on_Timer_timeout() ->void:
 			for i in Berry.get_scene(self).current_player:
 				i.player_death(true)
 
-func _on_ShakeTimer_timeout():
+func _on_ShakeTimer_timeout() ->void:
 	rect_position = origin_position
