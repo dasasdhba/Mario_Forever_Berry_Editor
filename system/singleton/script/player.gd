@@ -69,6 +69,7 @@ func freeze(i :Node) ->void:
 	i.pipe_length = 0
 	i.hurt = false
 	i.star = false
+	i.atk_count = 0
 	i.clear = false
 	i.crouch = false
 	i.crouch_push = false

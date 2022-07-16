@@ -660,6 +660,7 @@ func player_star() ->void:
 # 取消无敌星
 func player_star_cancel() ->void:
 	star = false
+	atk_count = 0
 	$StarParticles.emitting = false
 	if Player.get_player_star_num() == 0:
 		Audio.music_channel[0].stop()
