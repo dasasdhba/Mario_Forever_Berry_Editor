@@ -46,6 +46,7 @@ func _break(inverse :bool = false, restrict :bool = false, attack :bool = false)
 		return false
 	if !inverse && attack:
 		$Bump/AttackEnemy.attack()
+		$Bump/HitCoin.hit_coin()
 	if restrict:
 		$AudioBump.play()
 		$AnimatedSprite.ani_offset.y = ani_offset*(2*(inverse as int)-1)
