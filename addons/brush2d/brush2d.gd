@@ -169,7 +169,7 @@ func _brush_process(res :Resource, sel :Array, undo :UndoRedo) ->void:
 					var new :Node = i.duplicate()
 					add_child(new)
 					preview_list.append(new)
-			if !(brush_last is Array) || brush_last != copy_list:
+			if !(brush_last is Array):
 				get_list_brush(copy_list)
 				brush_last = copy_list
 			var fpos :Vector2 = preview_list[0].position
@@ -203,7 +203,7 @@ func _brush_process(res :Resource, sel :Array, undo :UndoRedo) ->void:
 					undo.add_undo_method(self, "remove_child",new)
 					undo.commit_action()
 		else:
-			if !preview && (!(brush_last is Array) || brush_last != copy_list):
+			if !preview && !(brush_last is Array):
 				get_list_brush(copy_list)
 				brush_last = copy_list
 			var new_pos :Vector2 = grid_pos + offset
@@ -253,6 +253,7 @@ func _copy_process(res :Resource, sel :Array, undo :UndoRedo) ->void:
 	if Input.is_key_pressed(copy_key) && !copy_restrict:
 		copy_restrict = true
 		copy_list.clear()
+		brush_last = null
 		if !preview_list.empty():
 			for i in preview_list:
 				if is_instance_valid(i):
@@ -267,6 +268,7 @@ func _copy_process(res :Resource, sel :Array, undo :UndoRedo) ->void:
 	if Input.is_key_pressed(cut_key) && !cut_restrict:
 		cut_restrict = true
 		copy_list.clear()
+		brush_last = null
 		if !preview_list.empty():
 			for i in preview_list:
 				if is_instance_valid(i):
