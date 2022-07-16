@@ -186,7 +186,7 @@ func _brush_process(res :Resource, sel :Array, undo :UndoRedo) ->void:
 		if copy_list.empty():
 			if check:
 				var new :Node = res.instance()
-				if !preview && !(brush_last is String) || brush_last != res:
+				if !preview && (!(brush_last is String) || brush_last != res):
 					get_brush(new)
 					brush_last = res
 				var new_pos :Vector2 = grid_pos + offset
@@ -203,7 +203,7 @@ func _brush_process(res :Resource, sel :Array, undo :UndoRedo) ->void:
 					undo.add_undo_method(self, "remove_child",new)
 					undo.commit_action()
 		else:
-			if !preview && !(brush_last is Array) || brush_last != copy_list:
+			if !preview && (!(brush_last is Array) || brush_last != copy_list):
 				get_list_brush(copy_list)
 				brush_last = copy_list
 			var new_pos :Vector2 = grid_pos + offset
