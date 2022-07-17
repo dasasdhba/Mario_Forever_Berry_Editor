@@ -3,17 +3,20 @@ extends Node2D
 export var brush_border :Rect2 = Rect2(-32,-32,64,64)
 export var brush_offset :Vector2 = Vector2(0,0)
 
-onready var parent :Node = get_parent()
+var parent :Node = null
 
 # 用于标识 brush2d 摆放
 func _brush() ->void:
 	pass
 	
-func _ready() ->void:
-	if !parent.has_method("_pipe_enter"):
-		queue_free()
+func _pipe_exit() ->void:
+	pass
 
 func _physics_process(_delta) ->void:
+	if parent == null:
+		parent = get_parent()
+	if !parent.has_method("_pipe_enter"):
+		queue_free()
 	for i in parent.player:
 		if i.pipe == 5:
 			parent.player.erase(i)

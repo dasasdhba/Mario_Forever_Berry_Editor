@@ -5,9 +5,10 @@ export var height :float = 16 # 踩判定高度
 export var attack :int = 1
 export var force :bool = false
 export var delay_time :float = 0.2 # 两次判定的间隔
+export var root_layer :int = 2
 
 onready var parent: Area2D = get_parent()
-onready var root :Node = parent.get_parent()
+onready var root :Node = Berry.get_parent_ext(self,root_layer)
 
 func _ready() ->void:
 	rect_init()
