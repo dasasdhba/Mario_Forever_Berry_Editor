@@ -345,6 +345,8 @@ func player_movement(delta) ->void:
 				move = move_initial
 			elif move < move_max + min(1,control_fire)*((!water) as int)*move_max_run:
 				move += move_acceleration * delta
+			else:
+				move -= move_deceleration * delta
 		else:
 			move -= turn_deceleration * delta
 			if move <= 0:
