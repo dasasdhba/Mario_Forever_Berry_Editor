@@ -14,6 +14,10 @@ var speed :float = 50
 
 var view :Node
 
+# 用于标识
+func _water_auto() ->void:
+	pass
+
 func _ready() ->void:
 	if Engine.editor_hint:
 		return
@@ -22,7 +26,7 @@ func _ready() ->void:
 	target_height = position.y
 	var room :Node = Berry.get_room2d(self)
 	if room != null:
-		room.water = self
+		room.node_array.append(self)
 	
 func _draw() ->void:
 	var tex :Texture = $AnimatedSprite.frames.get_frame("default",$AnimatedSprite.frame)
