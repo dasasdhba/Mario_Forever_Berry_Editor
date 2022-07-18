@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/hud_font.png-80a4daa6eae9a9dd2b4589e87529bdff.stex"
+path="res://.import/hud_font.png-1d74fe12df3aef3cda086e2954279517.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resource/image/ui/hud_font.png"
-dest_files=[ "res://.import/hud_font.png-80a4daa6eae9a9dd2b4589e87529bdff.stex" ]
+source_file="res://resource/font/image/hud_font.png"
+dest_files=[ "res://.import/hud_font.png-1d74fe12df3aef3cda086e2954279517.stex" ]
 
 [params]
 

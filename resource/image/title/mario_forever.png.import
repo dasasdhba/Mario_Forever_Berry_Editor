@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/rock.png-2d0b98537cfae7a0eca0993383848c85.stex"
+path="res://.import/mario_forever.png-8b25daedc044e6c8d957e9cf9bb45bbf.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resource/image/scenery/background/rock.png"
-dest_files=[ "res://.import/rock.png-2d0b98537cfae7a0eca0993383848c85.stex" ]
+source_file="res://resource/image/title/mario_forever.png"
+dest_files=[ "res://.import/mario_forever.png-8b25daedc044e6c8d957e9cf9bb45bbf.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=false
+flags/filter=true
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2
