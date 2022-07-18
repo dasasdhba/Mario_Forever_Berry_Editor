@@ -92,19 +92,32 @@ func get_list_brush(list :Array) ->void:
 	
 func add_child_copy(list :Array, pos :Vector2) ->void:
 	var fpos :Vector2 = list[0].position
+	var editor_owner :Node = get_tree().get_edited_scene_root()
 	for i in list:
 		i.position += -fpos + pos
 		add_child(i)
-		i.set_owner(get_tree().get_edited_scene_root())
+		i.set_owner(editor_owner)
+		set_children_owner(i,editor_owner)
 		
 func add_child_list(list :Array) ->void:
+	var editor_owner :Node = get_tree().get_edited_scene_root()
 	for i in list:
 		add_child(i)
-		i.set_owner(get_tree().get_edited_scene_root())
+		i.set_owner(editor_owner)
+		set_children_owner(i,editor_owner)
 		
 func remove_child_list(list :Array) ->void:
 	for i in list:
 		remove_child(i)
+		
+func set_children_owner(node :Node, new_onwer :Node) ->void:
+	var children :Array = node.get_children()
+	if children.empty():
+		return
+	for i in children:
+		if i.owner == null:
+			i.set_owner(new_onwer)
+			set_children_owner(i,new_onwer)
 
 func _brush_process(res :Resource, sel :Array, undo :UndoRedo) ->void:
 	var check :bool = false
@@ -156,7 +169,7 @@ func _brush_process(res :Resource, sel :Array, undo :UndoRedo) ->void:
 					var new :Node = i.duplicate()
 					add_child(new)
 					preview_list.append(new)
-			if !(brush_last is Array) || brush_last != copy_list:
+			if !(brush_last is Array):
 				get_list_brush(copy_list)
 				brush_last = copy_list
 			var fpos :Vector2 = preview_list[0].position
@@ -173,7 +186,7 @@ func _brush_process(res :Resource, sel :Array, undo :UndoRedo) ->void:
 		if copy_list.empty():
 			if check:
 				var new :Node = res.instance()
-				if !preview && !(brush_last is String) || brush_last != res:
+				if !preview && (!(brush_last is String) || brush_last != res):
 					get_brush(new)
 					brush_last = res
 				var new_pos :Vector2 = grid_pos + offset
@@ -190,7 +203,7 @@ func _brush_process(res :Resource, sel :Array, undo :UndoRedo) ->void:
 					undo.add_undo_method(self, "remove_child",new)
 					undo.commit_action()
 		else:
-			if !preview && !(brush_last is Array) || brush_last != copy_list:
+			if !preview && !(brush_last is Array):
 				get_list_brush(copy_list)
 				brush_last = copy_list
 			var new_pos :Vector2 = grid_pos + offset
@@ -232,7 +245,7 @@ func _brush_process(res :Resource, sel :Array, undo :UndoRedo) ->void:
 			
 	# preview border
 	if preview_border:
-		preview_rect = Rect2(grid_pos,border.size)
+		preview_rect = Rect2(grid_pos+offset+border.position,border.size)
 		update()
 	
 func _copy_process(res :Resource, sel :Array, undo :UndoRedo) ->void:
@@ -240,6 +253,7 @@ func _copy_process(res :Resource, sel :Array, undo :UndoRedo) ->void:
 	if Input.is_key_pressed(copy_key) && !copy_restrict:
 		copy_restrict = true
 		copy_list.clear()
+		brush_last = null
 		if !preview_list.empty():
 			for i in preview_list:
 				if is_instance_valid(i):
@@ -249,11 +263,12 @@ func _copy_process(res :Resource, sel :Array, undo :UndoRedo) ->void:
 			if i.has_method("_brush_process"):
 				continue
 			copy_list.append(i.duplicate())
-			
+	
 	# cut
 	if Input.is_key_pressed(cut_key) && !cut_restrict:
 		cut_restrict = true
 		copy_list.clear()
+		brush_last = null
 		if !preview_list.empty():
 			for i in preview_list:
 				if is_instance_valid(i):

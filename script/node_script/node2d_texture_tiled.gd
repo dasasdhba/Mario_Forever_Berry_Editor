@@ -13,13 +13,11 @@ func _ready() ->void:
 			return
 		var size :Vector2 = texture.get_size()
 		rect = Rect2(Vector2.ZERO,Vector2(scale.x*size.x,scale.y*size.y))
-		scale = Vector2.ONE
 
 func _draw() ->void:
-	if Engine.editor_hint:
-		if texture == null:
-			return
-		draw_set_transform(Vector2.ZERO,0,Vector2(1/scale.x,1/scale.y))
+	if texture == null:
+		return
+	draw_set_transform(Vector2.ZERO,0,Vector2(1/scale.x,1/scale.y))
 	draw_texture_rect(texture,rect,true)
 	
 func _process(_delta) ->void:

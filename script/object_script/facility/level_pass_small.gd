@@ -1,6 +1,7 @@
 extends AnimatedSprite
 
 enum DIR {LEFT = -1, RIGHT = 1}
+export var pass_path :NodePath = @"" # 为空则检测父节点
 export(DIR) var direction :int = DIR.RIGHT
 export var next_scene :PackedScene
 export var pass_res :PackedScene
@@ -11,6 +12,10 @@ onready var parent :Node = get_parent()
 onready var scene :Node = Berry.get_scene(self)
 
 func _ready():
+	if !pass_path.is_empty():
+		var new_pass :Node = get_node(pass_path)
+		if new_pass.has_method("_level_pass"):
+			parent = new_pass
 	if parent.has_method("_level_pass"):
 		if position.x < 0:
 			direction = DIR.RIGHT

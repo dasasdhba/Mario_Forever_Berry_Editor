@@ -1,5 +1,6 @@
 extends Node2D
 
+export var exit_path :NodePath = @"" # 为空则检测子节点
 export var brush_border :Rect2 = Rect2(-32,-32,64,64)
 export var brush_offset :Vector2 = Vector2(0,0)
 
@@ -12,6 +13,12 @@ func _brush() ->void:
 # 用于标识
 func _pipe_enter() ->void:
 	pass
+	
+func _ready() ->void:
+	if !exit_path.is_empty():
+		var exit :Node = get_node(exit_path)
+		if exit.has_method("_pipe_exit"):
+			exit.parent = self
 
 func _physics_process(_delta) ->void:
 	# 上下

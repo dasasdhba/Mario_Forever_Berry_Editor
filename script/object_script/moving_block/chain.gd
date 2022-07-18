@@ -62,7 +62,7 @@ func setup() ->void:
 					tail = i
 	
 	# 创建第一个 Chain
-	var new :StaticBody2D = duplicate(DUPLICATE_USE_INSTANCING)
+	var new :StaticBody2D = duplicate()
 	new.type = TYPE.BODY
 	new.position = position
 	new.direction = direction
@@ -83,7 +83,7 @@ func create_chain(force :bool = false, t :int = TYPE.BODY, pos :Vector2 = positi
 	else:
 		d = unit.y
 	if last_pos.distance_to(position) >= d || force:
-		var new :StaticBody2D = duplicate(DUPLICATE_USE_INSTANCING)
+		var new :StaticBody2D = duplicate()
 		new.type = t
 		var delta_pos :Vector2 = pos - origin_pos
 		var new_pos :Vector2 = origin_pos + Vector2(round(delta_pos.x/unit.x)*unit.x,round(delta_pos.y/unit.y)*unit.y)

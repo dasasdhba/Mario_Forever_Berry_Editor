@@ -345,6 +345,8 @@ func player_movement(delta) ->void:
 				move = move_initial
 			elif move < move_max + min(1,control_fire)*((!water) as int)*move_max_run:
 				move += move_acceleration * delta
+			else:
+				move -= move_deceleration * delta
 		else:
 			move -= turn_deceleration * delta
 			if move <= 0:
@@ -660,6 +662,7 @@ func player_star() ->void:
 # 取消无敌星
 func player_star_cancel() ->void:
 	star = false
+	atk_count = 0
 	$StarParticles.emitting = false
 	if Player.get_player_star_num() == 0:
 		Audio.music_channel[0].stop()

@@ -6,6 +6,7 @@ export var offset :Vector2 = Vector2.ZERO
 export var smooth :bool = false
 export var limit_smooth :bool = false
 export var once :bool = false
+export var region_path :NodePath = @"" # 为空则检测父节点
 
 var border :Rect2
 
@@ -20,6 +21,13 @@ func _brush() ->void:
 	pass
 
 func _ready():
+	if !is_connected("area_entered",self,"on_area_entered"):
+		connect("area_entered",self,"on_area_entered")
+	if !region_path.is_empty():
+		var region :Node = get_node(region_path)
+		if region.has_method("_camera_region"):
+			border = Rect2(region.global_position,region.global_scale)
+			return
 	var parent :Node = get_parent()
 	if parent.has_method("_camera_region"):
 		border = Rect2(parent.global_position,parent.global_scale)
@@ -27,8 +35,6 @@ func _ready():
 		if camera == null:
 			return
 		border = Rect2(camera.limit_left,camera.limit_top,camera.limit_right-camera.limit_left,camera.limit_bottom-camera.limit_top)
-	if !is_connected("area_entered",self,"on_area_entered"):
-		connect("area_entered",self,"on_area_entered")
 
 func setup() ->void:
 	if camera == null:
