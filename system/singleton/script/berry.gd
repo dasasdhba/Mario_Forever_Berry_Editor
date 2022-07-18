@@ -117,3 +117,10 @@ func area2d_is_overlapping_with_solid(area :Area2D) ->bool:
 		if (area.collision_layer & i.collision_mask) > 0:
 			return true
 	return false
+	
+# 获取 InputEventKey
+func get_input_event_key(action :String) ->InputEventKey:
+	for i in InputMap.get_action_list(action):
+		if i is InputEventKey:
+			return i
+	return null

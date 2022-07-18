@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/select.png-457b8059a2506c77d4b7026de826573a.stex"
+path="res://.import/mario_forever.png-bb2a2ef101dd4bdf778014a7ffc7acf2.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resource/image/title/select.png"
-dest_files=[ "res://.import/select.png-457b8059a2506c77d4b7026de826573a.stex" ]
+source_file="res://resource/image/ui/title/mario_forever.png"
+dest_files=[ "res://.import/mario_forever.png-bb2a2ef101dd4bdf778014a7ffc7acf2.stex" ]
 
 [params]
 

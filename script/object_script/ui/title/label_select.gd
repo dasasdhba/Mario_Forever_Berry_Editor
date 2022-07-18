@@ -4,16 +4,24 @@ export var current :int = 0
 export var unselected_alpha :float = 0.3
 export var alpha_speed :float = 3
 export var fade_alpha_speed :float = 5
-export var disable :bool = false
+export var disable :bool = false setget set_disable
 
 var item :Array
 var up_restrict :bool = false
 var down_restrict :bool = false
+var select_restrict :bool = false
 
 signal selected(index)
 
 onready var sprite :Sprite = Sprite.new()
 onready var parent :Node = get_parent()
+
+func set_disable(new :bool) ->void:
+	disable = new
+	up_restrict = true
+	down_restrict = true
+	select_restrict = true
+	set_item_alpha(0,true)
 
 func _ready():
 	for i in parent.get_children():
@@ -76,7 +84,11 @@ func switch() ->void:
 		
 func select() ->void:
 	if Input.is_action_pressed("ui_jump") || Input.is_key_pressed(KEY_ENTER) || Input.is_mouse_button_pressed(BUTTON_LEFT):
-		emit_signal("selected",current)
+		if !select_restrict:
+			select_restrict = true
+			emit_signal("selected",current)
+	else:
+		select_restrict = false
 
 func set_item_alpha(delta :float, immediate :bool = false) ->void:
 	if immediate:

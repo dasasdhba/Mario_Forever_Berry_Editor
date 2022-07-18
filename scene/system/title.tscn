@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://script/class/room2d.gd" type="Script" id=1]
 [ext_resource path="res://resource/font/comix_heavy.res" type="DynamicFont" id=2]
@@ -13,7 +13,9 @@
 [ext_resource path="res://scene/level/level.tscn" type="PackedScene" id=11]
 [ext_resource path="res://script/node_script/node2d_texture_tiled.gd" type="Script" id=12]
 [ext_resource path="res://resource/image/map/map_background.png" type="Texture" id=13]
-[ext_resource path="res://resource/image/title/mario_forever.png" type="Texture" id=14]
+[ext_resource path="res://resource/image/ui/title/mario_forever.png" type="Texture" id=14]
+[ext_resource path="res://scene/system/options.tscn" type="PackedScene" id=15]
+[ext_resource path="res://resource/image/ui/title/option_background.png" type="Texture" id=16]
 
 [sub_resource type="Theme" id=1]
 Label/fonts/font = ExtResource( 2 )
@@ -21,11 +23,11 @@ Label/fonts/font = ExtResource( 2 )
 [sub_resource type="CanvasItemMaterial" id=5]
 light_mode = 2
 
-[sub_resource type="Gradient" id=6]
+[sub_resource type="Gradient" id=11]
 colors = PoolColorArray( 1, 0.955078, 0, 1, 0.342344, 0.676758, 0, 1 )
 
 [sub_resource type="GradientTexture" id=4]
-gradient = SubResource( 6 )
+gradient = SubResource( 11 )
 
 [sub_resource type="Gradient" id=7]
 colors = PoolColorArray( 1, 0.707648, 0.695144, 1, 0.829102, 0, 0, 1 )
@@ -56,6 +58,7 @@ next_scene = ExtResource( 11 )
 
 [node name="Background" type="Node2D" parent="Main/Background"]
 scale = Vector2( 0.5, 0.5 )
+z_index = -500
 
 [node name="Texture" type="Node2D" parent="Main/Background/Background"]
 scale = Vector2( 3, 1 )
@@ -64,6 +67,7 @@ texture = ExtResource( 13 )
 
 [node name="Sprite" type="Sprite" parent="Main/Background"]
 position = Vector2( 320, 128 )
+z_index = -500
 texture = ExtResource( 14 )
 
 [node name="TitleMenu" type="Control" parent="Main"]
@@ -148,6 +152,16 @@ __meta__ = {
 "_edit_lock_": true
 }
 
+[node name="Options" type="Node2D" parent="Main"]
+visible = false
+
+[node name="Background" type="Sprite" parent="Main/Options"]
+z_index = -500
+texture = ExtResource( 16 )
+centered = false
+
+[node name="Options" parent="Main/Options" instance=ExtResource( 15 )]
+
 [node name="Apply" type="AudioStreamPlayer" parent="Main"]
 stream = ExtResource( 6 )
 bus = "Sound"
@@ -161,4 +175,5 @@ stream = ExtResource( 10 )
 bus = "Sound"
 
 [connection signal="selected" from="Main/TitleMenu/MenuSelect" to="Main" method="_on_MenuSelect_selected"]
+[connection signal="options_back" from="Main/Options/Options" to="Main" method="_on_Options_options_back"]
 [connection signal="finished" from="Main/Ready" to="Main" method="_on_Ready_finished"]

@@ -6,11 +6,7 @@ func _ready() ->void:
 	pause_key_update()
 	
 func pause_key_update() ->void:
-	var event :InputEvent = null
-	for i in InputMap.get_action_list("ui_pause"):
-		if i is InputEvent:
-			event = i
-			break
+	var event :InputEventKey = Berry.get_input_event_key("ui_pause")
 	if event == null:
 		text = ""
 		return
