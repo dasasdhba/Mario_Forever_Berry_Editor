@@ -38,7 +38,7 @@ func _draw() ->void:
 		var rect :Rect2 = Rect2(x, y+32, 2*preview_width, 2*preview_height)
 		draw_rect(rect,preview_color)
 		while x < pos.x + preview_width:
-			draw_texture(tex,Vector2(x-2,-2),Color(1,1,1,preview_color.a))
+			draw_texture(tex,Vector2(x,0),Color(1,1,1,preview_color.a))
 			x += 32
 		return
 	# 绘制水面
@@ -49,7 +49,7 @@ func _draw() ->void:
 	draw_rect(rect,lava_color)
 	if global_position.y <= view.current_border.end.y && global_position.y + 32 >= pos.y:
 		while x < pos.x + view.current_border.size.x + 32:
-			draw_texture(tex,Vector2(x-2,-2),Color(1,1,1,lava_color.a))
+			draw_texture(tex,Vector2(x,0),Color(1,1,1,lava_color.a))
 			x += 32
 		
 func _physics_process(delta):
