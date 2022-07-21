@@ -44,6 +44,7 @@ gradient = SubResource( 9 )
 [node name="Title" type="Node2D"]
 script = ExtResource( 1 )
 pause_disabled = true
+touch_button_disabled = true
 
 [node name="Music" parent="." instance=ExtResource( 8 )]
 position = Vector2( -32, -32 )
