@@ -148,7 +148,7 @@ func _physics_process(delta) ->void:
 			if i.has_method("_moving_block_reflect"):
 				var angle :float = i.get_parent().rotation
 				var delta_angle :float = angle - velocity.angle()
-				delta_angle = Berry.mod_range(delta_angle,-PI,PI)
+				delta_angle = wrapf(delta_angle,-PI,PI)
 				if abs(delta_angle) <= PI/2:
 					continue
 				var temp_layer :int = collision_layer
@@ -170,7 +170,7 @@ func _physics_process(delta) ->void:
 			if i.has_method("_moving_block_reflect"):
 				var angle :float = i.get_parent().rotation
 				var delta_angle :float = angle - velocity.angle()
-				delta_angle = Berry.mod_range(delta_angle,-PI,PI)
+				delta_angle = wrapf(delta_angle,-PI,PI)
 				if abs(delta_angle) <= PI/2:
 					continue
 				gradient = 1

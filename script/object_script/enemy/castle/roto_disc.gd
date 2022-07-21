@@ -23,7 +23,7 @@ func _physics_process(delta :float) ->void:
 	if !activate:
 		return
 	phase += speed * delta
-	phase = Berry.mod_range(phase,0,360)
+	phase = wrapf(phase,0,360)
 	position = Vector2(radius.x*cos(deg2rad(phase)),radius.y*sin(deg2rad(phase)))
 
 func editor_event(delta :float) ->void:

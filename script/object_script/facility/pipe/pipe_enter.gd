@@ -28,7 +28,7 @@ func _physics_process(_delta) ->void:
 			if p.pipe > 0:
 				return
 			var gdir :Vector2 = Berry.get_global_direction(p,p.gravity_direction)
-			var angle :float = Berry.mod_range(gdir.angle()-global_rotation,-PI,PI)
+			var angle :float = wrapf(gdir.angle()-global_rotation,-PI,PI)
 			# 下
 			if abs(angle) <= PI/4:
 				if p.is_on_floor() && p.down_key:
@@ -55,7 +55,7 @@ func _physics_process(_delta) ->void:
 			if p.pipe > 0:
 				return
 			var gdir :Vector2 = Berry.get_global_direction(p,p.gravity_direction)
-			var angle :float = Berry.mod_range(gdir.angle()-global_rotation,-PI,PI)
+			var angle :float = wrapf(gdir.angle()-global_rotation,-PI,PI)
 			# 右
 			if angle >= PI/4 && angle <= 3*PI/4:
 				if p.is_on_floor() && $AreaBottom.get_overlapping_areas().has(i) && p.right_key && !p.left_key:

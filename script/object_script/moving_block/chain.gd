@@ -181,7 +181,7 @@ func _physics_process(delta) ->void:
 			if i.has_method("_chain_direction"):
 				var i_pos :Vector2 = get_parent().global_transform.xform_inv(i.global_position)
 				if position.distance_to(i_pos) <= speed * delta:
-					var r :float = Berry.mod_range(i.rotation_degrees,0,360)
+					var r :float = wrapf(i.rotation_degrees,0,360)
 					if direction != round(r/90):
 						position = i_pos
 						direction = round(r/90) as int

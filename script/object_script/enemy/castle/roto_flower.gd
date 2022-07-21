@@ -69,7 +69,7 @@ func _physics_process(delta) ->void:
 		current_radius = radius
 		r_dir = -1
 	phase += speed * delta
-	phase = Berry.mod_range(phase,0,360)
+	phase = wrapf(phase,0,360)
 	var new_pos :Vector2 = Vector2(current_radius*cos(deg2rad(phase)),current_radius*sin(deg2rad(phase)))
 	position = origin_position + new_pos.rotated(rotation)
 	

@@ -34,7 +34,7 @@ func _ready() ->void:
 					parent.origin_position = parent.position
 					var width :float
 					var view :Node = Berry.get_view(self)
-					var angle :float = Berry.mod_range(parent.angle,-180,180)
+					var angle :float = wrapf(parent.angle,-180,180)
 					if (angle <= 45 && angle >= -45) || angle >= 135 || angle <= -135:
 						width = view.current_border.size.x
 					else:
