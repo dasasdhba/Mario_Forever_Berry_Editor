@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/arrow.png-43dcdb25ced92bf0be24242f98d56f85.stex"
+path="res://.import/joystick.png-abf6ece28a257fecf1c2287b24dc5e4d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resource/image/ui/touch_button/arrow.png"
-dest_files=[ "res://.import/arrow.png-43dcdb25ced92bf0be24242f98d56f85.stex" ]
+source_file="res://resource/image/ui/touch_button/joystick.png"
+dest_files=[ "res://.import/joystick.png-abf6ece28a257fecf1c2287b24dc5e4d.stex" ]
 
 [params]
 

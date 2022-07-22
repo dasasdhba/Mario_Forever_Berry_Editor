@@ -25,3 +25,4 @@ func _process(_delta) ->void:
 	if has_node("TouchButton"):
 		$TouchButton.visible = !touch_button_disabled
 		$TouchButton.position = Vector2(viewport_width*(touch_button_disabled as int),0)
+		$TouchButton/Joystick.disabled = touch_button_disabled
