@@ -7,13 +7,14 @@ export var fade_alpha_speed :float = 5
 export var disable :bool = false setget set_disable
 
 var item :Array
+var sprite :Sprite
 var up_restrict :bool = false
 var down_restrict :bool = false
 var select_restrict :bool = false
+var mobile :bool = false
 
 signal selected(index)
 
-onready var sprite :Sprite = Sprite.new()
 onready var parent :Node = get_parent()
 
 func set_disable(new :bool) ->void:
@@ -24,11 +25,19 @@ func set_disable(new :bool) ->void:
 	set_item_alpha(0,true)
 
 func _ready():
+	match OS.get_name():
+		"Android", "iOS":
+			mobile = true
+	
 	for i in parent.get_children():
 		if i is Label:
 			item.append(i)
 	set_item_alpha(0,true)
-	sprite.texture = texture
+	if !mobile:
+		sprite = Sprite.new()
+		sprite.texture = texture
+	else:
+		visible = false
 	
 func _process(delta) ->void:
 	if item.empty() || disable:
@@ -62,6 +71,8 @@ func get_input() ->int:
 	return input
 	
 func switch() ->void:
+	if mobile:
+		return
 	var mouse :bool = false
 	var new :int = current
 	for i in item.size():
@@ -83,6 +94,19 @@ func switch() ->void:
 		parent.add_child(fade)
 		
 func select() ->void:
+	if mobile:
+		if Input.is_mouse_button_pressed(BUTTON_LEFT):
+			if !select_restrict:
+				select_restrict = true
+				for i in item.size():
+					if item[i].has_method("has_mouse"):
+						if item[i].has_mouse():
+							current = i
+							emit_signal("selected",current)
+							break
+		else:
+			select_restrict = false
+		return
 	if Input.is_action_pressed("ui_jump") || Input.is_key_pressed(KEY_ENTER) || Input.is_mouse_button_pressed(BUTTON_LEFT):
 		if !select_restrict:
 			select_restrict = true
@@ -91,6 +115,8 @@ func select() ->void:
 		select_restrict = false
 
 func set_item_alpha(delta :float, immediate :bool = false) ->void:
+	if mobile:
+		return
 	if immediate:
 		for i in item.size():
 			if i == current:
