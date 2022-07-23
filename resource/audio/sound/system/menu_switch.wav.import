@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/menu_switch.wav-e5872b95090b09b1707d8a0627bfbb84.sample"
+
+[deps]
+
+source_file="res://resource/audio/sound/system/menu_switch.wav"
+dest_files=[ "res://.import/menu_switch.wav-e5872b95090b09b1707d8a0627bfbb84.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

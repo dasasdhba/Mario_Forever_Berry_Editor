@@ -21,7 +21,7 @@ func _physics_process(_delta) ->void:
 		if i.pipe == 5:
 			parent.player.erase(i)
 			var gdir :Vector2 = Berry.get_global_direction(i,i.gravity_direction)
-			var angle :float = Berry.mod_range(gdir.angle()-global_rotation,-PI,PI)
+			var angle :float = wrapf(gdir.angle()-global_rotation,-PI,PI)
 			# 下
 			if abs(angle) <= PI/4:
 				var new_pos :Vector2

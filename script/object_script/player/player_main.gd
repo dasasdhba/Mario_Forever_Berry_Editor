@@ -329,7 +329,7 @@ func player_movement(delta) ->void:
 				gravity = -swim
 			else:
 				gravity = -jump_out_water
-			$Audio/Swim.play()
+			Audio.play($Audio/Swim)
 			jump_restrict = true
 			
 	if control_jump == 0:
@@ -530,7 +530,7 @@ func player_attack() ->void:
 	# 发子弹
 	if control_fire == 2 && !crouch:
 		if state == 2 && get_tree().get_nodes_in_group("fireball_mario").size() < 2:
-			$Audio/Fireball.play()
+			Audio.play($Audio/Fireball)
 			$Timer/Launch.start()
 			var new :KinematicBody2D = fireball.instance()
 			Berry.transform_copy(new,self,$Point/Launcher.relative())
@@ -539,7 +539,7 @@ func player_attack() ->void:
 			new.add_to_group("fireball_mario")
 			get_parent().add_child(new)
 		if state == 3 && get_tree().get_nodes_in_group("beet_mario").size() < 2:
-			$Audio/Fireball.play()
+			Audio.play($Audio/Fireball)
 			$Timer/Launch.start()
 			var new :KinematicBody2D = beet.instance()
 			Berry.transform_copy(new,self,$Point/Launcher.relative())
@@ -555,7 +555,7 @@ func player_attack() ->void:
 func player_stomp(bounce_speed :float = stomp_bounce, jump_speed :float = stomp_jump) ->void:
 	if disable_deferred || get_parent() == Player || get_parent() == null:
 		return
-	$Audio/Stomp.play()
+	Audio.play($Audio/Stomp)
 	if control_jump > 0:
 		gravity = -jump_speed
 	else:

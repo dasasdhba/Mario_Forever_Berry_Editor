@@ -1,6 +1,9 @@
+tool
 extends Node2D
 
 export var exit_path :NodePath = @"" # 为空则检测子节点
+export var preview :bool = true
+export var preview_color :Color = Color(0,0.5,0,0.7)
 export var brush_border :Rect2 = Rect2(-32,-32,64,64)
 export var brush_offset :Vector2 = Vector2(0,0)
 
@@ -15,12 +18,17 @@ func _pipe_enter() ->void:
 	pass
 	
 func _ready() ->void:
+	if Engine.editor_hint:
+		return
 	if !exit_path.is_empty():
 		var exit :Node = get_node(exit_path)
 		if exit.has_method("_pipe_exit"):
 			exit.parent = self
 
 func _physics_process(_delta) ->void:
+	if Engine.editor_hint:
+		update()
+		return
 	# 上下
 	for i in $AreaCenter.get_overlapping_areas():
 		if i.has_method("_player"):
@@ -28,7 +36,7 @@ func _physics_process(_delta) ->void:
 			if p.pipe > 0:
 				return
 			var gdir :Vector2 = Berry.get_global_direction(p,p.gravity_direction)
-			var angle :float = Berry.mod_range(gdir.angle()-global_rotation,-PI,PI)
+			var angle :float = wrapf(gdir.angle()-global_rotation,-PI,PI)
 			# 下
 			if abs(angle) <= PI/4:
 				if p.is_on_floor() && p.down_key:
@@ -55,7 +63,7 @@ func _physics_process(_delta) ->void:
 			if p.pipe > 0:
 				return
 			var gdir :Vector2 = Berry.get_global_direction(p,p.gravity_direction)
-			var angle :float = Berry.mod_range(gdir.angle()-global_rotation,-PI,PI)
+			var angle :float = wrapf(gdir.angle()-global_rotation,-PI,PI)
 			# 右
 			if angle >= PI/4 && angle <= 3*PI/4:
 				if p.is_on_floor() && $AreaBottom.get_overlapping_areas().has(i) && p.right_key && !p.left_key:
@@ -70,3 +78,21 @@ func _physics_process(_delta) ->void:
 					p.position = p.get_parent().global_transform.xform_inv(new_pos)
 					p.player_pipe_enter(2)
 					player.append(p)
+
+func _draw() ->void:
+	if !Engine.editor_hint || !preview:
+		return
+	var exit :Node = null
+	if !exit_path.is_empty():
+		var node :Node = get_node(exit_path)
+		if node.has_method("_pipe_exit"):
+			exit = node
+	if exit == null:
+		for i in get_children():
+			if i.has_method("_pipe_exit"):
+				exit = i
+				break
+	if exit != null:
+		var e_pos :Vector2 = get_parent().global_transform.xform_inv(exit.global_position) - position
+		draw_set_transform(Vector2.ZERO,-rotation,Vector2(1/scale.x,1/scale.y))
+		draw_line(Vector2.ZERO,e_pos,preview_color,2)

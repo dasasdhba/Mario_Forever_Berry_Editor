@@ -104,6 +104,7 @@ gdscript/warnings/return_value_discarded=false
 
 window/size/width=640
 window/size/height=480
+mouse_cursor/custom_image="res://resource/image/ui/cursor.png"
 window/stretch/mode="2d"
 window/stretch/aspect="keep"
 
@@ -133,6 +134,10 @@ ui_pause={
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":80,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
  ]
 }
+
+[input_devices]
+
+pointing/emulate_touch_from_mouse=true
 
 [rendering]
 

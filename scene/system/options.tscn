@@ -1,0 +1,915 @@
+[gd_scene load_steps=47 format=2]
+
+[ext_resource path="res://resource/font/comix_heavy.res" type="DynamicFont" id=1]
+[ext_resource path="res://script/node_script/label_has_mouse.gd" type="Script" id=2]
+[ext_resource path="res://resource/object/ui/menu_select.res" type="PackedScene" id=3]
+[ext_resource path="res://script/object_script/ui/title/option_switch_color.gd" type="Script" id=4]
+[ext_resource path="res://script/node_script/node/node_set_self_modulate.gd" type="Script" id=5]
+[ext_resource path="res://script/object_script/ui/title/options.gd" type="Script" id=6]
+[ext_resource path="res://resource/audio/sound/system/menu_apply.wav" type="AudioStream" id=7]
+[ext_resource path="res://resource/audio/sound/system/menu_switch.wav" type="AudioStream" id=8]
+[ext_resource path="res://script/node_script/audio_auto_free.gd" type="Script" id=9]
+[ext_resource path="res://script/object_script/ui/title/label_show_key.gd" type="Script" id=10]
+[ext_resource path="res://resource/image/ui/touch_button/a.png" type="Texture" id=11]
+[ext_resource path="res://resource/image/ui/touch_button/joystick.png" type="Texture" id=12]
+[ext_resource path="res://resource/image/ui/touch_button/joystick_back.png" type="Texture" id=13]
+[ext_resource path="res://resource/image/ui/touch_button/b.png" type="Texture" id=14]
+[ext_resource path="res://script/node_script/node2d/node2d_mouse_drag.gd" type="Script" id=15]
+
+[sub_resource type="Theme" id=22]
+Label/fonts/font = ExtResource( 1 )
+
+[sub_resource type="CanvasItemMaterial" id=7]
+light_mode = 2
+
+[sub_resource type="Gradient" id=6]
+offsets = PoolRealArray( 0, 0.99569 )
+colors = PoolColorArray( 0.643137, 0.752941, 0.886275, 1, 0.268759, 0.342498, 0.723633, 1 )
+
+[sub_resource type="GradientTexture" id=8]
+gradient = SubResource( 6 )
+
+[sub_resource type="Gradient" id=9]
+offsets = PoolRealArray( 0, 0.99569 )
+colors = PoolColorArray( 0.774071, 0.96582, 0.761713, 1, 0.0275784, 0.743164, 0, 1 )
+
+[sub_resource type="GradientTexture" id=10]
+gradient = SubResource( 9 )
+
+[sub_resource type="Gradient" id=11]
+offsets = PoolRealArray( 0, 0.99569 )
+colors = PoolColorArray( 0.907575, 0.911133, 0.771022, 1, 0.895508, 0.792315, 0, 1 )
+
+[sub_resource type="GradientTexture" id=12]
+gradient = SubResource( 11 )
+
+[sub_resource type="Gradient" id=15]
+offsets = PoolRealArray( 0, 0.99569 )
+colors = PoolColorArray( 0.961914, 0.775932, 0.775932, 1, 0.930664, 0.057748, 0.057748, 1 )
+
+[sub_resource type="GradientTexture" id=16]
+gradient = SubResource( 15 )
+
+[sub_resource type="Gradient" id=13]
+offsets = PoolRealArray( 0, 0.99569 )
+colors = PoolColorArray( 0.889628, 0.775932, 0.961914, 1, 0.930664, 0.057748, 0.778927, 1 )
+
+[sub_resource type="GradientTexture" id=14]
+gradient = SubResource( 13 )
+
+[sub_resource type="Gradient" id=20]
+offsets = PoolRealArray( 0, 0.99569 )
+colors = PoolColorArray( 0.850397, 0.775932, 0.961914, 1, 0.548167, 0.238071, 0.969727, 1 )
+
+[sub_resource type="GradientTexture" id=21]
+gradient = SubResource( 20 )
+
+[sub_resource type="Gradient" id=17]
+offsets = PoolRealArray( 0, 0.99569 )
+colors = PoolColorArray( 0.821289, 0.821289, 0.821289, 1, 0.258789, 0.258789, 0.258789, 1 )
+
+[sub_resource type="GradientTexture" id=18]
+gradient = SubResource( 17 )
+
+[sub_resource type="StreamTexture" id=25]
+flags = 4
+load_path = "res://.import/select.png-c765d88e4a97508539d8be402c5ad6a7.stex"
+
+[sub_resource type="CanvasItemMaterial" id=23]
+light_mode = 2
+
+[sub_resource type="Gradient" id=33]
+colors = PoolColorArray( 0.844727, 0.844727, 0.844727, 1, 0.586914, 0.586914, 0.586914, 1 )
+
+[sub_resource type="GradientTexture" id=34]
+gradient = SubResource( 33 )
+
+[sub_resource type="Gradient" id=27]
+offsets = PoolRealArray( 0, 0.99569 )
+colors = PoolColorArray( 0.886275, 0.80697, 0.643137, 1, 0.922852, 0.751619, 0, 1 )
+
+[sub_resource type="GradientTexture" id=28]
+gradient = SubResource( 27 )
+
+[sub_resource type="Gradient" id=29]
+offsets = PoolRealArray( 0, 0.99569 )
+colors = PoolColorArray( 0.886275, 0.710095, 0.643137, 1, 0.922852, 0.189257, 0, 1 )
+
+[sub_resource type="GradientTexture" id=30]
+gradient = SubResource( 29 )
+
+[sub_resource type="Gradient" id=31]
+offsets = PoolRealArray( 0, 0.99569 )
+colors = PoolColorArray( 0.843061, 0.643137, 0.886275, 1, 0.922852, 0, 0.740805, 1 )
+
+[sub_resource type="GradientTexture" id=32]
+gradient = SubResource( 31 )
+
+[sub_resource type="Theme" id=35]
+Label/fonts/font = ExtResource( 1 )
+
+[sub_resource type="Gradient" id=38]
+colors = PoolColorArray( 0.977539, 0.6514, 0.6514, 1, 1, 0, 0, 1 )
+
+[sub_resource type="GradientTexture" id=39]
+gradient = SubResource( 38 )
+
+[sub_resource type="Gradient" id=36]
+offsets = PoolRealArray( 0, 0.99569 )
+colors = PoolColorArray( 0.886275, 0.869654, 0.643137, 1, 0.723633, 0.52196, 0.268759, 1 )
+
+[sub_resource type="GradientTexture" id=37]
+gradient = SubResource( 36 )
+
+[node name="Options" type="Control"]
+margin_right = 640.0
+margin_bottom = 480.0
+theme = SubResource( 22 )
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="OptionsMenu" type="Control" parent="."]
+margin_right = 640.0
+margin_bottom = 480.0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="MenuSelect" parent="OptionsMenu" instance=ExtResource( 3 )]
+position = Vector2( 79, 80 )
+disable = true
+
+[node name="Music" type="Label" parent="OptionsMenu"]
+light_mask = 262144
+material = SubResource( 7 )
+margin_left = 111.0
+margin_top = 64.0
+margin_right = 211.0
+margin_bottom = 96.0
+mouse_filter = 1
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+text = "MUSIC"
+script = ExtResource( 2 )
+
+[node name="Light2D" type="Light2D" parent="OptionsMenu/Music"]
+position = Vector2( 49.9344, 17.2295 )
+rotation = 1.5708
+scale = Vector2( 0.0149231, 106.68 )
+texture = SubResource( 8 )
+mode = 3
+range_item_cull_mask = 262144
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="HSlider" type="HSlider" parent="OptionsMenu/Music"]
+margin_left = 241.0
+margin_top = 8.0
+margin_right = 465.0
+margin_bottom = 24.0
+mouse_filter = 1
+value = 100.0
+rounded = true
+tick_count = 10
+
+[node name="Modulate" type="Node" parent="OptionsMenu/Music/HSlider"]
+script = ExtResource( 5 )
+
+[node name="Sound" type="Label" parent="OptionsMenu"]
+light_mask = 262144
+material = SubResource( 7 )
+margin_left = 111.0
+margin_top = 112.0
+margin_right = 211.0
+margin_bottom = 144.0
+mouse_filter = 1
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+text = "SOUND"
+script = ExtResource( 2 )
+
+[node name="Light2D" type="Light2D" parent="OptionsMenu/Sound"]
+position = Vector2( 49.9344, 17.2295 )
+rotation = 1.5708
+scale = Vector2( 0.0149231, 106.68 )
+texture = SubResource( 10 )
+mode = 3
+range_item_cull_mask = 262144
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="HSlider" type="HSlider" parent="OptionsMenu/Sound"]
+margin_left = 241.0
+margin_top = 9.0
+margin_right = 465.0
+margin_bottom = 25.0
+mouse_filter = 1
+value = 100.0
+rounded = true
+tick_count = 10
+
+[node name="Modulate" type="Node" parent="OptionsMenu/Sound/HSlider"]
+script = ExtResource( 5 )
+
+[node name="FullScreen" type="Label" parent="OptionsMenu"]
+light_mask = 262144
+material = SubResource( 7 )
+margin_left = 111.0
+margin_top = 160.0
+margin_right = 282.0
+margin_bottom = 192.0
+mouse_filter = 1
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+text = "FULL SCREEN"
+script = ExtResource( 2 )
+
+[node name="Light2D" type="Light2D" parent="OptionsMenu/FullScreen"]
+position = Vector2( 86.9958, 17.2296 )
+rotation = 1.5708
+scale = Vector2( 0.0149231, 180.802 )
+texture = SubResource( 12 )
+mode = 3
+range_item_cull_mask = 262144
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Switch" type="Label" parent="OptionsMenu/FullScreen"]
+light_mask = 262144
+material = SubResource( 7 )
+margin_left = 273.0
+margin_right = 433.0
+margin_bottom = 32.0
+mouse_filter = 1
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+text = "OFF"
+align = 1
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Color" type="Node" parent="OptionsMenu/FullScreen/Switch"]
+script = ExtResource( 4 )
+
+[node name="Modulate" type="Node" parent="OptionsMenu/FullScreen/Switch"]
+script = ExtResource( 5 )
+
+[node name="LightGreen" type="Light2D" parent="OptionsMenu/FullScreen/Switch"]
+position = Vector2( 78.9999, 17.2296 )
+rotation = 1.5708
+scale = Vector2( 0.0149231, 164.811 )
+texture = SubResource( 10 )
+mode = 3
+range_item_cull_mask = 262144
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="LightRed" type="Light2D" parent="OptionsMenu/FullScreen/Switch"]
+position = Vector2( 80, 16 )
+rotation = 1.5708
+scale = Vector2( 0.0149231, 162.811 )
+texture = SubResource( 16 )
+mode = 3
+range_item_cull_mask = 262144
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="FPS" type="Label" parent="OptionsMenu"]
+light_mask = 262144
+material = SubResource( 7 )
+margin_left = 111.0
+margin_top = 208.0
+margin_right = 175.0
+margin_bottom = 240.0
+mouse_filter = 1
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+text = "FPS"
+script = ExtResource( 2 )
+
+[node name="Light2D" type="Light2D" parent="OptionsMenu/FPS"]
+position = Vector2( 27.1275, 17.2294 )
+rotation = 1.5708
+scale = Vector2( 0.0149231, 61.0656 )
+texture = SubResource( 14 )
+mode = 3
+range_item_cull_mask = 262144
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Number" type="Label" parent="OptionsMenu/FPS"]
+light_mask = 262144
+material = SubResource( 7 )
+margin_left = 305.0
+margin_right = 405.0
+margin_bottom = 32.0
+mouse_filter = 1
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+text = "60"
+align = 1
+
+[node name="Modulate" type="Node" parent="OptionsMenu/FPS/Number"]
+script = ExtResource( 5 )
+
+[node name="Light2D" type="Light2D" parent="OptionsMenu/FPS/Number"]
+position = Vector2( 52.3707, 16.0001 )
+rotation = 1.5708
+scale = Vector2( 0.0149231, 101.807 )
+texture = SubResource( 21 )
+mode = 3
+range_item_cull_mask = 262144
+
+[node name="Controls" type="Label" parent="OptionsMenu"]
+light_mask = 262144
+material = SubResource( 7 )
+margin_left = 111.0
+margin_top = 256.0
+margin_right = 257.0
+margin_bottom = 288.0
+mouse_filter = 1
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+text = "CONTROLS"
+script = ExtResource( 2 )
+
+[node name="Light2D" type="Light2D" parent="OptionsMenu/Controls"]
+position = Vector2( 74.8796, 17.2296 )
+rotation = 1.5708
+scale = Vector2( 0.0149231, 156.57 )
+texture = SubResource( 16 )
+mode = 3
+range_item_cull_mask = 262144
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Back" type="Label" parent="OptionsMenu"]
+light_mask = 262144
+material = SubResource( 7 )
+margin_left = 111.0
+margin_top = 336.0
+margin_right = 191.0
+margin_bottom = 368.0
+mouse_filter = 1
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+text = "BACK"
+script = ExtResource( 2 )
+
+[node name="Light2D" type="Light2D" parent="OptionsMenu/Back"]
+position = Vector2( 37.1246, 17.2295 )
+rotation = 1.5708
+scale = Vector2( 0.0149231, 81.06 )
+texture = SubResource( 18 )
+mode = 3
+range_item_cull_mask = 262144
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ControlsMenu" type="Control" parent="."]
+visible = false
+margin_right = 640.0
+margin_bottom = 480.0
+mouse_filter = 1
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="MenuSelect" parent="ControlsMenu" instance=ExtResource( 3 )]
+position = Vector2( 47, 64 )
+texture = SubResource( 25 )
+disable = true
+
+[node name="MovingUp" type="Label" parent="ControlsMenu"]
+light_mask = 262144
+material = SubResource( 23 )
+margin_left = 78.0
+margin_top = 48.0
+margin_right = 250.0
+margin_bottom = 80.0
+mouse_filter = 1
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+text = "MOVING UP"
+script = ExtResource( 2 )
+
+[node name="Light2D" type="Light2D" parent="ControlsMenu/MovingUp"]
+position = Vector2( 110.24, 17.2297 )
+rotation = 1.5708
+scale = Vector2( 0.0149231, 227.291 )
+texture = SubResource( 8 )
+mode = 3
+range_item_cull_mask = 262144
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Key" type="Label" parent="ControlsMenu/MovingUp"]
+light_mask = 262144
+material = SubResource( 23 )
+margin_left = 274.0
+margin_top = 2.0
+margin_right = 446.0
+margin_bottom = 34.0
+mouse_filter = 1
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+text = "KEY"
+script = ExtResource( 10 )
+action = "ui_up"
+
+[node name="Light2D" type="Light2D" parent="ControlsMenu/MovingUp/Key"]
+position = Vector2( 206.323, 17.2301 )
+rotation = 1.5708
+scale = Vector2( 0.0149231, 419.457 )
+texture = SubResource( 34 )
+mode = 3
+range_item_cull_mask = 262144
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Modulate" type="Node" parent="ControlsMenu/MovingUp/Key"]
+script = ExtResource( 5 )
+
+[node name="MovingDown" type="Label" parent="ControlsMenu"]
+light_mask = 262144
+material = SubResource( 23 )
+margin_left = 78.0
+margin_top = 96.0
+margin_right = 298.0
+margin_bottom = 128.0
+mouse_filter = 1
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+text = "MOVING DOWN"
+script = ExtResource( 2 )
+
+[node name="Light2D" type="Light2D" parent="ControlsMenu/MovingDown"]
+position = Vector2( 110.24, 17.2297 )
+rotation = 1.5708
+scale = Vector2( 0.0149231, 227.291 )
+texture = SubResource( 8 )
+mode = 3
+range_item_cull_mask = 262144
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Key" type="Label" parent="ControlsMenu/MovingDown"]
+light_mask = 262144
+material = SubResource( 23 )
+margin_left = 274.0
+margin_right = 446.0
+margin_bottom = 32.0
+mouse_filter = 1
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+text = "KEY"
+script = ExtResource( 10 )
+action = "ui_down"
+
+[node name="Light2D" type="Light2D" parent="ControlsMenu/MovingDown/Key"]
+position = Vector2( 206.323, 17.2301 )
+rotation = 1.5708
+scale = Vector2( 0.0149231, 419.457 )
+texture = SubResource( 34 )
+mode = 3
+range_item_cull_mask = 262144
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Modulate" type="Node" parent="ControlsMenu/MovingDown/Key"]
+script = ExtResource( 5 )
+
+[node name="MovingLeft" type="Label" parent="ControlsMenu"]
+light_mask = 262144
+material = SubResource( 23 )
+margin_left = 78.0
+margin_top = 144.0
+margin_right = 272.0
+margin_bottom = 176.0
+mouse_filter = 1
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+text = "MOVING LEFT"
+script = ExtResource( 2 )
+
+[node name="Light2D" type="Light2D" parent="ControlsMenu/MovingLeft"]
+position = Vector2( 110.24, 17.2297 )
+rotation = 1.5708
+scale = Vector2( 0.0149231, 227.291 )
+texture = SubResource( 8 )
+mode = 3
+range_item_cull_mask = 262144
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Key" type="Label" parent="ControlsMenu/MovingLeft"]
+light_mask = 262144
+material = SubResource( 23 )
+margin_left = 274.0
+margin_right = 446.0
+margin_bottom = 32.0
+mouse_filter = 1
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+text = "KEY"
+script = ExtResource( 10 )
+action = "ui_left"
+
+[node name="Light2D" type="Light2D" parent="ControlsMenu/MovingLeft/Key"]
+position = Vector2( 206.323, 17.2301 )
+rotation = 1.5708
+scale = Vector2( 0.0149231, 419.457 )
+texture = SubResource( 34 )
+mode = 3
+range_item_cull_mask = 262144
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Modulate" type="Node" parent="ControlsMenu/MovingLeft/Key"]
+script = ExtResource( 5 )
+
+[node name="MovingRight" type="Label" parent="ControlsMenu"]
+light_mask = 262144
+material = SubResource( 23 )
+margin_left = 79.0
+margin_top = 192.0
+margin_right = 306.0
+margin_bottom = 224.0
+mouse_filter = 1
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+text = "MOVING RIGHT"
+script = ExtResource( 2 )
+
+[node name="Light2D" type="Light2D" parent="ControlsMenu/MovingRight"]
+position = Vector2( 118.168, 17.2297 )
+rotation = 1.5708
+scale = Vector2( 0.0149231, 243.148 )
+texture = SubResource( 8 )
+mode = 3
+range_item_cull_mask = 262144
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Key" type="Label" parent="ControlsMenu/MovingRight"]
+light_mask = 262144
+material = SubResource( 23 )
+margin_left = 273.0
+margin_right = 445.0
+margin_bottom = 32.0
+mouse_filter = 1
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+text = "KEY"
+script = ExtResource( 10 )
+action = "ui_right"
+
+[node name="Light2D" type="Light2D" parent="ControlsMenu/MovingRight/Key"]
+position = Vector2( 206.323, 17.2301 )
+rotation = 1.5708
+scale = Vector2( 0.0149231, 419.457 )
+texture = SubResource( 34 )
+mode = 3
+range_item_cull_mask = 262144
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Modulate" type="Node" parent="ControlsMenu/MovingRight/Key"]
+script = ExtResource( 5 )
+
+[node name="MovingJump" type="Label" parent="ControlsMenu"]
+light_mask = 262144
+material = SubResource( 23 )
+margin_left = 78.0
+margin_top = 240.0
+margin_right = 305.0
+margin_bottom = 272.0
+mouse_filter = 1
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+text = "MOVING JUMP"
+script = ExtResource( 2 )
+
+[node name="Light2D" type="Light2D" parent="ControlsMenu/MovingJump"]
+position = Vector2( 118.168, 17.2297 )
+rotation = 1.5708
+scale = Vector2( 0.0149231, 243.148 )
+texture = SubResource( 28 )
+mode = 3
+range_item_cull_mask = 262144
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Key" type="Label" parent="ControlsMenu/MovingJump"]
+light_mask = 262144
+material = SubResource( 23 )
+margin_left = 274.0
+margin_right = 446.0
+margin_bottom = 32.0
+mouse_filter = 1
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+text = "KEY"
+script = ExtResource( 10 )
+action = "ui_jump"
+
+[node name="Light2D" type="Light2D" parent="ControlsMenu/MovingJump/Key"]
+position = Vector2( 206.323, 17.2301 )
+rotation = 1.5708
+scale = Vector2( 0.0149231, 419.457 )
+texture = SubResource( 34 )
+mode = 3
+range_item_cull_mask = 262144
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Modulate" type="Node" parent="ControlsMenu/MovingJump/Key"]
+script = ExtResource( 5 )
+
+[node name="FireAndRun" type="Label" parent="ControlsMenu"]
+light_mask = 262144
+material = SubResource( 23 )
+margin_left = 78.0
+margin_top = 288.0
+margin_right = 305.0
+margin_bottom = 320.0
+mouse_filter = 1
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+text = "FIRE AND RUN"
+script = ExtResource( 2 )
+
+[node name="Light2D" type="Light2D" parent="ControlsMenu/FireAndRun"]
+position = Vector2( 118.168, 17.2297 )
+rotation = 1.5708
+scale = Vector2( 0.0149231, 243.148 )
+texture = SubResource( 30 )
+mode = 3
+range_item_cull_mask = 262144
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Key" type="Label" parent="ControlsMenu/FireAndRun"]
+light_mask = 262144
+material = SubResource( 23 )
+margin_left = 274.0
+margin_right = 446.0
+margin_bottom = 32.0
+mouse_filter = 1
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+text = "KEY"
+script = ExtResource( 10 )
+action = "ui_fire"
+
+[node name="Light2D" type="Light2D" parent="ControlsMenu/FireAndRun/Key"]
+position = Vector2( 206.323, 17.2301 )
+rotation = 1.5708
+scale = Vector2( 0.0149231, 419.457 )
+texture = SubResource( 34 )
+mode = 3
+range_item_cull_mask = 262144
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Modulate" type="Node" parent="ControlsMenu/FireAndRun/Key"]
+script = ExtResource( 5 )
+
+[node name="Pause" type="Label" parent="ControlsMenu"]
+light_mask = 262144
+material = SubResource( 23 )
+margin_left = 78.0
+margin_top = 336.0
+margin_right = 305.0
+margin_bottom = 368.0
+mouse_filter = 1
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+text = "PAUSE"
+script = ExtResource( 2 )
+
+[node name="Light2D" type="Light2D" parent="ControlsMenu/Pause"]
+position = Vector2( 118.168, 17.2297 )
+rotation = 1.5708
+scale = Vector2( 0.0149231, 243.148 )
+texture = SubResource( 32 )
+mode = 3
+range_item_cull_mask = 262144
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Key" type="Label" parent="ControlsMenu/Pause"]
+light_mask = 262144
+material = SubResource( 23 )
+margin_left = 274.0
+margin_right = 446.0
+margin_bottom = 32.0
+mouse_filter = 1
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+text = "KEY"
+script = ExtResource( 10 )
+action = "ui_pause"
+
+[node name="Light2D" type="Light2D" parent="ControlsMenu/Pause/Key"]
+position = Vector2( 206.323, 17.2301 )
+rotation = 1.5708
+scale = Vector2( 0.0149231, 419.457 )
+texture = SubResource( 34 )
+mode = 3
+range_item_cull_mask = 262144
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Modulate" type="Node" parent="ControlsMenu/Pause/Key"]
+script = ExtResource( 5 )
+
+[node name="Back" type="Label" parent="ControlsMenu"]
+light_mask = 262144
+material = SubResource( 7 )
+margin_left = 78.0
+margin_top = 416.0
+margin_right = 158.0
+margin_bottom = 448.0
+mouse_filter = 1
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+text = "BACK"
+script = ExtResource( 2 )
+
+[node name="Light2D" type="Light2D" parent="ControlsMenu/Back"]
+position = Vector2( 37.1246, 17.2295 )
+rotation = 1.5708
+scale = Vector2( 0.0149231, 81.06 )
+texture = SubResource( 18 )
+mode = 3
+range_item_cull_mask = 262144
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ControlsMobile" type="Control" parent="."]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+mouse_filter = 1
+theme = SubResource( 35 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Menu" type="Control" parent="ControlsMobile"]
+margin_right = 40.0
+margin_bottom = 40.0
+mouse_filter = 1
+
+[node name="MenuSelect" parent="ControlsMobile/Menu" instance=ExtResource( 3 )]
+position = Vector2( 144, 32 )
+texture = SubResource( 25 )
+disable = true
+
+[node name="Back" type="Label" parent="ControlsMobile/Menu"]
+light_mask = 262144
+material = SubResource( 7 )
+margin_left = 32.0
+margin_top = 16.0
+margin_right = 112.0
+margin_bottom = 48.0
+mouse_filter = 1
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+text = "BACK"
+script = ExtResource( 2 )
+
+[node name="Light2D" type="Light2D" parent="ControlsMobile/Menu/Back"]
+position = Vector2( 37.1246, 17.2295 )
+rotation = 1.5708
+scale = Vector2( 0.0149231, 81.06 )
+texture = SubResource( 18 )
+mode = 3
+range_item_cull_mask = 262144
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Reset" type="Label" parent="ControlsMobile/Menu"]
+light_mask = 262144
+material = SubResource( 7 )
+margin_left = 516.0
+margin_top = 64.0
+margin_right = 598.0
+margin_bottom = 96.0
+mouse_filter = 1
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+text = "RESET"
+script = ExtResource( 2 )
+
+[node name="Light2D" type="Light2D" parent="ControlsMobile/Menu/Reset"]
+position = Vector2( 45.6676, 17.2295 )
+rotation = 1.5708
+scale = Vector2( 0.0149231, 98.146 )
+texture = SubResource( 39 )
+mode = 3
+range_item_cull_mask = 262144
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Tips" type="Label" parent="ControlsMobile"]
+light_mask = 262144
+material = SubResource( 23 )
+margin_left = 192.0
+margin_top = 16.0
+margin_right = 602.0
+margin_bottom = 48.0
+mouse_filter = 1
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+text = "Drag TO SET THE POSITION."
+
+[node name="Light2D" type="Light2D" parent="ControlsMobile/Tips"]
+position = Vector2( 205.84, 17.23 )
+rotation = 1.5708
+scale = Vector2( 0.0149231, 418.491 )
+texture = SubResource( 37 )
+mode = 3
+range_item_cull_mask = 262144
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Controls" type="Node2D" parent="ControlsMobile"]
+z_index = -1
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Move" type="Sprite" parent="ControlsMobile/Controls"]
+position = Vector2( 66, 416 )
+texture = ExtResource( 12 )
+script = ExtResource( 15 )
+disabled = true
+border = Rect2( 60, 60, 520, 360 )
+
+[node name="Sprite" type="Sprite" parent="ControlsMobile/Controls/Move"]
+show_behind_parent = true
+texture = ExtResource( 13 )
+
+[node name="Jump" type="Sprite" parent="ControlsMobile/Controls"]
+position = Vector2( 560, 386 )
+texture = ExtResource( 11 )
+centered = false
+script = ExtResource( 15 )
+disabled = true
+center_offset = Vector2( 30, 30 )
+border = Rect2( 0, 0, 580, 420 )
+
+[node name="Fire" type="Sprite" parent="ControlsMobile/Controls"]
+position = Vector2( 560, 192 )
+texture = ExtResource( 14 )
+centered = false
+script = ExtResource( 15 )
+disabled = true
+center_offset = Vector2( 30, 30 )
+border = Rect2( 0, 0, 580, 420 )
+
+[node name="Apply" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+bus = "Sound"
+
+[node name="Switch" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
+bus = "Sound"
+script = ExtResource( 9 )
+
+[connection signal="selected" from="OptionsMenu/MenuSelect" to="." method="_on_option_selected"]
+[connection signal="value_changed" from="OptionsMenu/Music/HSlider" to="." method="_on_volume_changed"]
+[connection signal="value_changed" from="OptionsMenu/Sound/HSlider" to="." method="_on_volume_changed"]
+[connection signal="selected" from="ControlsMenu/MenuSelect" to="." method="_on_control_selected"]
+[connection signal="selected" from="ControlsMobile/Menu/MenuSelect" to="." method="_on_control_mobile_selected"]

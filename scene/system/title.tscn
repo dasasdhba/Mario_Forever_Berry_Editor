@@ -1,0 +1,180 @@
+[gd_scene load_steps=25 format=2]
+
+[ext_resource path="res://script/class/room2d.gd" type="Script" id=1]
+[ext_resource path="res://resource/font/comix_heavy.res" type="DynamicFont" id=2]
+[ext_resource path="res://resource/object/ui/menu_select.res" type="PackedScene" id=3]
+[ext_resource path="res://script/node_script/label_has_mouse.gd" type="Script" id=4]
+[ext_resource path="res://script/object_script/ui/title/title.gd" type="Script" id=5]
+[ext_resource path="res://resource/audio/sound/system/menu_apply.wav" type="AudioStream" id=6]
+[ext_resource path="res://resource/audio/sound/system/animation.ogg" type="AudioStream" id=7]
+[ext_resource path="res://editor/facility/music/music.res" type="PackedScene" id=8]
+[ext_resource path="res://resource/audio/music/title.ogg" type="AudioStream" id=9]
+[ext_resource path="res://resource/audio/sound/system/fade_out.ogg" type="AudioStream" id=10]
+[ext_resource path="res://scene/level/level.tscn" type="PackedScene" id=11]
+[ext_resource path="res://script/node_script/node2d/node2d_texture_tiled.gd" type="Script" id=12]
+[ext_resource path="res://resource/image/map/map_background.png" type="Texture" id=13]
+[ext_resource path="res://resource/image/ui/title/mario_forever.png" type="Texture" id=14]
+[ext_resource path="res://scene/system/options.tscn" type="PackedScene" id=15]
+[ext_resource path="res://resource/image/ui/title/option_background.png" type="Texture" id=16]
+
+[sub_resource type="Theme" id=1]
+Label/fonts/font = ExtResource( 2 )
+
+[sub_resource type="CanvasItemMaterial" id=5]
+light_mode = 2
+
+[sub_resource type="Gradient" id=11]
+colors = PoolColorArray( 1, 0.955078, 0, 1, 0.342344, 0.676758, 0, 1 )
+
+[sub_resource type="GradientTexture" id=4]
+gradient = SubResource( 11 )
+
+[sub_resource type="Gradient" id=7]
+colors = PoolColorArray( 1, 0.707648, 0.695144, 1, 0.829102, 0, 0, 1 )
+
+[sub_resource type="GradientTexture" id=8]
+gradient = SubResource( 7 )
+
+[sub_resource type="Gradient" id=9]
+colors = PoolColorArray( 0.98882, 0.698741, 1, 1, 0.916016, 0, 1, 1 )
+
+[sub_resource type="GradientTexture" id=10]
+gradient = SubResource( 9 )
+
+[node name="Title" type="Node2D"]
+script = ExtResource( 1 )
+pause_disabled = true
+touch_button_disabled = true
+
+[node name="Music" parent="." instance=ExtResource( 8 )]
+position = Vector2( -32, -32 )
+mode = 0
+stream = ExtResource( 9 )
+
+[node name="Main" type="Node" parent="."]
+script = ExtResource( 5 )
+next_scene = ExtResource( 11 )
+
+[node name="Background" type="Node" parent="Main"]
+
+[node name="Background" type="Node2D" parent="Main/Background"]
+scale = Vector2( 0.5, 0.5 )
+z_index = -500
+
+[node name="Texture" type="Node2D" parent="Main/Background/Background"]
+scale = Vector2( 3, 1 )
+script = ExtResource( 12 )
+texture = ExtResource( 13 )
+
+[node name="Sprite" type="Sprite" parent="Main/Background"]
+position = Vector2( 320, 128 )
+z_index = -500
+texture = ExtResource( 14 )
+
+[node name="TitleMenu" type="Control" parent="Main"]
+margin_right = 640.0
+margin_bottom = 480.0
+theme = SubResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="MenuSelect" parent="Main/TitleMenu" instance=ExtResource( 3 )]
+
+[node name="Start" type="Label" parent="Main/TitleMenu"]
+light_mask = 262144
+material = SubResource( 5 )
+margin_left = 277.0
+margin_top = 299.0
+margin_right = 361.0
+margin_bottom = 331.0
+mouse_filter = 1
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+text = "START"
+script = ExtResource( 4 )
+
+[node name="Light2D" type="Light2D" parent="Main/TitleMenu/Start"]
+position = Vector2( 42.3749, 17.2295 )
+rotation = 1.5708
+scale = Vector2( 0.0149231, 91.5605 )
+texture = SubResource( 4 )
+mode = 3
+range_item_cull_mask = 262144
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Options" type="Label" parent="Main/TitleMenu"]
+light_mask = 262144
+material = SubResource( 5 )
+margin_left = 254.0
+margin_top = 339.0
+margin_right = 390.0
+margin_bottom = 371.0
+mouse_filter = 1
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+text = "OPTIONS"
+script = ExtResource( 4 )
+
+[node name="Light2D" type="Light2D" parent="Main/TitleMenu/Options"]
+position = Vector2( 67.854, 16.5168 )
+rotation = 1.5708
+scale = Vector2( 0.0152711, 141.094 )
+texture = SubResource( 8 )
+mode = 3
+range_item_cull_mask = 262144
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Quit" type="Label" parent="Main/TitleMenu"]
+light_mask = 262144
+material = SubResource( 5 )
+margin_left = 286.0
+margin_top = 380.0
+margin_right = 350.0
+margin_bottom = 412.0
+mouse_filter = 1
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+text = "Quit"
+script = ExtResource( 4 )
+
+[node name="Light2D" type="Light2D" parent="Main/TitleMenu/Quit"]
+position = Vector2( 31.3458, 17.0514 )
+rotation = 1.5708
+scale = Vector2( 0.0144011, 68.7897 )
+texture = SubResource( 10 )
+mode = 3
+range_item_cull_mask = 262144
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Options" type="Node2D" parent="Main"]
+visible = false
+
+[node name="Background" type="Sprite" parent="Main/Options"]
+z_index = -500
+texture = ExtResource( 16 )
+centered = false
+
+[node name="Options" parent="Main/Options" instance=ExtResource( 15 )]
+
+[node name="Apply" type="AudioStreamPlayer" parent="Main"]
+stream = ExtResource( 6 )
+bus = "Sound"
+
+[node name="Ready" type="AudioStreamPlayer" parent="Main"]
+stream = ExtResource( 7 )
+bus = "Sound"
+
+[node name="Fade" type="AudioStreamPlayer" parent="Main"]
+stream = ExtResource( 10 )
+bus = "Sound"
+
+[connection signal="selected" from="Main/TitleMenu/MenuSelect" to="Main" method="_on_MenuSelect_selected"]
+[connection signal="options_back" from="Main/Options/Options" to="Main" method="_on_Options_options_back"]
+[connection signal="finished" from="Main/Ready" to="Main" method="_on_Ready_finished"]

@@ -99,7 +99,6 @@ func _process(_delta) ->void:
 		button.visible = false
 	
 func _exit_tree() ->void:
-	file.close()
 	if is_instance_valid(button):
 		button.queue_free()
 

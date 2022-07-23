@@ -3,17 +3,9 @@ extends Node
 
 var multiroom :bool = false # 是否开启多 room 管理基础功能
 
-# 将给定数模至给定范围
-func mod_range(x :float, a :float, b :float) ->float:
-	while x < a:
-		x += b - a
-	while x >= b:
-		x -= b - a
-	return x
-
 # 将向右的向量(Vector2.RIGHT)旋转指定角度并优化上下左右四个方向的精度
 func vector2_rotate_degree(deg :float) ->Vector2:
-	deg = mod_range(deg,0,360)
+	deg = wrapf(deg,0,360)
 	match deg:
 		0.0:
 			return Vector2.RIGHT
@@ -117,3 +109,10 @@ func area2d_is_overlapping_with_solid(area :Area2D) ->bool:
 		if (area.collision_layer & i.collision_mask) > 0:
 			return true
 	return false
+	
+# 获取 InputEventKey
+func get_input_event_key(action :String) ->InputEventKey:
+	for i in InputMap.get_action_list(action):
+		if i is InputEventKey:
+			return i
+	return null

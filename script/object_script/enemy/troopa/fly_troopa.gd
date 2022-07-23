@@ -34,7 +34,7 @@ func _physics_process(delta :float) ->void:
 	
 	# 运动
 	phase += speed * delta
-	phase = Berry.mod_range(phase,0,360)
+	phase = wrapf(phase,0,360)
 	var new_pos :Vector2 = Vector2(radius.x*cos(deg2rad(phase)),radius.y*sin(deg2rad(phase)))
 	position = origin_position + new_pos.rotated(rotation)
 	
