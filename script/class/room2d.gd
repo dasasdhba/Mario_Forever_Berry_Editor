@@ -12,8 +12,11 @@ var node_array :Array = [] # 用于暂存部分节点
 
 func _init() ->void:
 	node_array.clear()
-
+	
 func _ready() ->void:
+	room2d_ready()
+
+func room2d_ready() ->void:
 	# Scene 单例初始化
 	manager.current_room = self
 	manager.current_scene = PackedScene.new()

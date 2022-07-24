@@ -19,5 +19,5 @@ func _brush() ->void:
 func _physics_process(delta) ->void:
 	if disabled:
 		return
-	position = origin_position + radius.rotated(phase)
+	position = origin_position + radius.rotated(deg2rad(phase))
 	phase += speed * delta

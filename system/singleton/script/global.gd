@@ -7,6 +7,11 @@ var pause_disabled :bool = false
 # 是否显示虚拟按键(移动端)
 var touch_button_disabled :bool = false
 
+# 文件相关
+var setting_file :String = "user://setting.ini"
+var save_file :String = "user://save.dat"
+var save_key :String = "BerrySave" # 存档密钥
+
 # 属性相关
 var life :int = 4
 var coin :int = 0

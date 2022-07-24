@@ -1,7 +1,7 @@
 [gd_scene load_steps=47 format=2]
 
 [ext_resource path="res://resource/font/comix_heavy.res" type="DynamicFont" id=1]
-[ext_resource path="res://script/node_script/label_has_mouse.gd" type="Script" id=2]
+[ext_resource path="res://script/node_script/label/label_has_mouse.gd" type="Script" id=2]
 [ext_resource path="res://resource/object/ui/menu_select.res" type="PackedScene" id=3]
 [ext_resource path="res://script/object_script/ui/title/option_switch_color.gd" type="Script" id=4]
 [ext_resource path="res://script/node_script/node/node_set_self_modulate.gd" type="Script" id=5]

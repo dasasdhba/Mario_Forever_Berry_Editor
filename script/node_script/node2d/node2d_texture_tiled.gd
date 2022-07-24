@@ -3,6 +3,9 @@ tool
 extends Node2D
 
 export var texture :Texture
+export var auto_update :bool = false
+
+onready var size :Vector2 = texture.get_size()
 
 var rect :Rect2
 
@@ -11,7 +14,6 @@ func _ready() ->void:
 		if texture == null:
 			queue_free()
 			return
-		var size :Vector2 = texture.get_size()
 		rect = Rect2(Vector2.ZERO,Vector2(scale.x*size.x,scale.y*size.y))
 
 func _draw() ->void:
@@ -25,6 +27,10 @@ func _process(_delta) ->void:
 		if texture == null:
 			update()
 			return
-		var size :Vector2 = texture.get_size()
+		var _size :Vector2 = texture.get_size()
+		rect = Rect2(Vector2.ZERO,Vector2(scale.x*_size.x,scale.y*_size.y))
+		update()
+		return
+	if auto_update:
 		rect = Rect2(Vector2.ZERO,Vector2(scale.x*size.x,scale.y*size.y))
 		update()

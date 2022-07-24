@@ -37,6 +37,7 @@ var change :bool = false
 var room_old :Room2D
 var room_parent :Node
 var scene_new :PackedScene
+var delay :bool = false
 	
 # 更改当前 Scene
 func change_scene(new_scene :PackedScene, in_trans :int = TRANS.NONE, out_trans :int = TRANS.NONE) ->void:
@@ -120,6 +121,9 @@ func _process(delta) ->void:
 		if !trans_in_hint:
 			trans_in_process(delta)
 		else:
+			if !delay:
+				delay = true
+				return
 			if is_instance_valid(room_old):
 				room_old.queue_free()
 				current_player.clear()
@@ -127,6 +131,7 @@ func _process(delta) ->void:
 				trans_in_cancel()
 				room_parent.add_child(scene_new.instance())
 				change = false
+				delay = false
 				trans_out_ready()
 	if trans_out_hint:
 		trans_out_process(delta)
