@@ -5,7 +5,7 @@
 
 具体说明详见：[https://www.bilibili.com/video/BV18G411W77H/](https://www.bilibili.com/video/BV18G411W77H/)
 
-目前只是单关版，各种功能尚不完全，且各方面都有待测试，完整版可能要等有生之年（
+目前主要功能还差大地图，不过各方面都有待测试，完整版可能要等有生之年（
 
 # Credits
 
