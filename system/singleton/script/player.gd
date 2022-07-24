@@ -61,7 +61,7 @@ func disable(p :Node) ->void:
 	p.disable_deferred = true
 	freeze(p)
 	
-# 将玩家冻结在初始状态
+# 将玩家冻结在初始状态，不重置参数
 func freeze(i :Node) ->void:
 	i.gravity = 0
 	i.move = 0

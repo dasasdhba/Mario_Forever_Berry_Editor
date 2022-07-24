@@ -1,6 +1,7 @@
 # 无限平铺 Texture
 tool
 extends Node2D
+class_name TextureTiled, "icon/texture_tiled.png"
 
 export var texture :Texture
 export var auto_update :bool = false

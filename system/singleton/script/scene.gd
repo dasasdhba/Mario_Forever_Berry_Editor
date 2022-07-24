@@ -1,6 +1,6 @@
 # 单 Room2D 管理，使用 Berry.get_scene() 获取 Scene 单例
 # 在转场之前，请确保 player 已经被 Player.disable()，否则 player 也会被 queue_free()
-# 如果不需要多 Room2D，可以在 _process() 中添加自动 disable player 相关的代码
+# 如果不需要多 Room2D，可以关闭 Berry 单例的 mutilroom，此时不用管上一条
 # 如果需要多 Room2D，可复制本节点并在不同的 Room2D 使用不同的 Scene 单例管理
 # 并且修改 Berry 单例的 multiroom 为 true
 extends CanvasLayer
@@ -41,6 +41,11 @@ var delay :bool = false
 	
 # 更改当前 Scene
 func change_scene(new_scene :PackedScene, in_trans :int = TRANS.NONE, out_trans :int = TRANS.NONE) ->void:
+	# 非 mutilroom 模式禁用玩家
+	if !Berry.multiroom:
+		for i in current_player:
+			Player.disable(i)
+	
 	change = true
 	room_old = current_room
 	room_parent = current_room.get_parent()
@@ -117,21 +122,22 @@ func trans_out_process(delta :float) ->void:
 				trans_out_hint = false
 	
 func _process(delta) ->void:
-	if change:
-		if !trans_in_hint:
-			trans_in_process(delta)
-		else:
-			if !delay:
-				delay = true
-				return
-			if is_instance_valid(room_old):
-				room_old.queue_free()
-				current_player.clear()
-			else:
-				trans_in_cancel()
-				room_parent.add_child(scene_new.instance())
-				change = false
-				delay = false
-				trans_out_ready()
+	if change && !trans_in_hint:
+		trans_in_process(delta)
 	if trans_out_hint:
 		trans_out_process(delta)
+		
+func _physics_process(_delta) ->void:
+	if change && trans_in_hint:
+		if !delay:
+			delay = true
+			return
+		if is_instance_valid(room_old):
+			room_old.queue_free()
+			current_player.clear()
+		else:
+			trans_in_cancel()
+			room_parent.add_child(scene_new.instance())
+			change = false
+			delay = false
+			trans_out_ready()

@@ -1,17 +1,16 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=24 format=2]
 
-[ext_resource path="res://script/class/room2d.gd" type="Script" id=1]
 [ext_resource path="res://resource/font/comix_heavy.res" type="DynamicFont" id=2]
 [ext_resource path="res://resource/object/ui/menu_select.res" type="PackedScene" id=3]
 [ext_resource path="res://script/node_script/label/label_has_mouse.gd" type="Script" id=4]
-[ext_resource path="res://script/object_script/ui/title/title.gd" type="Script" id=5]
+[ext_resource path="res://script/room_script/title/title.gd" type="Script" id=5]
 [ext_resource path="res://resource/audio/sound/system/menu_apply.wav" type="AudioStream" id=6]
 [ext_resource path="res://resource/audio/sound/system/animation.ogg" type="AudioStream" id=7]
 [ext_resource path="res://editor/facility/music/music.res" type="PackedScene" id=8]
 [ext_resource path="res://resource/audio/music/title.ogg" type="AudioStream" id=9]
 [ext_resource path="res://resource/audio/sound/system/fade_out.ogg" type="AudioStream" id=10]
 [ext_resource path="res://scene/system/save_game_room.tscn" type="PackedScene" id=11]
-[ext_resource path="res://script/node_script/node2d/node2d_texture_tiled.gd" type="Script" id=12]
+[ext_resource path="res://script/class/texture_tiled.gd" type="Script" id=12]
 [ext_resource path="res://resource/image/map/map_background.png" type="Texture" id=13]
 [ext_resource path="res://resource/image/ui/title/mario_forever.png" type="Texture" id=14]
 [ext_resource path="res://scene/system/options.tscn" type="PackedScene" id=15]
@@ -42,36 +41,36 @@ colors = PoolColorArray( 0.98882, 0.698741, 1, 1, 0.916016, 0, 1, 1 )
 gradient = SubResource( 9 )
 
 [node name="Title" type="Node2D"]
-script = ExtResource( 1 )
+script = ExtResource( 5 )
 pause_disabled = true
 touch_button_disabled = true
+next_scene = ExtResource( 11 )
 
 [node name="Music" parent="." instance=ExtResource( 8 )]
 position = Vector2( -32, -32 )
 mode = 0
 stream = ExtResource( 9 )
 
-[node name="Main" type="Node" parent="."]
-script = ExtResource( 5 )
-next_scene = ExtResource( 11 )
+[node name="Background" type="Node2D" parent="."]
+__meta__ = {
+"_edit_lock_": true
+}
 
-[node name="Background" type="Node" parent="Main"]
-
-[node name="Background" type="Node2D" parent="Main/Background"]
+[node name="Parchment" type="Node2D" parent="Background"]
 scale = Vector2( 0.5, 0.5 )
 z_index = -500
 
-[node name="Texture" type="Node2D" parent="Main/Background/Background"]
+[node name="Texture" type="Node2D" parent="Background/Parchment"]
 scale = Vector2( 3, 1 )
 script = ExtResource( 12 )
 texture = ExtResource( 13 )
 
-[node name="Sprite" type="Sprite" parent="Main/Background"]
+[node name="Sprite" type="Sprite" parent="Background"]
 position = Vector2( 320, 128 )
 z_index = -500
 texture = ExtResource( 14 )
 
-[node name="TitleMenu" type="Control" parent="Main"]
+[node name="TitleMenu" type="Control" parent="."]
 margin_right = 640.0
 margin_bottom = 480.0
 theme = SubResource( 1 )
@@ -79,9 +78,9 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="MenuSelect" parent="Main/TitleMenu" instance=ExtResource( 3 )]
+[node name="MenuSelect" parent="TitleMenu" instance=ExtResource( 3 )]
 
-[node name="Start" type="Label" parent="Main/TitleMenu"]
+[node name="Start" type="Label" parent="TitleMenu"]
 light_mask = 262144
 material = SubResource( 5 )
 margin_left = 277.0
@@ -94,7 +93,7 @@ custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
 text = "START"
 script = ExtResource( 4 )
 
-[node name="Light2D" type="Light2D" parent="Main/TitleMenu/Start"]
+[node name="Light2D" type="Light2D" parent="TitleMenu/Start"]
 position = Vector2( 42.3749, 17.2295 )
 rotation = 1.5708
 scale = Vector2( 0.0149231, 91.5605 )
@@ -105,7 +104,7 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Options" type="Label" parent="Main/TitleMenu"]
+[node name="Options" type="Label" parent="TitleMenu"]
 light_mask = 262144
 material = SubResource( 5 )
 margin_left = 254.0
@@ -118,7 +117,7 @@ custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
 text = "OPTIONS"
 script = ExtResource( 4 )
 
-[node name="Light2D" type="Light2D" parent="Main/TitleMenu/Options"]
+[node name="Light2D" type="Light2D" parent="TitleMenu/Options"]
 position = Vector2( 67.854, 16.5168 )
 rotation = 1.5708
 scale = Vector2( 0.0152711, 141.094 )
@@ -129,7 +128,7 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Quit" type="Label" parent="Main/TitleMenu"]
+[node name="Quit" type="Label" parent="TitleMenu"]
 light_mask = 262144
 material = SubResource( 5 )
 margin_left = 286.0
@@ -142,7 +141,7 @@ custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
 text = "Quit"
 script = ExtResource( 4 )
 
-[node name="Light2D" type="Light2D" parent="Main/TitleMenu/Quit"]
+[node name="Light2D" type="Light2D" parent="TitleMenu/Quit"]
 position = Vector2( 31.3458, 17.0514 )
 rotation = 1.5708
 scale = Vector2( 0.0144011, 68.7897 )
@@ -153,28 +152,28 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Options" type="Node2D" parent="Main"]
+[node name="Options" type="Node2D" parent="."]
 visible = false
 
-[node name="Background" type="Sprite" parent="Main/Options"]
+[node name="Background" type="Sprite" parent="Options"]
 z_index = -500
 texture = ExtResource( 16 )
 centered = false
 
-[node name="Options" parent="Main/Options" instance=ExtResource( 15 )]
+[node name="Options" parent="Options" instance=ExtResource( 15 )]
 
-[node name="Apply" type="AudioStreamPlayer" parent="Main"]
+[node name="Apply" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 6 )
 bus = "Sound"
 
-[node name="Ready" type="AudioStreamPlayer" parent="Main"]
+[node name="Ready" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
 bus = "Sound"
 
-[node name="Fade" type="AudioStreamPlayer" parent="Main"]
+[node name="Fade" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 10 )
 bus = "Sound"
 
-[connection signal="selected" from="Main/TitleMenu/MenuSelect" to="Main" method="_on_MenuSelect_selected"]
-[connection signal="options_back" from="Main/Options/Options" to="Main" method="_on_Options_options_back"]
-[connection signal="finished" from="Main/Ready" to="Main" method="_on_Ready_finished"]
+[connection signal="selected" from="TitleMenu/MenuSelect" to="." method="_on_MenuSelect_selected"]
+[connection signal="options_back" from="Options/Options" to="." method="_on_Options_options_back"]
+[connection signal="finished" from="Ready" to="." method="_on_Ready_finished"]

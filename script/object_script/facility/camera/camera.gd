@@ -1,7 +1,7 @@
 # Camera 事件，不受坐标系影响
 extends Camera2D
 
-enum MODE {SAVE_GAME_ROOM, FOLLOW, FORCE}
+enum MODE {SAVE_GAME_ROOM, FOLLOW, FORCE, NONE}
 export(MODE) var mode :int = MODE.FOLLOW # 0 选关画面，1 跟随，2 强制滚屏
 export var force_angle :float = 0 # 强制滚屏方向角
 export var force_speed :float = 50 # 强制滚屏速度

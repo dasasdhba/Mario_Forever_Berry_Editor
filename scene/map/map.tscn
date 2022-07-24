@@ -1,0 +1,119 @@
+[gd_scene load_steps=18 format=2]
+
+[ext_resource path="res://script/room_script/map/map.gd" type="Script" id=1]
+[ext_resource path="res://editor/facility/camera/camera.res" type="PackedScene" id=2]
+[ext_resource path="res://script/class/texture_tiled.gd" type="Script" id=3]
+[ext_resource path="res://resource/image/map/map_background.png" type="Texture" id=4]
+[ext_resource path="res://editor/facility/music/music.res" type="PackedScene" id=5]
+[ext_resource path="res://addons/brush2d/brush2d.gd" type="Script" id=6]
+[ext_resource path="res://resource/font/massey_extended.res" type="DynamicFont" id=7]
+[ext_resource path="res://resource/image/player/mario/mario_big.png" type="Texture" id=8]
+[ext_resource path="res://scene/level/level.tscn" type="PackedScene" id=9]
+
+[sub_resource type="Theme" id=1]
+Label/fonts/font = ExtResource( 7 )
+
+[sub_resource type="AtlasTexture" id=38]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 0, 0, 45, 64 )
+
+[sub_resource type="AtlasTexture" id=48]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 0, 128, 45, 64 )
+
+[sub_resource type="AtlasTexture" id=47]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 0, 64, 45, 64 )
+
+[sub_resource type="AtlasTexture" id=46]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 0, 0, 45, 64 )
+
+[sub_resource type="AtlasTexture" id=44]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 0, 256, 45, 64 )
+
+[sub_resource type="AtlasTexture" id=45]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 0, 448, 45, 64 )
+
+[sub_resource type="SpriteFrames" id=49]
+animations = [ {
+"frames": [ SubResource( 38 ) ],
+"loop": true,
+"name": "idle",
+"speed": 0.0
+}, {
+"frames": [ SubResource( 48 ), SubResource( 47 ), SubResource( 46 ) ],
+"loop": true,
+"name": "walk",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 44 ), SubResource( 45 ) ],
+"loop": true,
+"name": "dive",
+"speed": 7.0
+} ]
+
+[node name="Map" type="Node2D"]
+script = ExtResource( 1 )
+pause_disabled = true
+touch_button_disabled = true
+next_scene = ExtResource( 9 )
+
+[node name="TextLayer" type="CanvasLayer" parent="."]
+layer = 125
+
+[node name="Text" type="Control" parent="TextLayer"]
+margin_right = 40.0
+margin_bottom = 40.0
+theme = SubResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="GameSaved" type="Label" parent="TextLayer/Text"]
+visible = false
+margin_left = 7.0
+margin_top = 449.0
+margin_right = 92.0
+margin_bottom = 475.0
+text = "Game Saved"
+
+[node name="Camera" parent="." instance=ExtResource( 2 )]
+position = Vector2( -16, -24 )
+current = false
+mode = 3
+
+[node name="Music" parent="." instance=ExtResource( 5 )]
+position = Vector2( -32, 0 )
+mode = 0
+
+[node name="Player" type="AnimatedSprite" parent="."]
+position = Vector2( -16, 48 )
+scale = Vector2( 0.5, 0.5 )
+frames = SubResource( 49 )
+animation = "walk"
+frame = 1
+playing = true
+offset = Vector2( 0, 1 )
+
+[node name="Brush2D" type="Node2D" parent="."]
+script = ExtResource( 6 )
+
+[node name="Background" type="Node2D" parent="."]
+scale = Vector2( 0.5, 0.5 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Texture" type="Node2D" parent="Background"]
+scale = Vector2( 10, 1 )
+script = ExtResource( 3 )
+texture = ExtResource( 4 )

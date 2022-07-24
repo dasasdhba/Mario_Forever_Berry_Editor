@@ -88,6 +88,7 @@ func _physics_process(delta) ->void:
 					for k in scene.current_player:
 						k.fall_disabled = false
 						Player.disable(k)
+					Global.save = j+1
 					var next_scene :PackedScene = save_file.get_value("save"+String(j+1),"scene",first_scene)
 					if next_scene != null:
 						scene.change_scene(save_file.get_value("save"+String(j+1),"scene",first_scene))

@@ -49,6 +49,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/texture_fonts/Classes/TextureFont.gd"
 }, {
+"base": "Node2D",
+"class": "TextureTiled",
+"language": "GDScript",
+"path": "res://script/class/texture_tiled.gd"
+}, {
 "base": "ViewportContainer",
 "class": "ViewportControl",
 "language": "GDScript",
@@ -68,6 +73,7 @@ _global_script_class_icons={
 "RectCollision2D": "res://script/class/icon/rect_collision2d.png",
 "Room2D": "res://script/class/icon/room2d.png",
 "TextureFont": "res://addons/texture_fonts/Assets/TextureFont.svg",
+"TextureTiled": "res://script/class/icon/texture_tiled.png",
 "ViewportControl": "res://script/class/icon/viewport_control.png",
 "Water": "res://script/class/icon/water.png"
 }

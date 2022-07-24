@@ -53,7 +53,7 @@ func _physics_process(delta :float) ->void:
 
 func _on_Shop_bonus_get(life :int):
 	var life_text :Label = $TextLayer/Text/Life
-	life_text.rect_position = manager.current_player.front().position - Vector2(16,16)
+	life_text.rect_position = manager.current_player.front().position - 16*Vector2.ONE
 	life_text.origin_position = life_text.rect_position
 	life_text.text = String(-life)
 	life_text.disabled = false
