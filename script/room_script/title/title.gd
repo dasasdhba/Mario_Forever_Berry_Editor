@@ -24,6 +24,8 @@ func _on_MenuSelect_selected(index :int) ->void:
 func _on_Ready_finished() ->void:
 	if next_scene != null:
 		$Fade.play()
+		manager.in_circle_speed = 250
+		manager.in_circle_wait_time = 0.5
 		manager.change_scene(next_scene,manager.TRANS.CIRCLE)
 
 func _on_Options_options_back():

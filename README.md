@@ -5,7 +5,7 @@
 
 具体说明详见：[https://www.bilibili.com/video/BV18G411W77H/](https://www.bilibili.com/video/BV18G411W77H/)
 
-目前主要功能还差大地图，不过各方面都有待测试，完整版可能要等有生之年（
+完整版的说明还在咕，不过目前来说各方面都有待测试，而且还差不少东西，有生之年可能做完（
 
 # Credits
 
