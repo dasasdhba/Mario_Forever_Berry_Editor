@@ -5,6 +5,8 @@
 # 并且修改 Berry 单例的 multiroom 为 true
 extends CanvasLayer
 
+export var save_game_room :PackedScene = null
+
 var current_scene :PackedScene = null # 当前 Scene 的 Packed 备份
 var current_room :Room2D = null # 当前 Room2D 节点
 var current_player :Array = [] # 当前 Room2D 的玩家
@@ -38,6 +40,12 @@ var room_old :Room2D
 var room_parent :Node
 var scene_new :PackedScene
 var delay :bool = false
+
+# 快捷键
+const restart_key :int = KEY_F2
+const save_key :int = KEY_F3
+var restart_restrict :bool = false
+var save_restrict :bool = false
 	
 # 更改当前 Scene
 func change_scene(new_scene :PackedScene, in_trans :int = TRANS.NONE, out_trans :int = TRANS.NONE) ->void:
@@ -141,3 +149,25 @@ func _physics_process(_delta) ->void:
 			change = false
 			delay = false
 			trans_out_ready()
+			
+# 快捷转场
+func _unhandled_key_input(event :InputEventKey) ->void:
+	if event.scancode == restart_key:
+		if event.pressed:
+			if !restart_restrict:
+				restart_restrict = true
+				for i in current_player:
+					Player.disable(i)
+				get_tree().reload_current_scene()
+		else:
+			restart_restrict = false
+	elif event.scancode == save_key:
+		if event.pressed:
+			if !save_restrict:
+				save_restrict = true
+				if !change && save_game_room != null:
+					for i in current_player:
+						Player.disable(i)
+					change_scene(save_game_room)
+		else:
+			save_restrict = false
