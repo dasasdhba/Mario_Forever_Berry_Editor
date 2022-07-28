@@ -9,10 +9,6 @@ export var brush_offset :Vector2 = Vector2(16,16)
 
 onready var gravity_direction :Vector2 = Vector2.DOWN.rotated(rotation)
 onready var parent :Node = get_parent()
-
-# 用于标识 brush2d 摆放
-func _brush() ->void:
-	pass
 	
 func _physics_process(delta) ->void:
 	# 防止出水

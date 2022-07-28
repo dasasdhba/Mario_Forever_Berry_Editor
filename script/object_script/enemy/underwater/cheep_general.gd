@@ -19,10 +19,6 @@ onready var view: Node = Berry.get_view(self)
 onready var rand :RandomNumberGenerator = Berry.get_rand(self)
 onready var gravity_direction :Vector2 = Vector2.DOWN.rotated(rotation)
 onready var parent :Node = get_parent()
-
-# 用于标识 brush2d 摆放
-func _brush() ->void:
-	pass
 	
 func _physics_process(delta) ->void:
 	# 激活

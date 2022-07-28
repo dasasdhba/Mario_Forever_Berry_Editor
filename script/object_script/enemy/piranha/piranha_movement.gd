@@ -29,10 +29,6 @@ onready var view :Node = Berry.get_view(self)
 onready var rand :RandomNumberGenerator = Berry.get_rand(self)
 onready var parent :Node = get_parent()
 onready var height: int = 32 + max(0,stem_count)*16
-
-# 用于标识 brush2d 摆放
-func _brush() ->void:
-	pass
 	
 # 攻击判定标识
 func _enemy() ->void:

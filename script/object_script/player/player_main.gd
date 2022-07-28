@@ -529,23 +529,23 @@ func player_animation(delta) ->void:
 func player_attack() ->void:
 	# 发子弹
 	if control_fire == 2 && !crouch:
-		if state == 2 && get_tree().get_nodes_in_group("fireball_mario").size() < 2:
+		if state == 2 && get_tree().get_nodes_in_group("fireball_player").size() < 2:
 			Audio.play($Audio/Fireball)
 			$Timer/Launch.start()
 			var new :KinematicBody2D = fireball.instance()
 			Berry.transform_copy(new,self,$Point/Launcher.relative())
 			new.direction = move_direction
 			new.gravity_direction = gravity_direction
-			new.add_to_group("fireball_mario")
+			new.add_to_group("fireball_player")
 			get_parent().add_child(new)
-		if state == 3 && get_tree().get_nodes_in_group("beet_mario").size() < 2:
+		if state == 3 && get_tree().get_nodes_in_group("beet_player").size() < 2:
 			Audio.play($Audio/Fireball)
 			$Timer/Launch.start()
 			var new :KinematicBody2D = beet.instance()
 			Berry.transform_copy(new,self,$Point/Launcher.relative())
 			new.direction = move_direction
 			new.gravity_direction = gravity_direction
-			new.add_to_group("beet_mario")
+			new.add_to_group("beet_player")
 			get_parent().add_child(new)
 			
 	# 无敌星

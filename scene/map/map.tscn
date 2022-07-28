@@ -49,16 +49,6 @@ flags = 4
 atlas = ExtResource( 8 )
 region = Rect2( 0, 0, 45, 64 )
 
-[sub_resource type="AtlasTexture" id=44]
-flags = 4
-atlas = ExtResource( 8 )
-region = Rect2( 0, 256, 45, 64 )
-
-[sub_resource type="AtlasTexture" id=45]
-flags = 4
-atlas = ExtResource( 8 )
-region = Rect2( 0, 448, 45, 64 )
-
 [sub_resource type="AtlasTexture" id=48]
 flags = 4
 atlas = ExtResource( 8 )
@@ -74,6 +64,16 @@ flags = 4
 atlas = ExtResource( 8 )
 region = Rect2( 0, 0, 45, 64 )
 
+[sub_resource type="AtlasTexture" id=44]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 0, 256, 45, 64 )
+
+[sub_resource type="AtlasTexture" id=45]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 0, 448, 45, 64 )
+
 [sub_resource type="SpriteFrames" id=49]
 animations = [ {
 "frames": [ SubResource( 38 ) ],
@@ -81,15 +81,15 @@ animations = [ {
 "name": "idle",
 "speed": 0.0
 }, {
-"frames": [ SubResource( 44 ), SubResource( 45 ) ],
-"loop": true,
-"name": "swim",
-"speed": 7.0
-}, {
 "frames": [ SubResource( 48 ), SubResource( 47 ), SubResource( 46 ) ],
 "loop": true,
 "name": "walk",
 "speed": 5.0
+}, {
+"frames": [ SubResource( 44 ), SubResource( 45 ) ],
+"loop": true,
+"name": "swim",
+"speed": 7.0
 } ]
 
 [node name="Map" type="Node2D"]

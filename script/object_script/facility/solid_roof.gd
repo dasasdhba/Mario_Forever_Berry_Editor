@@ -8,10 +8,6 @@ onready var scene :Node = Berry.get_scene(self)
 onready var view :Node = Berry.get_view(self)
 onready var camera :Camera2D = view.get_current_camera()
 
-# 用于标识 brush2d 摆放
-func _brush() ->void:
-	pass
-
 func _physics_process(_delta) ->void:
 	var ytop :float = 0
 	if camera != null:

@@ -43,10 +43,6 @@ onready var parent :Node = get_parent()
 export var brush_border :Rect2 = Rect2(-16,-24,32,48)
 export var brush_offset :Vector2 = Vector2(16,24)
 
-# 用于标识 brush2d 摆放
-func _brush() ->void:
-	pass
-
 func _ready() ->void:
 	i_random = rand.randf_range(0,interval_random)
 	l_random = rand.randf_range(0,launch_random)

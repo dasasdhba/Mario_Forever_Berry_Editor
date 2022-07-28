@@ -1,6 +1,4 @@
 # 单 Room2D 管理，使用 Berry.get_scene() 获取 Scene 单例
-# 在转场之前，请确保 player 已经被 Player.disable()，否则 player 也会被 queue_free()
-# 如果不需要多 Room2D，可以关闭 Berry 单例的 mutilroom，此时不用管上一条
 # 如果需要多 Room2D，可复制本节点并在不同的 Room2D 使用不同的 Scene 单例管理
 # 并且修改 Berry 单例的 multiroom 为 true
 extends CanvasLayer
@@ -49,11 +47,8 @@ var save_restrict :bool = false
 	
 # 更改当前 Scene
 func change_scene(new_scene :PackedScene, in_trans :int = TRANS.NONE, out_trans :int = TRANS.NONE) ->void:
-	# 非 mutilroom 模式禁用玩家
-	if !Berry.multiroom:
-		for i in current_player:
-			Player.disable(i)
-	
+	for i in current_player:
+		Player.disable(i)
 	change = true
 	room_old = current_room
 	room_parent = current_room.get_parent()
@@ -65,6 +60,20 @@ func change_scene(new_scene :PackedScene, in_trans :int = TRANS.NONE, out_trans 
 # 重新加载当前 Scene
 func restart_scene(in_trans :int = TRANS.NONE, out_trans :int = TRANS.NONE) ->void:
 	change_scene(current_scene,in_trans,out_trans)
+	
+# 完全重启
+func restart_all() ->void:
+	for i in current_player:
+		Player.disable(i)
+	get_tree().reload_current_scene()
+	
+# 清空 scene 数据
+func clear_data() ->void:
+	death_hint = false
+	current_checkpoint = []
+	checkpoint_scene = null
+	checkpoint_room_name = ""
+	checkpoint_position = null
 	
 # 转场效果
 func trans_in_ready() ->void:
@@ -152,22 +161,20 @@ func _physics_process(_delta) ->void:
 			
 # 快捷转场
 func _unhandled_key_input(event :InputEventKey) ->void:
+	if change:
+		return
 	if event.scancode == restart_key:
 		if event.pressed:
 			if !restart_restrict:
 				restart_restrict = true
-				for i in current_player:
-					Player.disable(i)
-				get_tree().reload_current_scene()
+				restart_all()
 		else:
 			restart_restrict = false
 	elif event.scancode == save_key:
 		if event.pressed:
 			if !save_restrict:
 				save_restrict = true
-				if !change && save_game_room != null:
-					for i in current_player:
-						Player.disable(i)
+				if save_game_room != null:
 					change_scene(save_game_room)
 		else:
 			save_restrict = false

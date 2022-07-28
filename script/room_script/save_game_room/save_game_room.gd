@@ -20,6 +20,7 @@ func _ready() ->void:
 		$TextLayer/Text/DeleteTips.text = new_text
 	
 	# 重置数值
+	manager.clear_data()
 	Global.life = 4
 	Global.score = 0
 	Global.coin = 0

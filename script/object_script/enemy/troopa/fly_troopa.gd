@@ -16,10 +16,6 @@ var preview_phase :float = 0
 
 onready var origin_position: Vector2 = position
 onready var gravity_direction :Vector2 = Vector2.DOWN.rotated(rotation)
-
-# 用于标识 brush2d 摆放
-func _brush() ->void:
-	pass
 	
 func _physics_process(delta :float) ->void:
 	if Engine.editor_hint:

@@ -22,10 +22,6 @@ var rand :RandomNumberGenerator
 export var brush_border :Rect2 = Rect2(-16,-16,32,32)
 export var brush_offset :Vector2 = Vector2(16,16)
 
-# 用于标识 brush2d 摆放
-func _brush() ->void:
-	pass
-
 func _ready() ->void:
 	if !Engine.editor_hint:
 		view = Berry.get_view(self)

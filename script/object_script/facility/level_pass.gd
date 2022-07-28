@@ -20,12 +20,21 @@ onready var rand :RandomNumberGenerator = Berry.get_rand(self)
 export var brush_border :Rect2 = Rect2(-48,-144,96,288)
 export var brush_offset :Vector2 = Vector2(0,-128)
 
-# 用于标识 brush2d 摆放
-func _brush() ->void:
-	pass
-
 # 用于标识
 func _level_pass() ->void:
+	for i in get_tree().get_nodes_in_group("fireball_player"):
+		var new :Node = Lib.score.instance()
+		new.score = 100
+		Berry.transform_copy(i,new)
+		parent.add_child(new)
+		i.queue_free()
+	for i in get_tree().get_nodes_in_group("beet_player"):
+		var new :Node = Lib.score.instance()
+		new.score = 200
+		Berry.transform_copy(i,new)
+		parent.add_child(new)
+		i.queue_free()
+	
 	disabled = true
 	$Pass.play()
 	$Timer.start()
@@ -115,6 +124,5 @@ func _on_Timer_timeout():
 
 func _on_TimerJump_timeout():
 	if next_scene != null:
-		for i in scene.current_player:
-			Player.disable(i)
+		scene.clear_data()
 		scene.change_scene(next_scene)

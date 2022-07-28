@@ -25,10 +25,6 @@ onready var gravity_direction :Vector2 = Vector2.DOWN.rotated(rotation)
 export var brush_border :Rect2 = Rect2(-16,-24,32,48)
 export var brush_offset :Vector2 = Vector2(16,24)
 
-# 用于标识 brush2d 摆放
-func _brush() ->void:
-	pass
-
 func _physics_process(delta):
 	# 激活
 	if !activate:

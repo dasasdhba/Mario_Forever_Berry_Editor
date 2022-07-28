@@ -40,7 +40,7 @@ var brush_last = null
 var mouse_last :Vector2 = Vector2(INF,INF)
 
 func get_brush(node :Node) ->void:
-	if node.has_method("_brush"):
+	if node.get("brush_border") != null:
 		if !force_border:
 			border = node.brush_border
 			border.position.x *= node.scale.x
@@ -62,6 +62,7 @@ func get_brush(node :Node) ->void:
 				ylist.clear()
 		else:
 			border = default_border
+	if node.get("brush_offset") != null:
 		if !force_offset:
 			offset = node.brush_offset
 			offset.x *= node.scale.x
@@ -69,10 +70,7 @@ func get_brush(node :Node) ->void:
 			offset.rotated(node.rotation)
 		else:
 			offset = default_offset
-	else:
-		border = default_border
-		offset = default_offset
-		
+	
 func get_list_brush(list :Array) ->void:
 	get_brush(list[0])
 	var min_pos :Vector2 = Vector2(INF,INF)

@@ -6,10 +6,6 @@ export var brush_offset :Vector2 = Vector2(0,0)
 
 var parent :Node = null
 var delay :int = 0
-
-# 用于标识 brush2d 摆放
-func _brush() ->void:
-	pass
 	
 func _pipe_exit(i :Node) ->void:
 	var gdir :Vector2 = Berry.get_global_direction(i,i.gravity_direction)

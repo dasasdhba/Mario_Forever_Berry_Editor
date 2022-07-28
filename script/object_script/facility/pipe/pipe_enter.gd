@@ -8,10 +8,6 @@ export var brush_border :Rect2 = Rect2(-32,-32,64,64)
 export var brush_offset :Vector2 = Vector2(0,0)
 
 var player :Array = []
-
-# 用于标识 brush2d 摆放
-func _brush() ->void:
-	pass
 	
 # 用于标识
 func _pipe_enter() ->void:

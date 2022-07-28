@@ -8,10 +8,6 @@ var activate :bool = false
 onready var room :Room2D = Berry.get_room2d(self)
 onready var scene :Node = room.manager
 
-# 用于标识 brush2d 摆放
-func _brush() ->void:
-	pass
-
 # 用于标识
 func _checkpoint() ->bool:
 	return activate

@@ -20,10 +20,6 @@ export var brush_offset :Vector2 = Vector2(16,16)
 
 onready var view: Node = Berry.get_view(self)
 onready var parent :Node = get_parent()
-
-# 用于标识 brush2d 摆放
-func _brush() ->void:
-	pass
 	
 func _ready() ->void:
 	speed = speed_init
