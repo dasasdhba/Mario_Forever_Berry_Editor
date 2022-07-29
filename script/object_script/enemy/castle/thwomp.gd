@@ -9,6 +9,7 @@ export var boom_res :PackedScene
 
 onready var parent :Node = get_parent()
 onready var view :Node = Berry.get_view(self)
+onready var scene :Node = Berry.get_scene(self)
 onready var origin_position :Vector2 = position
 
 var state :int = 0
@@ -26,7 +27,7 @@ func _physics_process(delta :float) ->void:
 	# 停止
 	if state == 0:
 		if view.is_in_view(global_position,activate_range):
-			var p: Node = Berry.get_player_nearest(self)
+			var p: Node = scene.get_player_nearest(self)
 			if smash_range > 0 && p != null:
 				var p_pos :Vector2 = parent.global_transform.xform_inv(p.global_position)
 				var s :float = Berry.distance_to_line(position,p_pos,gravity_direction.angle())

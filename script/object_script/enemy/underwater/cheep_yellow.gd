@@ -9,6 +9,8 @@ export var brush_offset :Vector2 = Vector2(16,16)
 
 onready var gravity_direction :Vector2 = Vector2.DOWN.rotated(rotation)
 onready var parent :Node = get_parent()
+
+onready var scene :Node = Berry.get_scene(self)
 	
 func _physics_process(delta) ->void:
 	# 防止出水
@@ -16,7 +18,7 @@ func _physics_process(delta) ->void:
 		if !$AreaTop/WaterDetect.is_in_water():
 			position += speed * delta * gravity_direction
 			return
-	var p :Node = Berry.get_player_nearest(self)
+	var p :Node = scene.get_player_nearest(self)
 	if p == null:
 		return
 	var p_pos :Vector2 = parent.global_transform.xform_inv(p.global_position)

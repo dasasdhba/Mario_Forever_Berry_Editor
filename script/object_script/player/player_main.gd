@@ -5,8 +5,7 @@ const z_index_normal :int = 10
 const z_index_pipe :int = -51
 
 # 属性
-export var character :PackedScene
-export var death: Texture
+export var player_name :String
 export var fireball: PackedScene
 export var beet: PackedScene
 export var state :int = 0 # 玩家状态，0小个子，1大个子，2花身，3甜菜，4绿果
@@ -29,7 +28,6 @@ const star_flash_speed :float = 10*PI # 无敌星闪烁角速度
 var on_tank :bool = false # 用于坦克滚屏判定
 var death_once :bool = false # 防止反复触发死亡
 var disable_deferred :bool = false # 用于统计玩家数量
-var animated_node :Node2D # 动画
 var delta_position :Vector2 = Vector2.ZERO # 位置差
 
 # 移动
@@ -66,7 +64,7 @@ const crouch_push_speed :int = 100 # 滑蹲卡墙速度
 
 export var fall_disabled = false # 是否禁止摔死
 export var swim_disabled :bool = false # 是否禁止游泳
-var view_limit :bool = true # 是否禁止出界
+export var view_limit :bool = true # 是否禁止出界
 
 # 按键设置
 var control_recover :bool = false # 用于延迟一帧恢复控制
@@ -99,18 +97,42 @@ var down_key :bool = false
 var jump_key_time :float = 0
 
 onready var view: Node = Berry.get_view(self)
+var scene :Node
+var global :Node
+
+func _init() ->void:
+	# Scene 管理
+	scene = Berry.get_scene(self)
+	if !scene.current_player.has(self):
+		scene.current_player.append(self)
 
 func _ready() ->void:
-	# 初始化动画
-	if !get_children().has(animated_node):
-		animated_node = character.instance()
-		add_child(animated_node)
-		move_child($StarParticles,get_child_count())
+	# 全局变量继承
+	if Player.has_node(player_name):
+		global = Player.get_node(player_name)
+		global.player_node = self
+		global.inherit()
+	
+	gravity_direction = gravity_direction.rotated(rotation)
+	
+	# 无敌星特效
+	move_child($StarParticles,get_child_count())
+	$StarParticles.visible = true
 	
 	# 碰撞遮罩
 	collision_update()
+	
+func queue_free() ->void:
+	# 先清除 scene 数组
+	scene.current_player.erase(self)
+	.queue_free()
 
 func _physics_process(delta) ->void:
+	# Checkpoint
+	if scene.checkpoint_position is Vector2:
+		global_position = scene.checkpoint_position
+		scene.checkpoint_position = null
+	
 	delta_position = -position
 	# 控制
 	get_control(delta)
@@ -467,18 +489,21 @@ func player_movement(delta) ->void:
 	
 # 玩家动画
 func player_animation(delta) ->void:
+	if !has_node("Animation"):
+		return
+	$Animation.visible = true
 	# 方向
-	animated_node.flip_h = move_direction != 1
+	$Animation.flip_h = move_direction != 1
 	
 	# 受伤/无敌星闪烁
 	if hurt:
-		animated_node.modulate.a = 0.5 + 0.5*cos(hurt_flash)
+		$Animation.modulate.a = 0.5 + 0.5*cos(hurt_flash)
 		hurt_flash += hurt_flash_speed * delta
 	elif star:
-		animated_node.modulate.a = 0.75 + 0.25*cos(star_flash)
+		$Animation.modulate.a = 0.75 + 0.25*cos(star_flash)
 		star_flash += star_flash_speed * delta
 	else:
-		animated_node.modulate.a = 1
+		$Animation.modulate.a = 1
 		hurt_flash = 0
 		star_flash = 0
 		
@@ -488,42 +513,42 @@ func player_animation(delta) ->void:
 		if $Timer/Star.time_left > 1-delta && $Timer/Star.time_left < 1+delta:
 			if !$Audio/StarOut.playing:
 				$Audio/StarOut.play()
-				if Player.get_player_star_num() == 1:
+				if scene.get_player_star_num() == 1:
 					Audio.channel_fade_out(0,15)
 	
 	# 切换状态
-	if !animated_node.get_node("TimerSwitch").is_stopped():
+	if !$Animation.get_node("TimerSwitch").is_stopped():
 		return
 	match(state):
-		0: animated_node.current = "Small"
-		1: animated_node.current = "Big"
-		2: animated_node.current = "Fire"
-		3: animated_node.current = "Beet"
-		4: animated_node.current = "Lui"
+		0: $Animation.current = "Small"
+		1: $Animation.current = "Big"
+		2: $Animation.current = "Fire"
+		3: $Animation.current = "Beet"
+		4: $Animation.current = "Lui"
 	
 	# 切换动画
 	if on_floor_snap:
 		if crouch:
-			animated_node.animation = "crouch"
+			$Animation.animation = "crouch"
 		else:
 			if !$Timer/Launch.is_stopped() && (state == 2 || state == 3):
-				animated_node.animation = "launch"
+				$Animation.animation = "launch"
 			elif move >= 0 && move < move_initial/2:
-				animated_node.animation = "idle"
+				$Animation.animation = "idle"
 			else:
-				animated_node.animation = "walk"
-				animated_node.walk_speed = move*0.01
+				$Animation.animation = "walk"
+				$Animation.walk_speed = move*0.01
 	elif water:
 		if control_jump == 2:
-			animated_node.animation = "swim"
-		elif animated_node.animation == "swim":
-			if animated_node.swim_finish:
-				animated_node.animation = "dive"
-				animated_node.swim_finish = false
+			$Animation.animation = "swim"
+		elif $Animation.animation == "swim":
+			if $Animation.swim_finish:
+				$Animation.animation = "dive"
+				$Animation.swim_finish = false
 		else:
-			animated_node.animation = "dive"
+			$Animation.animation = "dive"
 	else:
-		animated_node.animation = "jump"
+		$Animation.animation = "jump"
 
 # 玩家攻击
 func player_attack() ->void:
@@ -553,8 +578,6 @@ func player_attack() ->void:
 
 # 玩家踩敌人
 func player_stomp(bounce_speed :float = stomp_bounce, jump_speed :float = stomp_jump) ->void:
-	if disable_deferred || get_parent() == Player || get_parent() == null:
-		return
 	Audio.play($Audio/Stomp)
 	if control_jump > 0:
 		gravity = -jump_speed
@@ -588,33 +611,29 @@ func player_solid_push(dir :Vector2, depth :int = -1) ->bool:
 
 # 状态更新
 func player_state_update(state_new :int, force :bool = false) ->void:
-	if disable_deferred || get_parent() == Player || get_parent() == null:
-		return
 	if force:
 		if state == state_new:
 			$Audio/ReversedItem.play()
 		elif state >= 1 && state_new <= 1:
 			$Audio/PowerDown.play()
-			animated_node.switch(false)
+			$Animation.switch(false)
 		else:
 			$Audio/PowerUp.play()
-			animated_node.switch(state_new > 1)
+			$Animation.switch(state_new > 1)
 		state = state_new
 	elif state_new <= 0 || state == state_new || (state_new == 1 && state > 1):
 		$Audio/ReversedItem.play()
 	else:
 		if state == 0:
 			state = 1
-			animated_node.switch(false)
+			$Animation.switch(false)
 		else:
 			state = state_new
-			animated_node.switch(true)
+			$Animation.switch(true)
 		$Audio/PowerUp.play()
 
 # 受伤
 func player_hurt(atk :int = 1, force :bool = false) ->void:
-	if disable_deferred || get_parent() == Player || get_parent() == null:
-		return
 	if !force && (hurt || star || clear || pipe || atk < 1):
 		return
 	else:
@@ -631,26 +650,22 @@ func player_hurt(atk :int = 1, force :bool = false) ->void:
 func player_death(force :bool = false) ->void:
 	if death_once:
 		return
-	if disable_deferred || get_parent() == Player || get_parent() == null:
-		return
 	if !force && (clear || pipe):
 		return
 	else:
 		player_star_cancel()
 		death_once = true
-		state = 0
+		if global != null:
+			global.reset(true)
 		var new :Sprite = $Death.duplicate()
 		Berry.transform_copy(new,self)
-		new.texture = death
 		new.visible = true
 		new.activate = true
 		get_parent().add_child(new)
-		Player.disable(self)
+		queue_free()
 
 # 无敌星
 func player_star() ->void:
-	if disable_deferred || get_parent() == Player || get_parent() == null:
-		return
 	star = true
 	Audio.music_set_paused(true)
 	Audio.fade_out[0] = -1
@@ -664,7 +679,7 @@ func player_star_cancel() ->void:
 	star = false
 	atk_count = 0
 	$StarParticles.emitting = false
-	if Player.get_player_star_num() == 0:
+	if scene.get_player_star_num() == 0:
 		Audio.music_channel[0].stop()
 		Audio.music_set_paused(false)
 		
@@ -682,12 +697,13 @@ func player_pipe_enter(dir :int) ->void:
 	pipe = dir + 1
 	move = 0
 	gravity = 0
-	animated_node.z_index = z_index_pipe
+	$Animation.z_index = z_index_pipe
 	
 # 出水管
 func player_pipe_exit(dir :int) ->void:
 	$Audio/PowerDown.play()
-	animated_node.visible = true
+	$Animation.visible = true
+	$Animation.z_index = z_index_pipe
 	pipe += dir + 1
 	
 # 水管动画
@@ -695,14 +711,14 @@ func player_pipe_animation(delta :float) ->void:
 	pipe_length += pipe_speed * delta
 	match pipe:
 		1, 6:
-			animated_node.flip_h = false
-			animated_node.animation = "walk"
-			animated_node.walk_speed = 1.8
+			$Animation.flip_h = false
+			$Animation.animation = "walk"
+			$Animation.walk_speed = 1.8
 			if pipe_length < pipe_horizontal:
 				position += pipe_speed*gravity_direction.tangent() * delta
 			else:
 				if pipe < 5:
-					animated_node.visible = false
+					$Animation.visible = false
 					if pipe_length >= pipe_vertical:
 						pipe_length = 0
 						pipe = 5
@@ -713,29 +729,29 @@ func player_pipe_animation(delta :float) ->void:
 		2, 7:
 			if pipe < 5:
 				if state == 0:
-					animated_node.animation = "idle"
+					$Animation.animation = "idle"
 				else:
-					animated_node.animation = "crouch"
+					$Animation.animation = "crouch"
 			else:
-				animated_node.animation = "jump"
+				$Animation.animation = "jump"
 			if pipe_length < pipe_vertical:
 				position += pipe_speed*gravity_direction * delta
 			else:
 				pipe_length = 0
 				if pipe < 5:
 					pipe = 5
-					animated_node.visible = false
+					$Animation.visible = false
 				else:
 					pipe = 10
 		3, 8:
-			animated_node.flip_h = true
-			animated_node.animation = "walk"
-			animated_node.walk_speed = 1.8
+			$Animation.flip_h = true
+			$Animation.animation = "walk"
+			$Animation.walk_speed = 1.8
 			if pipe_length < pipe_horizontal:
 				position -= pipe_speed*gravity_direction.tangent() * delta
 			else:
 				if pipe < 5:
-					animated_node.visible = false
+					$Animation.visible = false
 					if pipe_length >= pipe_vertical:
 						pipe_length = 0
 						pipe = 5
@@ -745,19 +761,19 @@ func player_pipe_animation(delta :float) ->void:
 					pipe = 10
 		4, 9:
 			if pipe < 5:
-				animated_node.animation = "jump"
+				$Animation.animation = "jump"
 			else:
 				if state == 0:
-					animated_node.animation = "idle"
+					$Animation.animation = "idle"
 				else:
-					animated_node.animation = "crouch"
+					$Animation.animation = "crouch"
 			if pipe_length < pipe_vertical:
 				position -= pipe_speed*gravity_direction * delta
 			else:
 				pipe_length = 0
 				if pipe < 5:
 					pipe = 5
-					animated_node.visible = false
+					$Animation.visible = false
 				else:
 					pipe = 10
 	
@@ -772,11 +788,11 @@ func player_pipe_animation(delta :float) ->void:
 				hud.time_set_paused(false)
 		pipe = 0
 		control_recover = true
-		animated_node.z_index = z_index_normal
+		$Animation.z_index = z_index_normal
 	
 # 水花
 func water_spray() ->void:
-	var new:AnimatedSprite = Lib.water_spray.instance()
+	var new :AnimatedSprite = Lib.water_spray.instance()
 	Berry.transform_copy(new,self,$Point/WaterSpray.relative())
 	get_parent().add_child(new)
 

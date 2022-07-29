@@ -16,6 +16,7 @@ export var brush_offset :Vector2 = Vector2(16,16)
 var float_dir :int = 0
 
 onready var view: Node = Berry.get_view(self)
+onready var scene :Node = Berry.get_scene(self)
 onready var rand :RandomNumberGenerator = Berry.get_rand(self)
 onready var gravity_direction :Vector2 = Vector2.DOWN.rotated(rotation)
 onready var parent :Node = get_parent()
@@ -25,7 +26,7 @@ func _physics_process(delta) ->void:
 	if !activate:
 		activate = view.is_in_view(global_position,activate_range*scale)
 		if activate && dir_to_player:
-			var p :Node = Berry.get_player_nearest(self)
+			var p :Node = scene.get_player_nearest(self)
 			if p == null:
 				return
 			var p_pos :Vector2 = parent.global_transform.xform_inv(p.global_position)

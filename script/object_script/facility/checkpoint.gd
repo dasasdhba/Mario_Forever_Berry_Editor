@@ -38,7 +38,7 @@ func _ready() ->void:
 					var dir :Vector2 = Berry.vector2_rotate_degree(parent.angle)
 					parent.position -= (width/2 + position.dot(dir))*dir
 				# 复活位置
-				scene.checkpoint_position = global_position + $RebornPos.relative()
+				scene.checkpoint_position = global_position + $RebornPos.relative(false,false,true)
 
 func on_area_entered(area :Area2D) ->void:
 	if activate:

@@ -20,6 +20,7 @@ var delta_position :Vector2
 
 onready var parent :Node = get_parent()
 onready var view :Node = Berry.get_view(self)
+onready var scene :Node = Berry.get_scene(self)
 onready var gravity_direction :Vector2 = Vector2.DOWN.rotated(rotation)
 
 export var brush_border :Rect2 = Rect2(-16,-24,32,48)
@@ -34,7 +35,7 @@ func _physics_process(delta):
 	if !view.is_in_view(global_position,follow_range*scale):
 		return
 	
-	var p :Node = Berry.get_player_nearest(self)
+	var p :Node = scene.get_player_nearest(self)
 	if p == null:
 		return
 	var p_pos :Vector2 = parent.global_transform.xform_inv(p.global_position)

@@ -89,19 +89,6 @@ func get_rand(node :Node) ->RandomNumberGenerator:
 	else:
 		r.randomize()
 	return r
-	
-# 获取最近的玩家
-func get_player_nearest(node :Node) ->Node:
-	var dmin :float = INF
-	var p :Node = null
-	var room :Node = Berry.get_room2d(node)
-	if room == null:
-		return p
-	for i in room.manager.current_player:
-		if node.global_position.distance_to(i.global_position) < dmin:
-			dmin = node.global_position.distance_to(i.global_position)
-			p = i
-	return p
 
 # Area2D 检测实心
 func area2d_is_overlapping_with_solid(area :Area2D) ->bool:

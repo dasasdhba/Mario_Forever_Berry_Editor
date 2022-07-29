@@ -6,12 +6,13 @@ export var disabled :bool = false
 
 onready var parent :Node = get_parent()
 onready var root :Node = parent.get_parent()
+onready var scene :Node = Berry.get_scene(self)
 
 func _physics_process(_delta):
 	if disabled:
 		return
 	if look_player:
-		var p :Node = Berry.get_player_nearest(self)
+		var p :Node = scene.get_player_nearest(self)
 		if p == null:
 			return
 		var p_pos :Vector2 = root.global_transform.xform_inv(p.global_position)

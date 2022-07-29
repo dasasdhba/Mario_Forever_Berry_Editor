@@ -25,20 +25,15 @@ func _ready() ->void:
 	Global.score = 0
 	Global.coin = 0
 	for i in Player.get_children():
-		i.state = 0
+		i.reset()
 
 func _physics_process(delta :float) ->void:
-	if delay < 3:
-		delay += 1
 	for i in manager.current_player:
-		if delay == 2:
-			i.fall_disabled = true
 		# 掉崖重置
 		var gdir :Vector2 = Berry.get_global_direction(i,i.gravity_direction)
 		if !view.is_in_limit_direction(i.global_position,48*i.scale,gdir):
 			i.move = 0
 			i.gravity = 0
-			i.animated_node.z_index = i.z_index_pipe
 			i.pipe = 5
 			$PipeStart._pipe_exit(i)
 			

@@ -34,20 +34,19 @@ func _pipe_exit(i :Node) ->void:
 		var new_pos :Vector2 = global_position + $PosSide.relative(false,true,true)
 		i.position = i.get_parent().global_transform.xform_inv(new_pos) + i.pipe_horizontal*i.gravity_direction.tangent()
 		i.player_pipe_exit(2)
-
-func _physics_process(_delta) ->void:
-	if start_pipe && delay < 3:
-		delay += 1
-	if delay == 2:
+		
+func _ready() ->void:
+	if start_pipe:
 		var scene :Node = Berry.get_scene(self)
 		var p :Node = get_parent()
 		var rect :Rect2 = Rect2(position - 32*Vector2.ONE,64*Vector2.ONE)
 		for i in scene.current_player:
 			var i_pos :Vector2 = p.global_transform.xform_inv(i.global_position)
 			if rect.has_point(i_pos):
-				i.animated_node.z_index = i.z_index_pipe
 				i.pipe = 5
 				_pipe_exit(i)
+
+func _physics_process(_delta) ->void:
 	if parent == null:
 		parent = get_parent()
 	if !parent.has_method("_pipe_enter"):

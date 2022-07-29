@@ -47,8 +47,6 @@ var save_restrict :bool = false
 	
 # 更改当前 Scene
 func change_scene(new_scene :PackedScene, in_trans :int = TRANS.NONE, out_trans :int = TRANS.NONE) ->void:
-	for i in current_player:
-		Player.disable(i)
 	change = true
 	room_old = current_room
 	room_parent = current_room.get_parent()
@@ -63,8 +61,6 @@ func restart_scene(in_trans :int = TRANS.NONE, out_trans :int = TRANS.NONE) ->vo
 	
 # 完全重启
 func restart_all() ->void:
-	for i in current_player:
-		Player.disable(i)
 	get_tree().reload_current_scene()
 	
 # 清空 scene 数据
@@ -145,6 +141,15 @@ func _process(delta) ->void:
 		trans_out_process(delta)
 		
 func _physics_process(_delta) ->void:
+	# 检查 current_player
+	var i :int = 0
+	while i < current_player.size():
+		if !is_instance_valid(current_player[i]):
+			current_player.remove(i)
+			continue
+		i += 1
+	
+	# 转场
 	if change && trans_in_hint:
 		if !delay:
 			delay = true
@@ -178,3 +183,35 @@ func _unhandled_key_input(event :InputEventKey) ->void:
 					change_scene(save_game_room)
 		else:
 			save_restrict = false
+
+# 获取玩家最大 state
+func get_player_state_max() ->int:
+	if current_player.empty():
+		return 0
+	var r :int = -INF as int
+	for i in current_player:
+		if i.state > r:
+			r = i.state
+	return r
+	
+# 获取当前玩家数
+func get_player_num() ->int:
+	return current_player.size()
+
+# 获取当前处于无敌星状态的玩家数
+func get_player_star_num() ->int:
+	var r :int = 0
+	for i in current_player:
+		if i.star:
+			r += 1
+	return r
+
+# 获取最近的玩家
+func get_player_nearest(node :Node) ->Node:
+	var dmin :float = INF
+	var p :Node = null
+	for i in current_player:
+		if node.global_position.distance_to(i.global_position) < dmin:
+			dmin = node.global_position.distance_to(i.global_position)
+			p = i
+	return p

@@ -15,10 +15,11 @@ export var auto_destroy :bool = true
 export var destroy_range :float = 48
 
 onready var view: Node = Berry.get_view(self)
+onready var scene :Node = Berry.get_scene(self)
 
 # 标识该物件可装入问号砖，并作出顶后的反应
 func _item(dir :Vector2 = Vector2.UP) ->void:
-	if state > 1 && auto_mushroom && Player.get_player_state_max() == 0:
+	if state > 1 && auto_mushroom && scene.get_player_state_max() == 0:
 		var new :Node = mushroom.instance()
 		Berry.transform_copy(new,self)
 		get_parent().add_child(new)

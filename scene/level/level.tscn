@@ -3,7 +3,7 @@
 [ext_resource path="res://addons/brush2d/brush2d.gd" type="Script" id=1]
 [ext_resource path="res://script/class/room2d.gd" type="Script" id=2]
 [ext_resource path="res://editor/facility/camera/camera.res" type="PackedScene" id=3]
-[ext_resource path="res://editor/facility/player_start.res" type="PackedScene" id=4]
+[ext_resource path="res://editor/facility/player_mario.res" type="PackedScene" id=4]
 [ext_resource path="res://resource/tileset/tile_general.tres" type="TileSet" id=5]
 [ext_resource path="res://editor/scenery/background/gradient_rect.res" type="PackedScene" id=6]
 [ext_resource path="res://editor/facility/hud.res" type="PackedScene" id=7]
@@ -74,7 +74,7 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="PlayerStart" parent="Brush2D" instance=ExtResource( 4 )]
+[node name="PlayerMario" parent="Brush2D" instance=ExtResource( 4 )]
 position = Vector2( 80, 400 )
 
 [node name="Background" type="Node2D" parent="."]

@@ -38,6 +38,7 @@ onready var origin_position :Vector2 = position
 onready var gravity_direction :Vector2 = Vector2.DOWN.rotated(rotation)
 onready var rand :RandomNumberGenerator = Berry.get_rand(self)
 onready var view :Node = Berry.get_view(self)
+onready var scene :Node = Berry.get_scene(self)
 onready var parent :Node = get_parent()
 
 export var brush_border :Rect2 = Rect2(-16,-24,32,48)
@@ -80,7 +81,7 @@ func _physics_process(delta) ->void:
 func movement(delta :float) ->void:
 	delta_position = -position
 	
-	var p :Node = Berry.get_player_nearest(self)
+	var p :Node = scene.get_player_nearest(self)
 	var activate :bool = p != null && p.global_position.x > left_border && p.global_position.x < right_border
 		
 	if !activate:
