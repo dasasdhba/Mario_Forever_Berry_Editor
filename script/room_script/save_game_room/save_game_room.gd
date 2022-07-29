@@ -32,6 +32,7 @@ func _physics_process(delta :float) ->void:
 		# 掉崖重置
 		var gdir :Vector2 = Berry.get_global_direction(i,i.gravity_direction)
 		if !view.is_in_limit_direction(i.global_position,48*i.scale,gdir):
+			i.control = false
 			i.move = 0
 			i.gravity = 0
 			i.pipe = 5

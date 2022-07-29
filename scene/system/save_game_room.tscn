@@ -510,7 +510,7 @@ position = Vector2( 1792, 72 )
 frames = SubResource( 1 )
 disabled = false
 
-[node name="SolidRoof2" parent="Brush2D" instance=ExtResource( 33 )]
+[node name="SolidRoof" parent="Brush2D" instance=ExtResource( 33 )]
 position = Vector2( 76, 0 )
 
 [node name="Background" type="Node2D" parent="."]

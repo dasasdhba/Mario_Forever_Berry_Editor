@@ -11,6 +11,7 @@ export var beet: PackedScene
 export var state :int = 0 # 玩家状态，0小个子，1大个子，2花身，3甜菜，4绿果
 var pipe :int = 0 # 进水管状态
 var pipe_length :float = 0 # 进水管动画长度
+var pipe_start :bool = false # 水管开场音效
 const pipe_speed :float = 50.0 # 进水管动画速度
 const pipe_horizontal :int = 32 # 左右进水管长度
 const pipe_vertical :int = 64 # 上下进水管长度
@@ -97,6 +98,7 @@ var down_key :bool = false
 var jump_key_time :float = 0
 
 onready var view: Node = Berry.get_view(self)
+onready var room :Room2D = Berry.get_room2d(self)
 var scene :Node
 var global :Node
 
@@ -132,6 +134,14 @@ func _physics_process(delta) ->void:
 	if scene.checkpoint_position is Vector2:
 		global_position = scene.checkpoint_position
 		scene.checkpoint_position = null
+		pipe_start = false
+		if pipe != 0:
+			pipe = 10
+		
+	# 开场水管音效
+	if pipe_start:
+		$Audio/PowerDown.play()
+		pipe_start = false
 	
 	delta_position = -position
 	# 控制
@@ -688,23 +698,26 @@ func player_pipe_enter(dir :int) ->void:
 	$Audio/PowerDown.play()
 	$Timer/Hurt.paused = true
 	$Timer/Star.paused = true
-	var room :Room2D = Berry.get_room2d(self)
-	if room != null:
-		var hud :Control = room.hud
-		if hud != null:
-			hud.time_set_paused(true)
+	$Animation.z_index = z_index_pipe
+	time_set_paused(true)
 	control = false
 	pipe = dir + 1
+	pipe_length = 0
 	move = 0
 	gravity = 0
-	$Animation.z_index = z_index_pipe
 	
 # 出水管
-func player_pipe_exit(dir :int) ->void:
-	$Audio/PowerDown.play()
+func player_pipe_exit(dir :int, start :bool = false) ->void:
+	if !start:
+		$Audio/PowerDown.play()
+	else:
+		pipe_start = true
 	$Animation.visible = true
 	$Animation.z_index = z_index_pipe
+	time_set_paused(true)
+	control = false
 	pipe += dir + 1
+	pipe_length = 0
 	
 # 水管动画
 func player_pipe_animation(delta :float) ->void:
@@ -781,14 +794,18 @@ func player_pipe_animation(delta :float) ->void:
 	if pipe == 10:
 		$Timer/Hurt.paused = false
 		$Timer/Star.paused = false
-		var room :Room2D = Berry.get_room2d(self)
-		if room != null:
-			var hud :Control = room.hud
-			if hud != null:
-				hud.time_set_paused(false)
+		time_set_paused(false)
 		pipe = 0
+		pipe_length = 0
 		control_recover = true
 		$Animation.z_index = z_index_normal
+		
+# 暂停时间
+func time_set_paused(pause :bool) ->void:
+	if room != null:
+		var hud :Control = room.hud
+		if hud != null:
+			hud.time_set_paused(pause)
 	
 # 水花
 func water_spray() ->void:

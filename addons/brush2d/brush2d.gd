@@ -147,6 +147,7 @@ func _brush_process(res :Resource, sel :Array, undo :UndoRedo) ->void:
 					if is_instance_valid(preview_node):
 						preview_node.queue_free()
 					preview_node = res.instance()
+					preview_node.name = "_Preview"
 					add_child(preview_node)
 				if !(brush_last is String) || brush_last != res:
 					get_brush(preview_node)

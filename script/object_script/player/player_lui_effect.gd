@@ -4,7 +4,7 @@ onready var parent :Node = get_parent()
 onready var player: Node = parent.get_parent()
 	
 func _physics_process(_delta) ->void:
-	if player.state == 4 && !player.on_floor_snap:
+	if player.state == 4 && !player.on_floor_snap && player.pipe == 0:
 		if is_stopped():
 			start()
 	else:
