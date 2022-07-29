@@ -27,9 +27,9 @@ func _ready() ->void:
 		var err = save_file.load_encrypted_pass(Global.save_file,Global.save_key)
 		if err == OK:
 			return
-	save_file.set_value("save1","scene",first_scene)
-	save_file.set_value("save2","scene",first_scene)
-	save_file.set_value("save3","scene",first_scene)
+	save_file.set_value("save1","scene",first_scene.resource_path)
+	save_file.set_value("save2","scene",first_scene.resource_path)
+	save_file.set_value("save3","scene",first_scene.resource_path)
 	save_file.save_encrypted_pass(Global.save_file,Global.save_key)
 
 func _physics_process(delta) ->void:
@@ -88,12 +88,12 @@ func _physics_process(delta) ->void:
 					for k in scene.current_player:
 						k.fall_disabled = false
 					Global.save = j+1
-					var next_scene :PackedScene = save_file.get_value("save"+String(j+1),"scene",first_scene)
+					var next_scene :PackedScene = load(save_file.get_value("save"+String(j+1),"scene",first_scene.resource_path))
 					if next_scene != null:
-						scene.change_scene(save_file.get_value("save"+String(j+1),"scene",first_scene))
+						scene.change_scene(next_scene)
 					return
 	
 func delete_save(index :int) ->void:
 	$Delete.play()
-	save_file.set_value("save"+String(index),"scene",first_scene)
+	save_file.set_value("save"+String(index),"scene",first_scene.resource_path)
 	save_file.save_encrypted_pass(Global.save_file,Global.save_key)

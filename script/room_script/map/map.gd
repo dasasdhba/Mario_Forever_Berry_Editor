@@ -30,7 +30,7 @@ func _ready() ->void:
 			var err = save_file.load_encrypted_pass(Global.save_file,Global.save_key)
 			if err != OK:
 				save_file = ConfigFile.new()
-		save_file.set_value("save"+String(Global.save),"scene",manager.current_scene)
+		save_file.set_value("save"+String(Global.save),"scene",filename)
 		save_file.save_encrypted_pass(Global.save_file,Global.save_key)
 
 func _input(event :InputEvent) ->void:
