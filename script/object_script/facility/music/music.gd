@@ -12,10 +12,6 @@ export var fade_speed :float = 50
 export var brush_border :Rect2 = Rect2(0,0,32,32)
 export var brush_offset :Vector2 = Vector2(0,0)
 
-# 用于标识 brush2d 摆放
-func _brush() ->void:
-	pass
-
 func _ready() ->void:
 	if mode == MODE.INIT:
 		setup_music()
@@ -31,6 +27,7 @@ func _physics_process(_delta) ->void:
 func setup_music() ->void:
 	if stream != null:
 		if Audio.play_music_in_channel(stream, channel, reset):
+			Audio.channel_fade_cancel(channel,volume)
 			if fade_in:
 				Audio.channel_fade_in(channel,fade_speed,volume)
 			else:

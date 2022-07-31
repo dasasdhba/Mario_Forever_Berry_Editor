@@ -11,12 +11,13 @@ var move_dir :Vector2 = Vector2.LEFT
 
 onready var parent :Node = get_parent()
 onready var view :Node = Berry.get_view(self)
+onready var scene :Node = Berry.get_scene(self)
 
 func _physics_process(delta :float) ->void:
 	if !view.is_in_view(global_position,activate_range*scale):
 		$AnimatedSprite.frame = 0
 		return
-	var p :Node = Berry.get_player_nearest(self)
+	var p :Node = scene.get_player_nearest(self)
 	var p_pos :Vector2 = Vector2.ZERO
 	if p != null:
 		p_pos = parent.global_transform.xform_inv(p.global_position)

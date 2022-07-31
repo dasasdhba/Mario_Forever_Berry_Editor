@@ -16,10 +16,6 @@ export var brush_border :Rect2 = Rect2(-16,-16,32,32)
 export var brush_offset :Vector2 = Vector2(16,16)
 
 onready var view: Node = Berry.get_view(self)
-
-# 用于标识 brush2d 摆放
-func _brush() ->void:
-	pass
 	
 func _physics_process(delta) ->void:
 	# 激活

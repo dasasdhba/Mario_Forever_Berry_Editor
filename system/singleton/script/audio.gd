@@ -47,6 +47,15 @@ func channel_fade_out(channel :int = 1, speed :float = 50) ->void:
 		return
 	fade_out[channel] = speed
 	
+# 取消淡入淡出
+func channel_fade_cancel(channel :int = 1, volume_db :float = 0) ->void:
+	if channel < 0 || channel > channel_number:
+		return
+	fade_in[channel] = -1
+	fade_out[channel] = -1
+	music_channel[channel].volume_db = volume_db
+	
+	
 # 全部声道的音量设置，会取消淡入淡出
 func music_volume_reset(volume :float = 0, star :bool = false) ->void:
 	for i in channel_number:

@@ -1,8 +1,10 @@
 # 无限平铺 Texture
 tool
 extends Node2D
+class_name TextureTiled, "icon/texture_tiled.png"
 
-export var texture :Texture
+export var texture :Texture = null
+export var auto_update :bool = false
 
 var rect :Rect2
 
@@ -25,6 +27,11 @@ func _process(_delta) ->void:
 		if texture == null:
 			update()
 			return
+		var size :Vector2 = texture.get_size()
+		rect = Rect2(Vector2.ZERO,Vector2(scale.x*size.x,scale.y*size.y))
+		update()
+		return
+	if auto_update:
 		var size :Vector2 = texture.get_size()
 		rect = Rect2(Vector2.ZERO,Vector2(scale.x*size.x,scale.y*size.y))
 		update()

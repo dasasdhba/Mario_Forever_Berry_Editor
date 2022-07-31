@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/save_game_room.ogg-b19d3b70d1bd22fde649082a97ebc61c.oggstr"
+
+[deps]
+
+source_file="res://resource/audio/music/save_game_room.ogg"
+dest_files=[ "res://.import/save_game_room.ogg-b19d3b70d1bd22fde649082a97ebc61c.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

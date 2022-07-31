@@ -14,8 +14,7 @@ const default_move_pos :Vector2 = Vector2(66,416)
 const default_jump_pos :Vector2 = Vector2(560,386)
 const default_fire_pos :Vector2 = Vector2(560,192)
 
-export var file_name :String = "user://setting.ini"
-
+onready var file_name :String = Global.setting_file
 onready var setting_file :ConfigFile = ConfigFile.new()
 
 func _ready() ->void:

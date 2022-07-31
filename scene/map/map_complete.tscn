@@ -1,0 +1,175 @@
+[gd_scene load_steps=24 format=2]
+
+[ext_resource path="res://script/room_script/map/map_complete.gd" type="Script" id=1]
+[ext_resource path="res://resource/image/map/map_finish.png" type="Texture" id=2]
+[ext_resource path="res://editor/facility/music/music.res" type="PackedScene" id=3]
+[ext_resource path="res://resource/audio/music/map_complete.ogg" type="AudioStream" id=4]
+[ext_resource path="res://script/class/texture_tiled.gd" type="Script" id=5]
+[ext_resource path="res://resource/image/map/map_background.png" type="Texture" id=6]
+[ext_resource path="res://scene/system/save_game_room.tscn" type="PackedScene" id=7]
+[ext_resource path="res://script/room_script/map/map_title.gd" type="Script" id=8]
+[ext_resource path="res://resource/image/ui/touch_button/arrow.png" type="Texture" id=9]
+[ext_resource path="res://resource/image/ui/touch_button/arrow_pressed.png" type="Texture" id=10]
+[ext_resource path="res://resource/image/map/map_footer.png" type="Texture" id=11]
+[ext_resource path="res://resource/font/map_font.res" type="BitmapFont" id=12]
+
+[sub_resource type="Theme" id=10]
+default_font = ExtResource( 12 )
+Label/fonts/font = null
+
+[sub_resource type="AtlasTexture" id=21]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 204, 31 )
+
+[sub_resource type="AtlasTexture" id=22]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 0, 31, 204, 31 )
+
+[sub_resource type="AtlasTexture" id=23]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 0, 62, 204, 31 )
+
+[sub_resource type="AtlasTexture" id=24]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 0, 93, 204, 31 )
+
+[sub_resource type="AtlasTexture" id=25]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 0, 124, 204, 31 )
+
+[sub_resource type="AtlasTexture" id=26]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 0, 155, 204, 31 )
+
+[sub_resource type="AtlasTexture" id=27]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 0, 186, 204, 31 )
+
+[sub_resource type="AtlasTexture" id=28]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 0, 217, 204, 31 )
+
+[sub_resource type="AtlasTexture" id=29]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 0, 248, 204, 31 )
+
+[sub_resource type="SpriteFrames" id=20]
+animations = [ {
+"frames": [ SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ), SubResource( 25 ), SubResource( 26 ), SubResource( 27 ), SubResource( 28 ), SubResource( 29 ), SubResource( 28 ), SubResource( 27 ), SubResource( 26 ), SubResource( 25 ), SubResource( 24 ), SubResource( 23 ), SubResource( 22 ) ],
+"loop": true,
+"name": "default",
+"speed": 20.0
+} ]
+
+[node name="MapComplete" type="Node2D"]
+script = ExtResource( 1 )
+pause_disabled = true
+touch_button_disabled = true
+next_scene = ExtResource( 7 )
+
+[node name="Music" parent="." instance=ExtResource( 3 )]
+position = Vector2( -32, 0 )
+mode = 0
+stream = ExtResource( 4 )
+
+[node name="UILayer" type="CanvasLayer" parent="."]
+layer = 125
+
+[node name="Map" type="Control" parent="UILayer"]
+margin_right = 40.0
+margin_bottom = 40.0
+theme = SubResource( 10 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="World" type="Label" parent="UILayer/Map"]
+margin_left = 148.0
+margin_top = -109.0
+margin_right = 484.0
+margin_bottom = -29.0
+text = "WORLD    1"
+align = 1
+uppercase = true
+script = ExtResource( 8 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="UILayer/Map/World"]
+position = Vector2( 179, 91 )
+frames = SubResource( 20 )
+frame = 9
+playing = true
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Footer" type="Sprite" parent="UILayer"]
+position = Vector2( 587, 442 )
+texture = ExtResource( 11 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="TouchButton" type="Node2D" parent="UILayer"]
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="Up" type="TouchScreenButton" parent="UILayer/TouchButton"]
+visible = false
+position = Vector2( 580, 158 )
+rotation = -1.5708
+normal = ExtResource( 9 )
+pressed = ExtResource( 10 )
+passby_press = true
+action = "ui_up"
+
+[node name="Down" type="TouchScreenButton" parent="UILayer/TouchButton"]
+visible = false
+position = Vector2( 60, 322 )
+rotation = 1.5708
+normal = ExtResource( 9 )
+pressed = ExtResource( 10 )
+passby_press = true
+action = "ui_up"
+
+[node name="Left" type="TouchScreenButton" parent="UILayer/TouchButton"]
+visible = false
+position = Vector2( 60, 270 )
+rotation = -3.14159
+normal = ExtResource( 9 )
+pressed = ExtResource( 10 )
+passby_press = true
+action = "ui_left"
+
+[node name="Right" type="TouchScreenButton" parent="UILayer/TouchButton"]
+visible = false
+position = Vector2( 580, 210 )
+normal = ExtResource( 9 )
+pressed = ExtResource( 10 )
+passby_press = true
+action = "ui_right"
+
+[node name="Background" type="Node2D" parent="."]
+scale = Vector2( 0.5, 0.5 )
+z_index = -100
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Texture" type="Node2D" parent="Background"]
+scale = Vector2( 3, 1 )
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_lock_": true
+}
+texture = ExtResource( 6 )

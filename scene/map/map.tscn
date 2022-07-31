@@ -1,0 +1,413 @@
+[gd_scene load_steps=38 format=2]
+
+[ext_resource path="res://script/room_script/map/map.gd" type="Script" id=1]
+[ext_resource path="res://editor/facility/camera/camera.res" type="PackedScene" id=2]
+[ext_resource path="res://script/class/texture_tiled.gd" type="Script" id=3]
+[ext_resource path="res://resource/image/map/map_background.png" type="Texture" id=4]
+[ext_resource path="res://editor/facility/music/music.res" type="PackedScene" id=5]
+[ext_resource path="res://addons/brush2d/brush2d.gd" type="Script" id=6]
+[ext_resource path="res://resource/font/massey_extended.res" type="DynamicFont" id=7]
+[ext_resource path="res://resource/image/player/mario/mario_big.png" type="Texture" id=8]
+[ext_resource path="res://scene/level/level.tscn" type="PackedScene" id=9]
+[ext_resource path="res://resource/font/map_font.res" type="BitmapFont" id=10]
+[ext_resource path="res://resource/image/map/map_footer.png" type="Texture" id=11]
+[ext_resource path="res://resource/font/comix_heavy.res" type="DynamicFont" id=12]
+[ext_resource path="res://script/node_script/node2d/node2d_follow_view.gd" type="Script" id=13]
+[ext_resource path="res://script/node_script/label/label_flash.gd" type="Script" id=14]
+[ext_resource path="res://script/room_script/map/map_title.gd" type="Script" id=15]
+[ext_resource path="res://resource/audio/music/map.ogg" type="AudioStream" id=16]
+[ext_resource path="res://script/class/rect_collision2d.gd" type="Script" id=17]
+[ext_resource path="res://editor/map/path_node.res" type="PackedScene" id=18]
+[ext_resource path="res://script/room_script/map/player_map.gd" type="Script" id=19]
+[ext_resource path="res://script/class/rect_box2d.gd" type="Script" id=20]
+[ext_resource path="res://resource/audio/sound/system/fade_out.ogg" type="AudioStream" id=22]
+[ext_resource path="res://resource/image/ui/touch_button/arrow.png" type="Texture" id=23]
+[ext_resource path="res://resource/image/ui/touch_button/arrow_pressed.png" type="Texture" id=24]
+[ext_resource path="res://resource/audio/sound/system/game_saved.wav" type="AudioStream" id=25]
+
+[sub_resource type="Theme" id=50]
+default_font = ExtResource( 10 )
+Label/fonts/font = null
+
+[sub_resource type="Theme" id=1]
+Label/fonts/font = ExtResource( 7 )
+
+[sub_resource type="Theme" id=51]
+Label/fonts/font = ExtResource( 12 )
+
+[sub_resource type="CanvasItemMaterial" id=54]
+light_mode = 2
+
+[sub_resource type="Gradient" id=56]
+colors = PoolColorArray( 0.774071, 0.96582, 0.761713, 1, 0.457319, 0.762695, 0, 1 )
+
+[sub_resource type="GradientTexture" id=55]
+gradient = SubResource( 56 )
+
+[sub_resource type="AtlasTexture" id=38]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 0, 0, 45, 64 )
+
+[sub_resource type="AtlasTexture" id=48]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 0, 128, 45, 64 )
+
+[sub_resource type="AtlasTexture" id=47]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 0, 64, 45, 64 )
+
+[sub_resource type="AtlasTexture" id=46]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 0, 0, 45, 64 )
+
+[sub_resource type="AtlasTexture" id=44]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 0, 256, 45, 64 )
+
+[sub_resource type="AtlasTexture" id=45]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 0, 448, 45, 64 )
+
+[sub_resource type="SpriteFrames" id=49]
+animations = [ {
+"frames": [ SubResource( 38 ) ],
+"loop": true,
+"name": "idle",
+"speed": 0.0
+}, {
+"frames": [ SubResource( 48 ), SubResource( 47 ), SubResource( 46 ) ],
+"loop": true,
+"name": "walk",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 44 ), SubResource( 45 ) ],
+"loop": true,
+"name": "swim",
+"speed": 7.0
+} ]
+
+[node name="Map" type="Node2D"]
+script = ExtResource( 1 )
+pause_disabled = true
+touch_button_disabled = true
+next_scene = ExtResource( 9 )
+
+[node name="Camera" parent="." instance=ExtResource( 2 )]
+position = Vector2( -16, -24 )
+limit_right = 1024
+mode = 3
+
+[node name="Music" parent="." instance=ExtResource( 5 )]
+position = Vector2( -32, 0 )
+mode = 0
+stream = ExtResource( 16 )
+
+[node name="UILayer" type="CanvasLayer" parent="."]
+layer = 125
+
+[node name="Map" type="Control" parent="UILayer"]
+margin_right = 40.0
+margin_bottom = 40.0
+theme = SubResource( 50 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="World" type="Label" parent="UILayer/Map"]
+margin_left = 148.0
+margin_top = -75.0
+margin_right = 484.0
+margin_bottom = 5.0
+text = "WORLD    1"
+align = 1
+uppercase = true
+script = ExtResource( 15 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Save" type="Control" parent="UILayer"]
+margin_right = 40.0
+margin_bottom = 40.0
+theme = SubResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="GameSaved" type="Label" parent="UILayer/Save"]
+visible = false
+margin_left = 7.0
+margin_top = 449.0
+margin_right = 92.0
+margin_bottom = 475.0
+text = "Game Saved"
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Footer" type="Sprite" parent="UILayer"]
+position = Vector2( 587, 442 )
+texture = ExtResource( 11 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="TouchButton" type="Node2D" parent="UILayer"]
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="Up" type="TouchScreenButton" parent="UILayer/TouchButton"]
+visible = false
+position = Vector2( 580, 158 )
+rotation = -1.5708
+normal = ExtResource( 23 )
+pressed = ExtResource( 24 )
+passby_press = true
+action = "ui_up"
+
+[node name="Down" type="TouchScreenButton" parent="UILayer/TouchButton"]
+visible = false
+position = Vector2( 60, 322 )
+rotation = 1.5708
+normal = ExtResource( 23 )
+pressed = ExtResource( 24 )
+passby_press = true
+action = "ui_up"
+
+[node name="Left" type="TouchScreenButton" parent="UILayer/TouchButton"]
+visible = false
+position = Vector2( 60, 270 )
+rotation = -3.14159
+normal = ExtResource( 23 )
+pressed = ExtResource( 24 )
+passby_press = true
+action = "ui_left"
+
+[node name="Right" type="TouchScreenButton" parent="UILayer/TouchButton"]
+visible = false
+position = Vector2( 580, 210 )
+normal = ExtResource( 23 )
+pressed = ExtResource( 24 )
+passby_press = true
+action = "ui_right"
+
+[node name="TipsLayer" type="Node2D" parent="."]
+z_index = 100
+script = ExtResource( 13 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Tips" type="Control" parent="TipsLayer"]
+margin_right = 640.0
+margin_bottom = 480.0
+theme = SubResource( 51 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Label" type="Label" parent="TipsLayer/Tips"]
+light_mask = 262144
+material = SubResource( 54 )
+margin_left = 144.0
+margin_top = 432.0
+margin_right = 492.0
+margin_bottom = 464.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+text = "JUMP BUTTON TO START"
+align = 1
+script = ExtResource( 14 )
+__meta__ = {
+"_edit_lock_": true
+}
+interval = 0.3
+disabled = true
+
+[node name="Light2D" type="Light2D" parent="TipsLayer/Tips/Label"]
+position = Vector2( 172.762, 16.0005 )
+rotation = 1.5708
+scale = Vector2( 0.0149231, 388.204 )
+texture = SubResource( 55 )
+mode = 3
+range_item_cull_mask = 262144
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Background" type="Node2D" parent="."]
+scale = Vector2( 0.5, 0.5 )
+z_index = -100
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Texture" type="Node2D" parent="Background"]
+scale = Vector2( 5, 1 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_lock_": true
+}
+texture = ExtResource( 4 )
+
+[node name="Brush2D" type="Node2D" parent="."]
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_lock_": true
+}
+grid = Vector2( 8, 8 )
+
+[node name="PathNode2" parent="Brush2D" instance=ExtResource( 18 )]
+position = Vector2( -24, 264 )
+first = true
+
+[node name="PathNode3" parent="Brush2D" instance=ExtResource( 18 )]
+position = Vector2( -8, 264 )
+
+[node name="PathNode4" parent="Brush2D" instance=ExtResource( 18 )]
+position = Vector2( 8, 264 )
+
+[node name="PathNode5" parent="Brush2D" instance=ExtResource( 18 )]
+position = Vector2( 24, 264 )
+
+[node name="PathNode6" parent="Brush2D" instance=ExtResource( 18 )]
+position = Vector2( 40, 264 )
+
+[node name="PathNode7" parent="Brush2D" instance=ExtResource( 18 )]
+position = Vector2( 56, 264 )
+
+[node name="PathNode8" parent="Brush2D" instance=ExtResource( 18 )]
+position = Vector2( 72, 264 )
+
+[node name="PathNode9" parent="Brush2D" instance=ExtResource( 18 )]
+position = Vector2( 88, 264 )
+type = 1
+
+[node name="PathNode10" parent="Brush2D" instance=ExtResource( 18 )]
+position = Vector2( 104, 264 )
+
+[node name="PathNode11" parent="Brush2D" instance=ExtResource( 18 )]
+position = Vector2( 120, 264 )
+
+[node name="PathNode12" parent="Brush2D" instance=ExtResource( 18 )]
+position = Vector2( 136, 264 )
+
+[node name="PathNode13" parent="Brush2D" instance=ExtResource( 18 )]
+position = Vector2( 152, 264 )
+
+[node name="PathNode14" parent="Brush2D" instance=ExtResource( 18 )]
+position = Vector2( 168, 264 )
+
+[node name="PathNode15" parent="Brush2D" instance=ExtResource( 18 )]
+position = Vector2( 184, 264 )
+
+[node name="PathNode16" parent="Brush2D" instance=ExtResource( 18 )]
+position = Vector2( 200, 264 )
+
+[node name="PathNode17" parent="Brush2D" instance=ExtResource( 18 )]
+position = Vector2( 216, 264 )
+
+[node name="PathNode18" parent="Brush2D" instance=ExtResource( 18 )]
+position = Vector2( 232, 264 )
+
+[node name="PathNode19" parent="Brush2D" instance=ExtResource( 18 )]
+position = Vector2( 248, 264 )
+type = 1
+
+[node name="PathNode20" parent="Brush2D" instance=ExtResource( 18 )]
+position = Vector2( 264, 264 )
+
+[node name="PathNode21" parent="Brush2D" instance=ExtResource( 18 )]
+position = Vector2( 280, 264 )
+
+[node name="PathNode22" parent="Brush2D" instance=ExtResource( 18 )]
+position = Vector2( 296, 264 )
+
+[node name="PathNode23" parent="Brush2D" instance=ExtResource( 18 )]
+position = Vector2( 312, 264 )
+
+[node name="PathNode24" parent="Brush2D" instance=ExtResource( 18 )]
+position = Vector2( 328, 264 )
+
+[node name="PathNode25" parent="Brush2D" instance=ExtResource( 18 )]
+position = Vector2( 344, 264 )
+
+[node name="PathNode26" parent="Brush2D" instance=ExtResource( 18 )]
+position = Vector2( 360, 264 )
+
+[node name="PathNode27" parent="Brush2D" instance=ExtResource( 18 )]
+position = Vector2( 376, 264 )
+
+[node name="PathNode28" parent="Brush2D" instance=ExtResource( 18 )]
+position = Vector2( 392, 264 )
+
+[node name="PathNode29" parent="Brush2D" instance=ExtResource( 18 )]
+position = Vector2( 408, 264 )
+type = 1
+
+[node name="PathNode30" parent="Brush2D" instance=ExtResource( 18 )]
+position = Vector2( 424, 264 )
+
+[node name="PathNode31" parent="Brush2D" instance=ExtResource( 18 )]
+position = Vector2( 440, 264 )
+
+[node name="PathNode32" parent="Brush2D" instance=ExtResource( 18 )]
+position = Vector2( 456, 264 )
+
+[node name="PathNode33" parent="Brush2D" instance=ExtResource( 18 )]
+position = Vector2( 472, 264 )
+
+[node name="PathNode34" parent="Brush2D" instance=ExtResource( 18 )]
+position = Vector2( 488, 264 )
+
+[node name="PathNode35" parent="Brush2D" instance=ExtResource( 18 )]
+position = Vector2( 504, 264 )
+
+[node name="PathNode36" parent="Brush2D" instance=ExtResource( 18 )]
+position = Vector2( 520, 264 )
+
+[node name="PathNode37" parent="Brush2D" instance=ExtResource( 18 )]
+position = Vector2( 536, 264 )
+
+[node name="PathNode38" parent="Brush2D" instance=ExtResource( 18 )]
+position = Vector2( 552, 264 )
+type = 1
+
+[node name="Player" type="AnimatedSprite" parent="."]
+position = Vector2( -16, 64 )
+scale = Vector2( 0.5, 0.5 )
+z_index = 99
+frames = SubResource( 49 )
+animation = "walk"
+playing = true
+offset = Vector2( 0, -30 )
+script = ExtResource( 19 )
+
+[node name="RectCollision2D" type="Node2D" parent="Player"]
+script = ExtResource( 17 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="RectBox2D" type="Node2D" parent="Player/RectCollision2D"]
+visible = false
+script = ExtResource( 20 )
+size = Vector2( 16, 16 )
+
+[node name="Save" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 25 )
+bus = "Sound"
+
+[node name="Fade" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 22 )
+bus = "Sound"
+
+[connection signal="player_finish" from="Player" to="." method="_on_Player_player_finish"]

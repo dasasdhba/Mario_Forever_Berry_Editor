@@ -39,10 +39,6 @@ export var brush_offset :Vector2 = Vector2(16,25)
 onready var view :Node = Berry.get_view(self)
 onready var rand :RandomNumberGenerator = Berry.get_rand(self)
 onready var parent :Node = get_parent()
-
-# 用于标识 brush2d 摆放
-func _brush() ->void:
-	pass
 	
 func _ready() ->void:
 	gravity_direction = gravity_direction.rotated(rotation)

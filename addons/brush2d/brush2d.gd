@@ -40,39 +40,36 @@ var brush_last = null
 var mouse_last :Vector2 = Vector2(INF,INF)
 
 func get_brush(node :Node) ->void:
-	if node.has_method("_brush"):
-		if !force_border:
-			border = node.brush_border
-			border.position.x *= node.scale.x
-			border.position.y *= node.scale.y
-			border.end.x *= node.scale.x
-			border.end.y *= node.scale.y
-			if node.rotation != 0:
-				var tl :Vector2 = border.position.rotated(rotation)
-				var tr: Vector2 = Vector2(border.end.x,border.position.y).rotated(rotation)
-				var bl: Vector2 = Vector2(border.position.x,border.end.y).rotated(rotation)
-				var br: Vector2 = border.end.rotated(rotation)
-				var xlist :Array = [tl.x,tr.x,bl.x,br.x]
-				var ylist :Array = [tl.y,tr.y,bl.y,br.y]
-				border.position.x = xlist.min()
-				border.position.y = ylist.min()
-				border.end.x = xlist.max()
-				border.end.y = ylist.max()
-				xlist.clear()
-				ylist.clear()
-		else:
-			border = default_border
-		if !force_offset:
-			offset = node.brush_offset
-			offset.x *= node.scale.x
-			offset.y *= node.scale.y
-			offset.rotated(node.rotation)
-		else:
-			offset = default_offset
+	if !force_border && node.get("brush_border") != null:
+		border = node.brush_border
+		border.position.x *= node.scale.x
+		border.position.y *= node.scale.y
+		border.end.x *= node.scale.x
+		border.end.y *= node.scale.y
+		if node.rotation != 0:
+			var tl :Vector2 = border.position.rotated(rotation)
+			var tr: Vector2 = Vector2(border.end.x,border.position.y).rotated(rotation)
+			var bl: Vector2 = Vector2(border.position.x,border.end.y).rotated(rotation)
+			var br: Vector2 = border.end.rotated(rotation)
+			var xlist :Array = [tl.x,tr.x,bl.x,br.x]
+			var ylist :Array = [tl.y,tr.y,bl.y,br.y]
+			border.position.x = xlist.min()
+			border.position.y = ylist.min()
+			border.end.x = xlist.max()
+			border.end.y = ylist.max()
+			xlist.clear()
+			ylist.clear()
 	else:
 		border = default_border
+	
+	if !force_offset && node.get("brush_offset") != null:
+		offset = node.brush_offset
+		offset.x *= node.scale.x
+		offset.y *= node.scale.y
+		offset.rotated(node.rotation)
+	else:
 		offset = default_offset
-		
+	
 func get_list_brush(list :Array) ->void:
 	get_brush(list[0])
 	var min_pos :Vector2 = Vector2(INF,INF)
@@ -150,6 +147,7 @@ func _brush_process(res :Resource, sel :Array, undo :UndoRedo) ->void:
 					if is_instance_valid(preview_node):
 						preview_node.queue_free()
 					preview_node = res.instance()
+					preview_node.name = "_Preview"
 					add_child(preview_node)
 				if !(brush_last is String) || brush_last != res:
 					get_brush(preview_node)

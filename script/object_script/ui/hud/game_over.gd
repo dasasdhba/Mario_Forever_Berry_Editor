@@ -7,4 +7,5 @@ func activate() ->void:
 	
 func _input(_event) ->void:
 	if visible && $Timer.is_stopped():
-		get_tree().reload_current_scene()
+		var scene :Node = Berry.get_scene(self)
+		scene.restart_all()

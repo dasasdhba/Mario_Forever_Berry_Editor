@@ -15,11 +15,8 @@ export var brush_border :Rect2 = Rect2(-16,-16,32,32)
 export var brush_offset :Vector2 = Vector2(16,16)
 
 onready var view: Node = Berry.get_view(self)
+onready var scene :Node = Berry.get_scene(self)
 onready var parent :Node = get_parent()
-
-# 用于标识 brush2d 摆放
-func _brush() ->void:
-	pass
 	
 func _ready() ->void:
 	gravity_direction = gravity_direction.rotated(rotation)
@@ -29,7 +26,7 @@ func _physics_process(delta) ->void:
 	if !activate:
 		activate = view.is_in_view(global_position,activate_range*scale)
 		if activate && dir_to_player:
-			var p :Node = Berry.get_player_nearest(self)
+			var p :Node = scene.get_player_nearest(self)
 			if p == null:
 				return
 			var p_pos :Vector2 = parent.global_transform.xform_inv(p.global_position)

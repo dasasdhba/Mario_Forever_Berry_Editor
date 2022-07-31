@@ -11,13 +11,8 @@ onready var phase :float = 2*PI*rand.randf()
 export var brush_border :Rect2 = Rect2(0,0,32,32)
 export var brush_offset :Vector2 = Vector2(0,0)
 
-# 用于标识 brush2d 摆放
-func _brush() ->void:
-	pass
-
-
 func _physics_process(delta) ->void:
 	if disabled:
 		return
-	position = origin_position + radius.rotated(phase)
+	position = origin_position + radius.rotated(deg2rad(phase))
 	phase += speed * delta

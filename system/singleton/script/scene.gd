@@ -1,9 +1,9 @@
 # 单 Room2D 管理，使用 Berry.get_scene() 获取 Scene 单例
-# 在转场之前，请确保 player 已经被 Player.disable()，否则 player 也会被 queue_free()
-# 如果不需要多 Room2D，可以在 _process() 中添加自动 disable player 相关的代码
 # 如果需要多 Room2D，可复制本节点并在不同的 Room2D 使用不同的 Scene 单例管理
 # 并且修改 Berry 单例的 multiroom 为 true
 extends CanvasLayer
+
+export var save_game_room :PackedScene = null
 
 var current_scene :PackedScene = null # 当前 Scene 的 Packed 备份
 var current_room :Room2D = null # 当前 Room2D 节点
@@ -25,7 +25,7 @@ var trans_out :int = TRANS.NONE
 var trans_in_hint :bool = false
 var trans_out_hint :bool = false
 var timer :float = 0
-var in_fade_speed :float = 3
+var in_fade_speed :float = 1
 var in_fade_wait_time :float = 0.5
 var out_fade_speed :float = 3
 var in_circle_speed :float = 250
@@ -37,6 +37,13 @@ var change :bool = false
 var room_old :Room2D
 var room_parent :Node
 var scene_new :PackedScene
+var delay :bool = false
+
+# 快捷键
+const restart_key :int = KEY_F2
+const save_key :int = KEY_F3
+var restart_restrict :bool = false
+var save_restrict :bool = false
 	
 # 更改当前 Scene
 func change_scene(new_scene :PackedScene, in_trans :int = TRANS.NONE, out_trans :int = TRANS.NONE) ->void:
@@ -51,6 +58,18 @@ func change_scene(new_scene :PackedScene, in_trans :int = TRANS.NONE, out_trans 
 # 重新加载当前 Scene
 func restart_scene(in_trans :int = TRANS.NONE, out_trans :int = TRANS.NONE) ->void:
 	change_scene(current_scene,in_trans,out_trans)
+	
+# 完全重启
+func restart_all() ->void:
+	get_tree().reload_current_scene()
+	
+# 清空 scene 数据
+func clear_data() ->void:
+	death_hint = false
+	current_checkpoint = []
+	checkpoint_scene = null
+	checkpoint_room_name = ""
+	checkpoint_position = null
 	
 # 转场效果
 func trans_in_ready() ->void:
@@ -116,17 +135,83 @@ func trans_out_process(delta :float) ->void:
 				trans_out_hint = false
 	
 func _process(delta) ->void:
-	if change:
-		if !trans_in_hint:
-			trans_in_process(delta)
-		else:
-			if is_instance_valid(room_old):
-				room_old.queue_free()
-				current_player.clear()
-			else:
-				trans_in_cancel()
-				room_parent.add_child(scene_new.instance())
-				change = false
-				trans_out_ready()
+	if change && !trans_in_hint:
+		trans_in_process(delta)
 	if trans_out_hint:
 		trans_out_process(delta)
+		
+func _physics_process(_delta) ->void:
+	# 检查 current_player
+	var i :int = 0
+	while i < current_player.size():
+		if !is_instance_valid(current_player[i]):
+			current_player.remove(i)
+			continue
+		i += 1
+	
+	# 转场
+	if change && trans_in_hint:
+		if !delay:
+			delay = true
+			return
+		if is_instance_valid(room_old):
+			room_old.queue_free()
+			current_player.clear()
+		else:
+			trans_in_cancel()
+			room_parent.add_child(scene_new.instance())
+			change = false
+			delay = false
+			trans_out_ready()
+			
+# 快捷转场
+func _unhandled_key_input(event :InputEventKey) ->void:
+	if change:
+		return
+	if event.scancode == restart_key:
+		if event.pressed:
+			if !restart_restrict:
+				restart_restrict = true
+				restart_all()
+		else:
+			restart_restrict = false
+	elif event.scancode == save_key:
+		if event.pressed:
+			if !save_restrict:
+				save_restrict = true
+				if save_game_room != null:
+					change_scene(save_game_room)
+		else:
+			save_restrict = false
+
+# 获取玩家最大 state
+func get_player_state_max() ->int:
+	if current_player.empty():
+		return 0
+	var r :int = -INF as int
+	for i in current_player:
+		if i.state > r:
+			r = i.state
+	return r
+	
+# 获取当前玩家数
+func get_player_num() ->int:
+	return current_player.size()
+
+# 获取当前处于无敌星状态的玩家数
+func get_player_star_num() ->int:
+	var r :int = 0
+	for i in current_player:
+		if i.star:
+			r += 1
+	return r
+
+# 获取最近的玩家
+func get_player_nearest(node :Node) ->Node:
+	var dmin :float = INF
+	var p :Node = null
+	for i in current_player:
+		if node.global_position.distance_to(i.global_position) < dmin:
+			dmin = node.global_position.distance_to(i.global_position)
+			p = i
+	return p

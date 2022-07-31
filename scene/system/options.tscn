@@ -1,15 +1,15 @@
 [gd_scene load_steps=47 format=2]
 
 [ext_resource path="res://resource/font/comix_heavy.res" type="DynamicFont" id=1]
-[ext_resource path="res://script/node_script/label_has_mouse.gd" type="Script" id=2]
+[ext_resource path="res://script/node_script/label/label_has_mouse.gd" type="Script" id=2]
 [ext_resource path="res://resource/object/ui/menu_select.res" type="PackedScene" id=3]
-[ext_resource path="res://script/object_script/ui/title/option_switch_color.gd" type="Script" id=4]
+[ext_resource path="res://script/room_script/title/option_switch_color.gd" type="Script" id=4]
 [ext_resource path="res://script/node_script/node/node_set_self_modulate.gd" type="Script" id=5]
-[ext_resource path="res://script/object_script/ui/title/options.gd" type="Script" id=6]
+[ext_resource path="res://script/room_script/title/options.gd" type="Script" id=6]
 [ext_resource path="res://resource/audio/sound/system/menu_apply.wav" type="AudioStream" id=7]
 [ext_resource path="res://resource/audio/sound/system/menu_switch.wav" type="AudioStream" id=8]
 [ext_resource path="res://script/node_script/audio_auto_free.gd" type="Script" id=9]
-[ext_resource path="res://script/object_script/ui/title/label_show_key.gd" type="Script" id=10]
+[ext_resource path="res://script/room_script/title/label_show_key.gd" type="Script" id=10]
 [ext_resource path="res://resource/image/ui/touch_button/a.png" type="Texture" id=11]
 [ext_resource path="res://resource/image/ui/touch_button/joystick.png" type="Texture" id=12]
 [ext_resource path="res://resource/image/ui/touch_button/joystick_back.png" type="Texture" id=13]
@@ -29,12 +29,12 @@ colors = PoolColorArray( 0.643137, 0.752941, 0.886275, 1, 0.268759, 0.342498, 0.
 [sub_resource type="GradientTexture" id=8]
 gradient = SubResource( 6 )
 
-[sub_resource type="Gradient" id=9]
+[sub_resource type="Gradient" id=40]
 offsets = PoolRealArray( 0, 0.99569 )
 colors = PoolColorArray( 0.774071, 0.96582, 0.761713, 1, 0.0275784, 0.743164, 0, 1 )
 
 [sub_resource type="GradientTexture" id=10]
-gradient = SubResource( 9 )
+gradient = SubResource( 40 )
 
 [sub_resource type="Gradient" id=11]
 offsets = PoolRealArray( 0, 0.99569 )
@@ -64,12 +64,12 @@ colors = PoolColorArray( 0.850397, 0.775932, 0.961914, 1, 0.548167, 0.238071, 0.
 [sub_resource type="GradientTexture" id=21]
 gradient = SubResource( 20 )
 
-[sub_resource type="Gradient" id=17]
+[sub_resource type="Gradient" id=41]
 offsets = PoolRealArray( 0, 0.99569 )
 colors = PoolColorArray( 0.821289, 0.821289, 0.821289, 1, 0.258789, 0.258789, 0.258789, 1 )
 
 [sub_resource type="GradientTexture" id=18]
-gradient = SubResource( 17 )
+gradient = SubResource( 41 )
 
 [sub_resource type="StreamTexture" id=25]
 flags = 4

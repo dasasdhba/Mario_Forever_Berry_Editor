@@ -1,0 +1,526 @@
+[gd_scene load_steps=47 format=2]
+
+[ext_resource path="res://addons/brush2d/brush2d.gd" type="Script" id=1]
+[ext_resource path="res://script/room_script/save_game_room/save_game_room.gd" type="Script" id=2]
+[ext_resource path="res://editor/facility/camera/camera.res" type="PackedScene" id=3]
+[ext_resource path="res://editor/facility/player_mario.res" type="PackedScene" id=4]
+[ext_resource path="res://resource/tileset/tile_general.tres" type="TileSet" id=5]
+[ext_resource path="res://editor/scenery/background/gradient_rect.res" type="PackedScene" id=6]
+[ext_resource path="res://resource/audio/music/save_game_room.ogg" type="AudioStream" id=7]
+[ext_resource path="res://resource/tileset/tile_pipe.tres" type="TileSet" id=8]
+[ext_resource path="res://resource/tileset/tile_scenery.tres" type="TileSet" id=9]
+[ext_resource path="res://editor/facility/music/music.res" type="PackedScene" id=10]
+[ext_resource path="res://resource/image/scenery/cloud.png" type="Texture" id=11]
+[ext_resource path="res://editor/scenery/cloud.res" type="PackedScene" id=12]
+[ext_resource path="res://script/node_script/label/label_sin_move.gd" type="Script" id=13]
+[ext_resource path="res://editor/bonus/item/beet.res" type="PackedScene" id=14]
+[ext_resource path="res://editor/facility/pipe/pipe_exit.res" type="PackedScene" id=15]
+[ext_resource path="res://resource/font/massey_extended.res" type="DynamicFont" id=16]
+[ext_resource path="res://script/node_script/area2d_control_cover.gd" type="Script" id=17]
+[ext_resource path="res://script/node_script/label/label_flash.gd" type="Script" id=18]
+[ext_resource path="res://editor/bonus/item/lui.res" type="PackedScene" id=19]
+[ext_resource path="res://editor/bonus/item/mushroom_red.res" type="PackedScene" id=20]
+[ext_resource path="res://editor/bonus/item/fire_flower.res" type="PackedScene" id=21]
+[ext_resource path="res://script/room_script/save_game_room/shop.gd" type="Script" id=22]
+[ext_resource path="res://script/node_script/label/label_move_fade.gd" type="Script" id=23]
+[ext_resource path="res://editor/facility/pipe/pipe_enter.res" type="PackedScene" id=24]
+[ext_resource path="res://script/room_script/save_game_room/save.gd" type="Script" id=25]
+[ext_resource path="res://script/room_script/save_game_room/delete_tips.gd" type="Script" id=26]
+[ext_resource path="res://script/class/texture_tiled.gd" type="Script" id=27]
+[ext_resource path="res://resource/image/ui/counter_point.png" type="Texture" id=28]
+[ext_resource path="res://resource/audio/sound/bonus/break.wav" type="AudioStream" id=29]
+[ext_resource path="res://resource/audio/sound/system/time_count.wav" type="AudioStream" id=30]
+[ext_resource path="res://scene/map/map.tscn" type="PackedScene" id=31]
+[ext_resource path="res://editor/facility/obstacle/solid_roof.res" type="PackedScene" id=33]
+
+[sub_resource type="Theme" id=5]
+Label/fonts/font = ExtResource( 16 )
+
+[sub_resource type="RectangleShape2D" id=13]
+extents = Vector2( 192, 14.5 )
+
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 48, 14.5 )
+
+[sub_resource type="RectangleShape2D" id=7]
+extents = Vector2( 30.5, 14.5 )
+
+[sub_resource type="RectangleShape2D" id=10]
+extents = Vector2( 234.5, 26.5 )
+
+[sub_resource type="RectangleShape2D" id=11]
+extents = Vector2( 42.5, 15 )
+
+[sub_resource type="RectangleShape2D" id=12]
+extents = Vector2( 45.5, 15 )
+
+[sub_resource type="RectangleShape2D" id=14]
+extents = Vector2( 32, 304 )
+
+[sub_resource type="AtlasTexture" id=2]
+flags = 4
+atlas = ExtResource( 11 )
+region = Rect2( 0, 0, 68, 52 )
+
+[sub_resource type="AtlasTexture" id=3]
+flags = 4
+atlas = ExtResource( 11 )
+region = Rect2( 68, 0, 68, 52 )
+
+[sub_resource type="AtlasTexture" id=4]
+flags = 4
+atlas = ExtResource( 11 )
+region = Rect2( 136, 0, 68, 52 )
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="Gradient" id=8]
+colors = PoolColorArray( 0, 0.27451, 1, 1, 1, 1, 1, 1 )
+
+[sub_resource type="GradientTexture" id=9]
+gradient = SubResource( 8 )
+
+[node name="SaveGameRoom" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="TextLayer" type="CanvasLayer" parent="."]
+layer = 125
+follow_viewport_enable = true
+
+[node name="Text" type="Control" parent="TextLayer"]
+margin_right = 40.0
+margin_bottom = 40.0
+theme = SubResource( 5 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="DeleteTips" type="Label" parent="TextLayer/Text"]
+margin_left = 224.0
+margin_top = -32.0
+margin_right = 571.0
+margin_bottom = -6.0
+text = "If you want to Delete Save, press 'DEL' for 3 sec."
+align = 1
+script = ExtResource( 26 )
+
+[node name="Area2D" type="Area2D" parent="TextLayer/Text/DeleteTips"]
+visible = false
+monitorable = false
+script = ExtResource( 17 )
+position_fix = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TextLayer/Text/DeleteTips/Area2D"]
+position = Vector2( 176, 16.5 )
+shape = SubResource( 13 )
+
+[node name="SelectSave" type="Label" parent="TextLayer/Text"]
+margin_left = 373.0
+margin_top = 128.0
+margin_right = 462.0
+margin_bottom = 160.0
+text = "Select Save"
+align = 1
+script = ExtResource( 18 )
+
+[node name="Area2D" type="Area2D" parent="TextLayer/Text/SelectSave"]
+visible = false
+monitorable = false
+script = ExtResource( 17 )
+position_fix = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TextLayer/Text/SelectSave/Area2D"]
+position = Vector2( 43, 16.5 )
+shape = SubResource( 6 )
+
+[node name="Save1" type="Label" parent="TextLayer/Text"]
+margin_left = 264.0
+margin_top = 220.0
+margin_right = 312.0
+margin_bottom = 246.0
+text = "Save 1"
+
+[node name="Area2D" type="Area2D" parent="TextLayer/Text/Save1"]
+visible = false
+monitorable = false
+script = ExtResource( 17 )
+position_fix = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TextLayer/Text/Save1/Area2D"]
+position = Vector2( 25.5, 16.5 )
+shape = SubResource( 7 )
+
+[node name="Save2" type="Label" parent="TextLayer/Text"]
+margin_left = 392.0
+margin_top = 220.0
+margin_right = 440.0
+margin_bottom = 246.0
+text = "Save 2"
+
+[node name="Area2D" type="Area2D" parent="TextLayer/Text/Save2"]
+visible = false
+monitorable = false
+script = ExtResource( 17 )
+position_fix = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TextLayer/Text/Save2/Area2D"]
+position = Vector2( 25.5, 16.5 )
+shape = SubResource( 7 )
+
+[node name="Save3" type="Label" parent="TextLayer/Text"]
+margin_left = 521.0
+margin_top = 220.0
+margin_right = 569.0
+margin_bottom = 246.0
+text = "Save 3"
+
+[node name="Area2D" type="Area2D" parent="TextLayer/Text/Save3"]
+visible = false
+monitorable = false
+script = ExtResource( 17 )
+position_fix = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TextLayer/Text/Save3/Area2D"]
+position = Vector2( 25.5, 16.5 )
+shape = SubResource( 7 )
+
+[node name="Shop" type="Control" parent="TextLayer/Text"]
+margin_right = 40.0
+margin_bottom = 40.0
+rect_pivot_offset = Vector2( 608, 288 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Tips" type="Label" parent="TextLayer/Text/Shop"]
+margin_left = 752.0
+margin_top = 105.0
+margin_right = 1207.0
+margin_bottom = 160.0
+text = "You can exchange some lives for one of goodies!!!
+But be careful, sometimes lives if more import than that stuff."
+align = 1
+script = ExtResource( 13 )
+
+[node name="Area2D" type="Area2D" parent="TextLayer/Text/Shop/Tips"]
+visible = false
+monitorable = false
+script = ExtResource( 17 )
+position_fix = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TextLayer/Text/Shop/Tips/Area2D"]
+position = Vector2( 229.5, 28.5 )
+shape = SubResource( 10 )
+
+[node name="Cost" type="Label" parent="TextLayer/Text/Shop"]
+margin_left = 812.0
+margin_top = 288.0
+margin_right = 883.0
+margin_bottom = 314.0
+text = "Cost 1 life"
+align = 1
+
+[node name="Area2D" type="Area2D" parent="TextLayer/Text/Shop/Cost"]
+visible = false
+monitorable = false
+script = ExtResource( 17 )
+position_fix = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TextLayer/Text/Shop/Cost/Area2D"]
+position = Vector2( 37.5, 17 )
+shape = SubResource( 11 )
+
+[node name="Cost2" type="Label" parent="TextLayer/Text/Shop"]
+margin_left = 936.0
+margin_top = 288.0
+margin_right = 1017.0
+margin_bottom = 314.0
+text = "Cost 2 lives"
+align = 1
+
+[node name="Area2D" type="Area2D" parent="TextLayer/Text/Shop/Cost2"]
+visible = false
+monitorable = false
+script = ExtResource( 17 )
+position_fix = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TextLayer/Text/Shop/Cost2/Area2D"]
+position = Vector2( 40.5, 17 )
+shape = SubResource( 12 )
+
+[node name="Cost3" type="Label" parent="TextLayer/Text/Shop"]
+margin_left = 1064.0
+margin_top = 288.0
+margin_right = 1145.0
+margin_bottom = 314.0
+text = "Cost 2 lives"
+align = 1
+
+[node name="Area2D" type="Area2D" parent="TextLayer/Text/Shop/Cost3"]
+visible = false
+monitorable = false
+script = ExtResource( 17 )
+position_fix = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TextLayer/Text/Shop/Cost3/Area2D"]
+position = Vector2( 40.5, 17 )
+shape = SubResource( 12 )
+
+[node name="Cost4" type="Label" parent="TextLayer/Text/Shop"]
+margin_left = 1192.0
+margin_top = 288.0
+margin_right = 1273.0
+margin_bottom = 314.0
+text = "Cost 2 lives"
+align = 1
+
+[node name="Area2D" type="Area2D" parent="TextLayer/Text/Shop/Cost4"]
+visible = false
+monitorable = false
+script = ExtResource( 17 )
+position_fix = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TextLayer/Text/Shop/Cost4/Area2D"]
+position = Vector2( 40.5, 17 )
+shape = SubResource( 12 )
+
+[node name="Life" type="Label" parent="TextLayer/Text"]
+margin_left = 816.0
+margin_top = 512.0
+margin_right = 856.0
+margin_bottom = 538.0
+text = "-1"
+align = 1
+valign = 1
+script = ExtResource( 23 )
+disabled = true
+
+[node name="Camera" parent="." instance=ExtResource( 3 )]
+position = Vector2( -16, -24 )
+limit_right = 1920
+mode = 0
+
+[node name="Music" parent="." instance=ExtResource( 10 )]
+position = Vector2( -32, 0 )
+mode = 0
+stream = ExtResource( 7 )
+
+[node name="PipeStart" parent="." instance=ExtResource( 15 )]
+position = Vector2( 64, 160 )
+rotation = 1.57079
+start_pipe = true
+
+[node name="Save" type="Node2D" parent="."]
+script = ExtResource( 25 )
+__meta__ = {
+"_edit_lock_": true
+}
+first_scene = ExtResource( 31 )
+
+[node name="AreaSave1" type="Area2D" parent="Save"]
+visible = false
+monitorable = false
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Save/AreaSave1"]
+position = Vector2( 288, 16 )
+shape = SubResource( 14 )
+
+[node name="AreaSave2" type="Area2D" parent="Save"]
+visible = false
+monitorable = false
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Save/AreaSave2"]
+position = Vector2( 416, 16 )
+shape = SubResource( 14 )
+
+[node name="AreaSave3" type="Area2D" parent="Save"]
+visible = false
+monitorable = false
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Save/AreaSave3"]
+position = Vector2( 544, 16 )
+shape = SubResource( 14 )
+
+[node name="PipeEnterSave1" parent="Save" instance=ExtResource( 24 )]
+position = Vector2( 288, 288 )
+rotation = 1.57079
+
+[node name="PipeEnterSave2" parent="Save" instance=ExtResource( 24 )]
+position = Vector2( 416, 288 )
+rotation = 1.57079
+
+[node name="PipeEnterSave3" parent="Save" instance=ExtResource( 24 )]
+position = Vector2( 544, 288 )
+rotation = 1.57079
+
+[node name="Point" type="Node2D" parent="Save"]
+position = Vector2( 256, 448 )
+script = ExtResource( 27 )
+texture = ExtResource( 28 )
+auto_update = true
+
+[node name="DelStart" type="AudioStreamPlayer" parent="Save"]
+stream = ExtResource( 30 )
+bus = "Sound"
+
+[node name="Delete" type="AudioStreamPlayer" parent="Save"]
+stream = ExtResource( 29 )
+bus = "Sound"
+
+[node name="Shop" type="Node2D" parent="."]
+script = ExtResource( 22 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="MushroomRed" parent="Shop" instance=ExtResource( 20 )]
+position = Vector2( 848, 400 )
+speed = 0.0
+score = 0
+
+[node name="FireFlower" parent="Shop" instance=ExtResource( 21 )]
+position = Vector2( 976, 400 )
+force = true
+score = 0
+
+[node name="Beet" parent="Shop" instance=ExtResource( 14 )]
+position = Vector2( 1104, 400 )
+force = true
+score = 0
+
+[node name="Lui" parent="Shop" instance=ExtResource( 19 )]
+position = Vector2( 1232, 400 )
+jump_height = 0.0
+force = true
+score = 0
+
+[node name="TileMap" type="Node2D" parent="."]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="TileScenery" type="TileMap" parent="TileMap"]
+z_index = -200
+tile_set = ExtResource( 9 )
+cell_size = Vector2( 32, 32 )
+cell_custom_transform = Transform2D( 32, 0, 0, 32, 0, 0 )
+collision_layer = 0
+format = 1
+tile_data = PoolIntArray( 262148, 55, 0, 393251, 55, 0, 524312, 51, 0, 720938, 0, 0, 786483, 48, 0 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="TileGeneral" type="TileMap" parent="TileMap"]
+z_index = -100
+tile_set = ExtResource( 5 )
+cell_size = Vector2( 32, 32 )
+cell_custom_transform = Transform2D( 32, 0, 0, 32, 0, 0 )
+collision_layer = 0
+format = 1
+tile_data = PoolIntArray( 0, 1, 0, 65536, 1, 0, 131072, 1, 0, 196608, 1, 0, 262144, 1, 0, 327680, 1, 0, 393216, 1, 0, 458752, 1, 0, 458792, 1, 0, 524288, 1, 0, 524328, 1, 0, 589824, 1, 0, 589825, 1, 0, 589826, 1, 0, 589827, 1, 0, 589864, 1, 0, 655360, 1, 0, 655361, 1, 0, 655362, 1, 0, 655363, 1, 0, 655364, 1, 0, 655400, 1, 0, 720896, 1, 0, 720897, 1, 0, 720898, 1, 0, 720899, 1, 0, 720900, 1, 0, 720901, 1, 0, 720914, 1, 0, 720915, 1, 0, 720916, 1, 0, 720917, 1, 0, 720918, 1, 0, 720919, 1, 0, 720920, 1, 0, 720924, 1, 0, 720928, 1, 0, 720932, 1, 0, 720936, 1, 0, 786432, 1, 0, 786433, 1, 0, 786434, 1, 0, 786435, 1, 0, 786436, 1, 0, 786437, 1, 0, 786438, 1, 0, 786450, 1, 0, 786451, 1, 0, 786455, 1, 0, 786456, 1, 0, 786460, 1, 0, 786464, 1, 0, 786468, 1, 0, 786472, 1, 0, 851968, 0, 1, 851969, 0, 1, 851970, 0, 1, 851971, 0, 1, 851972, 0, 1, 851973, 0, 1, 851974, 0, 1, 851975, 0, 1, 851976, 0, 1, 851977, 0, 1, 851978, 0, 1, 851979, 0, 1, 851980, 0, 1, 851981, 0, 1, 851982, 0, 1, 851983, 0, 1, 851984, 0, 1, 851985, 0, 1, 851986, 0, 1, 851987, 0, 2, 851991, 0, 0, 851992, 0, 1, 851993, 0, 1, 851994, 0, 1, 851995, 0, 1, 851996, 0, 1, 851997, 0, 1, 851998, 0, 1, 851999, 0, 1, 852000, 0, 1, 852001, 0, 1, 852002, 0, 1, 852003, 0, 1, 852004, 0, 1, 852005, 0, 1, 852006, 0, 1, 852007, 0, 1, 852008, 0, 1, 852009, 0, 1, 852010, 0, 1, 852011, 0, 2, 917504, 0, 65537, 917505, 0, 65537, 917506, 0, 65537, 917507, 0, 65537, 917508, 0, 65537, 917509, 0, 65537, 917510, 0, 65537, 917511, 0, 65537, 917512, 0, 65537, 917513, 0, 65537, 917514, 0, 65537, 917515, 0, 65537, 917516, 0, 65537, 917517, 0, 65537, 917518, 0, 65537, 917519, 0, 65537, 917520, 0, 65537, 917521, 0, 65537, 917522, 0, 65537, 917523, 0, 65538, 917527, 0, 65536, 917528, 0, 65537, 917529, 0, 65537, 917530, 0, 65537, 917531, 0, 65537, 917532, 0, 65537, 917533, 0, 65537, 917534, 0, 65537, 917535, 0, 65537, 917536, 0, 65537, 917537, 0, 65537, 917538, 0, 65537, 917539, 0, 65537, 917540, 0, 65537, 917541, 0, 65537, 917542, 0, 65537, 917543, 0, 65537, 917544, 0, 65537, 917545, 0, 65537, 917546, 0, 65537, 917547, 0, 65538, 983083, 0, 65538, 1048619, 0, 65538, 1114155, 0, 65538 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="TilePipe" type="TileMap" parent="TileMap"]
+z_index = -50
+tile_set = ExtResource( 8 )
+cell_size = Vector2( 32, 32 )
+cell_custom_transform = Transform2D( 32, 0, 0, 32, 0, 0 )
+collision_layer = 0
+format = 1
+tile_data = PoolIntArray( 1, 0, 0, 65537, 0, 0, 131073, 0, 0, 196609, 0, 0, 262145, 2, 0, 655368, 1, 0, 655372, 1, 0, 655376, 1, 0, 786440, 0, 0, 786444, 0, 0, 786448, 0, 0 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Brush2D" type="Node2D" parent="."]
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="PlayerMario" parent="Brush2D" instance=ExtResource( 4 )]
+position = Vector2( 64, 160 )
+fall_disabled = true
+view_limit = false
+
+[node name="Cloud2" parent="Brush2D" instance=ExtResource( 12 )]
+position = Vector2( 192, 88 )
+frames = SubResource( 1 )
+disabled = false
+
+[node name="Cloud3" parent="Brush2D" instance=ExtResource( 12 )]
+position = Vector2( 352, 136 )
+frames = SubResource( 1 )
+frame = 1
+disabled = false
+
+[node name="Cloud4" parent="Brush2D" instance=ExtResource( 12 )]
+position = Vector2( 512, 56 )
+frames = SubResource( 1 )
+disabled = false
+
+[node name="Cloud5" parent="Brush2D" instance=ExtResource( 12 )]
+position = Vector2( 704, 168 )
+frames = SubResource( 1 )
+frame = 1
+disabled = false
+
+[node name="Cloud7" parent="Brush2D" instance=ExtResource( 12 )]
+position = Vector2( 832, 40 )
+frames = SubResource( 1 )
+disabled = false
+
+[node name="Cloud8" parent="Brush2D" instance=ExtResource( 12 )]
+position = Vector2( 1024, 136 )
+frames = SubResource( 1 )
+disabled = false
+
+[node name="Cloud9" parent="Brush2D" instance=ExtResource( 12 )]
+position = Vector2( 1248, 56 )
+frames = SubResource( 1 )
+frame = 2
+disabled = false
+
+[node name="Cloud10" parent="Brush2D" instance=ExtResource( 12 )]
+position = Vector2( 1520, 152 )
+frames = SubResource( 1 )
+frame = 1
+disabled = false
+
+[node name="Cloud11" parent="Brush2D" instance=ExtResource( 12 )]
+position = Vector2( 1792, 72 )
+frames = SubResource( 1 )
+disabled = false
+
+[node name="SolidRoof" parent="Brush2D" instance=ExtResource( 33 )]
+position = Vector2( 76, 0 )
+
+[node name="Background" type="Node2D" parent="."]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sky" type="ParallaxBackground" parent="Background"]
+
+[node name="GradientRect" parent="Background/Sky" instance=ExtResource( 6 )]
+texture = SubResource( 9 )
+
+[connection signal="bonus_get" from="Shop" to="." method="_on_Shop_bonus_get"]

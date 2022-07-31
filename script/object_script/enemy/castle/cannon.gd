@@ -14,6 +14,7 @@ var total :float = 0
 
 var parent :Node
 var view :Node
+var scene :Node
 var rand :RandomNumberGenerator
 
 func _ready() ->void:
@@ -23,6 +24,7 @@ func _ready() ->void:
 	total = launch_time_first
 	parent = get_parent()
 	view = Berry.get_view(self)
+	scene = Berry.get_scene(self)
 	rand = Berry.get_rand(self)
 	
 func _physics_process(delta :float) ->void:
@@ -34,7 +36,7 @@ func _physics_process(delta :float) ->void:
 		return
 		
 	var count :bool = true
-	var p: Node = Berry.get_player_nearest(self)
+	var p: Node = scene.get_player_nearest(self)
 	if timer < total && p != null:
 		var p_pos :Vector2 = parent.global_transform.xform_inv(p.global_position)
 		var s :float = Berry.distance_to_line(position,p_pos,rotation + PI/2)

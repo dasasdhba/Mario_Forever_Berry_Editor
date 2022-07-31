@@ -23,11 +23,8 @@ var speed :float = 0
 onready var origin :Vector2 = position
 onready var direction :Vector2 = Berry.vector2_rotate_degree(rotation_degrees+90)
 onready var view :Node = Berry.get_view(self)
+onready var scene :Node = Berry.get_scene(self)
 onready var rand :RandomNumberGenerator = Berry.get_rand(self)
-
-# 用于标识 brush2d 摆放
-func _brush() ->void:
-	pass
 
 func _physics_process(delta :float) ->void:
 	if check_activation():
@@ -47,7 +44,7 @@ func infinity_position() ->void:
 func check_activation() ->bool:
 	if step > 0:
 		return true
-	var player :Node = Berry.get_player_nearest(self)
+	var player :Node = scene.get_player_nearest(self)
 	if player != null:
 		var p_pos :Vector2 = get_parent().global_transform.xform_inv(player.global_position)
 		for i in activation_areas:

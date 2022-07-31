@@ -10,7 +10,7 @@ export var number :int = 5
 export(MODE) var mode :int = MODE.PLAYER_STAND_ON
 export var speed :float = 50
 export(DIR) var direction :int = DIR.RIGHT
-export var gravity_direction :int = DIR.DOWN
+export(DIR) var gravity_direction :int = DIR.DOWN
 
 var activate :bool = false
 var head :StaticBody2D

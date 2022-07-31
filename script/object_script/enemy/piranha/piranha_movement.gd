@@ -26,13 +26,10 @@ var f_count :int = -1
 var f_time :float = 0
 
 onready var view :Node = Berry.get_view(self)
+onready var scene :Node = Berry.get_scene(self)
 onready var rand :RandomNumberGenerator = Berry.get_rand(self)
 onready var parent :Node = get_parent()
 onready var height: int = 32 + max(0,stem_count)*16
-
-# 用于标识 brush2d 摆放
-func _brush() ->void:
-	pass
 	
 # 攻击判定标识
 func _enemy() ->void:
@@ -84,7 +81,7 @@ func _physics_process(delta) ->void:
 	if state == 2:
 		pos = height*scale.y
 		var count :bool = true
-		var p: Node = Berry.get_player_nearest(self)
+		var p: Node = scene.get_player_nearest(self)
 		if remain_range > 0 && p != null:
 			var p_pos :Vector2 = parent.global_transform.xform_inv(p.global_position)
 			var s :float = Berry.distance_to_line(position,p_pos,rotation + PI/2)
