@@ -15,7 +15,7 @@ onready var origin_position :Vector2 = position
 var state :int = 0
 var delay :bool = false
 
-export var brush_border :Rect2 = Rect2(-32,-48,64,96)
+export var brush_border :Rect2 = Rect2(-32,-33,64,66)
 export var brush_offset :Vector2 = Vector2(16,18)
 	
 func _ready() ->void:
@@ -29,9 +29,9 @@ func _physics_process(delta :float) ->void:
 		if view.is_in_view(global_position,activate_range):
 			var p: Node = scene.get_player_nearest(self)
 			if smash_range > 0 && p != null:
-				var p_pos :Vector2 = parent.global_transform.xform_inv(p.global_position)
-				var s :float = Berry.distance_to_line(position,p_pos,gravity_direction.angle())
-				if s <= smash_range + 32*scale.x:
+				var p_pos :Vector2 = Berry.get_xform_position(self,p.global_position)
+				var s :float = (position-p_pos).dot(gravity_direction.tangent())
+				if abs(s) <= smash_range + 32*scale.x:
 					state = 1
 	
 	# 下落

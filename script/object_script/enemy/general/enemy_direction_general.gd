@@ -5,7 +5,6 @@ export var look_player :bool = false
 export var disabled :bool = false
 
 onready var parent :Node = get_parent()
-onready var root :Node = parent.get_parent()
 onready var scene :Node = Berry.get_scene(self)
 
 func _physics_process(_delta):
@@ -15,10 +14,7 @@ func _physics_process(_delta):
 		var p :Node = scene.get_player_nearest(self)
 		if p == null:
 			return
-		var p_pos :Vector2 = root.global_transform.xform_inv(p.global_position)
-		if parent.position.direction_to(p_pos).dot(parent.gravity_direction.tangent()) > 0:
-			flip_h = false
-		else:
-			flip_h = true
+		var p_pos :Vector2 = Berry.get_xform_position(parent,p.global_position)
+		flip_h = parent.position.direction_to(p_pos).dot(parent.gravity_direction.tangent()) <= 0
 	else:
 		flip_h = parent.direction != 1

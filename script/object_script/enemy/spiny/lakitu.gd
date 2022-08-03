@@ -94,7 +94,7 @@ func movement(delta :float) ->void:
 		elif global_position.x < pos.x + size/2 + 200:
 			position.x += speed_min * delta
 	else:
-		var player_pos :Vector2 = parent.global_transform.xform_inv(p.global_position)
+		var player_pos :Vector2 = Berry.get_xform_position(self,p.global_position)
 		if position.x > player_pos.x + turn_min && speed > -speed_max:
 			speed -= acceleration_min * delta
 		if position.x < player_pos.x - turn_min && speed < speed_max:

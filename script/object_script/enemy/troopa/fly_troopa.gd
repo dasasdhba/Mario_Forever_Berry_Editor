@@ -7,7 +7,7 @@ export var phase :float = 0
 export var look_player :bool = true # 是否朝向马里奥
 export var preview :bool = false
 export var preview_color :Color = Color(0,0,1,0.7)
-export var brush_border :Rect2 = Rect2(-16,-16,32,48)
+export var brush_border :Rect2 = Rect2(-16,-24,32,48)
 export var brush_offset :Vector2 = Vector2(16,25)
 
 var delta_position :Vector2 = Vector2.ZERO

@@ -9,7 +9,6 @@ var direction :int = -1
 var speed :float = 0
 var move_dir :Vector2 = Vector2.LEFT
 
-onready var parent :Node = get_parent()
 onready var view :Node = Berry.get_view(self)
 onready var scene :Node = Berry.get_scene(self)
 
@@ -20,7 +19,7 @@ func _physics_process(delta :float) ->void:
 	var p :Node = scene.get_player_nearest(self)
 	var p_pos :Vector2 = Vector2.ZERO
 	if p != null:
-		p_pos = parent.global_transform.xform_inv(p.global_position)
+		p_pos = Berry.get_xform_position(self,p.global_position)
 		if position.direction_to(p_pos).dot(Vector2.DOWN.rotated(rotation).tangent()) > 0:
 			direction = 1
 		else:

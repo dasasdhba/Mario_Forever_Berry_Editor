@@ -37,7 +37,7 @@ func _physics_process(_delta) ->void:
 			if abs(angle) <= PI/4:
 				if p.is_on_floor() && p.down_key:
 					var new_pos :Vector2 = global_position + $PosDown.relative(false,false,true)
-					p.position = p.get_parent().global_transform.xform_inv(new_pos)
+					p.position = Berry.get_xform_position(p,new_pos)
 					p.player_pipe_enter(1)
 					player.append(p)
 			# 上
@@ -48,7 +48,7 @@ func _physics_process(_delta) ->void:
 						new_pos = global_position + $PosUpSmall.relative(false,false,true)
 					else:
 						new_pos = global_position + $PosUpBig.relative(false,false,true)
-					p.position = p.get_parent().global_transform.xform_inv(new_pos)
+					p.position = Berry.get_xform_position(p,new_pos)
 					p.player_pipe_enter(3)
 					player.append(p)
 	
@@ -64,14 +64,14 @@ func _physics_process(_delta) ->void:
 			if angle >= PI/4 && angle <= 3*PI/4:
 				if p.is_on_floor() && $AreaBottom.get_overlapping_areas().has(i) && p.right_key && !p.left_key:
 					var new_pos :Vector2 = global_position + $PosSide.relative(false,false,true)
-					p.position = p.get_parent().global_transform.xform_inv(new_pos)
+					p.position = Berry.get_xform_position(p,new_pos)
 					p.player_pipe_enter(0)
 					player.append(p)
 			# 左
 			elif angle <= -PI/4 && angle >= -3*PI/4:
 				if p.is_on_floor() && $AreaTop.get_overlapping_areas().has(i) && p.left_key && !p.right_key:
 					var new_pos :Vector2 = global_position + $PosSide.relative(false,true,true)
-					p.position = p.get_parent().global_transform.xform_inv(new_pos)
+					p.position = Berry.get_xform_position(p,new_pos)
 					p.player_pipe_enter(2)
 					player.append(p)
 
@@ -89,6 +89,6 @@ func _draw() ->void:
 				exit = i
 				break
 	if exit != null:
-		var e_pos :Vector2 = get_parent().global_transform.xform_inv(exit.global_position) - position
+		var e_pos :Vector2 = get_parent().global_transform.affine_inverse().xform(exit.global_position) - position
 		draw_set_transform(Vector2.ZERO,-rotation,Vector2(1/scale.x,1/scale.y))
 		draw_line(Vector2.ZERO,e_pos,preview_color,2)

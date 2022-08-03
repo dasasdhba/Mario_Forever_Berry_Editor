@@ -38,9 +38,9 @@ func _physics_process(delta :float) ->void:
 	var count :bool = true
 	var p: Node = scene.get_player_nearest(self)
 	if timer < total && p != null:
-		var p_pos :Vector2 = parent.global_transform.xform_inv(p.global_position)
-		var s :float = Berry.distance_to_line(position,p_pos,rotation + PI/2)
-		if s <= launch_range + 16*scale.x:
+		var p_pos :Vector2 = Berry.get_xform_position(self,p.global_position)
+		var s :float = (position-p_pos).dot(Vector2.RIGHT.rotated(rotation))
+		if abs(s) <= launch_range + 16*scale.x:
 			count = false
 			
 	if count:
@@ -53,7 +53,7 @@ func _physics_process(delta :float) ->void:
 		var new :Node = bullet_res.instance()
 		Berry.transform_copy(new,self)
 		var dir :int = -1
-		var p_pos :Vector2 = parent.global_transform.xform_inv(p.global_position)
+		var p_pos :Vector2 = Berry.get_xform_position(self,p.global_position)
 		if position.direction_to(p_pos).dot((Vector2.DOWN.rotated(rotation)).tangent()) > 0:
 			dir = 1
 		new.direction = dir

@@ -117,6 +117,12 @@ func _ready() ->void:
 	
 	gravity_direction = gravity_direction.rotated(rotation)
 	
+	# 动画初始化
+	if has_node("Animation"):
+		$Animation.visible = true
+		if pipe == 0:
+			$Animation.z_index = z_index_normal
+	
 	# 无敌星特效
 	move_child($StarParticles,get_child_count())
 	$StarParticles.visible = true
@@ -501,7 +507,6 @@ func player_movement(delta) ->void:
 func player_animation(delta) ->void:
 	if !has_node("Animation"):
 		return
-	$Animation.visible = true
 	# 方向
 	$Animation.flip_h = move_direction != 1
 	
