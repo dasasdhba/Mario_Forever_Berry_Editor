@@ -83,9 +83,9 @@ func _physics_process(delta) ->void:
 		var count :bool = true
 		var p: Node = scene.get_player_nearest(self)
 		if remain_range > 0 && p != null:
-			var p_pos :Vector2 = parent.global_transform.xform_inv(p.global_position)
-			var s :float = Berry.distance_to_line(position,p_pos,rotation + PI/2)
-			if s <= remain_range + 16*scale.x:
+			var p_pos :Vector2 = Berry.get_xform_position(self,p.global_position)
+			var s :float = (position-p_pos).dot(Vector2.RIGHT.rotated(rotation))
+			if abs(s) <= remain_range + 16*scale.x:
 				count = false
 				
 		if count:

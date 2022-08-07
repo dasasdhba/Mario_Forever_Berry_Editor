@@ -17,14 +17,6 @@ func vector2_rotate_degree(deg :float) ->Vector2:
 			return Vector2.UP
 	return Vector2.RIGHT.rotated(deg2rad(deg))
 
-# 点到直线距离
-func distance_to_line(from :Vector2, to :Vector2, angle :float) ->float:
-	if abs(angle) == PI/2:
-		return abs(to.x - from.x)
-	else:
-		var k :float = -tan(angle)
-		return abs(to.y - from.y - k*(to.x - from.x))/sqrt(k*k+1)
-
 # pos,scale,rot 继承
 func transform_copy(target :Node ,from :Node, delta_pos: Vector2 = Vector2.ZERO) ->void:
 	if delta_pos == Vector2.ZERO:
@@ -34,9 +26,21 @@ func transform_copy(target :Node ,from :Node, delta_pos: Vector2 = Vector2.ZERO)
 	target.rotation = from.rotation
 	target.scale = from.scale
 	
+# 获取全局坐标在特定节点所在坐标系下的坐标
+func get_xform_position(node :Node2D, pos :Vector2) ->Vector2:
+	var parent :Node = node.get_parent()
+	if parent is Node2D:
+		return parent.global_transform.affine_inverse().xform(pos)
+	else:
+		return pos
+
 # 将相对方向转为全局方向
 func get_global_direction(node :Node2D, dir :Vector2) ->Vector2:
-	return node.get_parent().global_transform.basis_xform(dir).normalized()
+	var parent :Node = node.get_parent()
+	if parent is Node2D:
+		return parent.global_transform.basis_xform(dir).normalized()
+	else:
+		return dir.normalized()
 
 # 获取多层父节点
 func get_parent_ext(node :Node ,layer :int = 1) ->Node:

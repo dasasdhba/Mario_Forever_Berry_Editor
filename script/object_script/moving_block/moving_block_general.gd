@@ -184,7 +184,7 @@ func _physics_process(delta) ->void:
 		for i in $AreaShared.get_overlapping_areas():
 			if !i.has_method("_moving_block_turn"):
 				continue
-			var i_pos :Vector2 = get_parent().global_transform.xform_inv(i.global_position)
+			var i_pos :Vector2 = Berry.get_xform_position(self,i.global_position)
 			var length :float = velocity.length()
 			if position.distance_to(i_pos) > length * delta:
 				continue
@@ -200,7 +200,7 @@ func _physics_process(delta) ->void:
 		for i in gradient_area.get_overlapping_areas():
 			if !i.has_method("_moving_block_turn"):
 				continue
-			var i_pos :Vector2 = get_parent().global_transform.xform_inv(i.global_position)
+			var i_pos :Vector2 = Berry.get_xform_position(self,i.global_position)
 			var length :float = velocity.length()
 			if (position+gradient_area.position).distance_to(i_pos) > length * delta:
 				continue

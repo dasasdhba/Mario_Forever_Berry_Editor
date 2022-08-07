@@ -27,7 +27,7 @@ func _ready():
 func _physics_process(_delta) ->void:
 	for i in scene.current_player:
 		if !i.clear && i.is_on_floor():
-			var p_pos :Vector2 = parent.global_transform.xform_inv(i.global_position)
+			var p_pos :Vector2 = Berry.get_xform_position(self,i.global_position)
 			if p_pos.y < position.y - 16 || p_pos.y > position.y + 100:
 				continue
 			if direction == DIR.RIGHT:
@@ -40,7 +40,7 @@ func _physics_process(_delta) ->void:
 			
 func level_pass(player :Node) ->void:
 	var score :Node = Lib.score.instance()
-	score.position = parent.global_transform.xform_inv(player.global_position)
+	score.position = Berry.get_xform_position(self,player.global_position)
 	parent.add_child(score)
 	if pass_line:
 		parent._level_pass()

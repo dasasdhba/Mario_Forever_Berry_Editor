@@ -179,7 +179,7 @@ func _physics_process(delta) ->void:
 		# 转向
 		for i in $AreaShared.get_overlapping_areas():
 			if i.has_method("_chain_direction"):
-				var i_pos :Vector2 = get_parent().global_transform.xform_inv(i.global_position)
+				var i_pos :Vector2 = Berry.get_xform_position(self,i.global_position)
 				if position.distance_to(i_pos) <= speed * delta:
 					var r :float = wrapf(i.rotation_degrees,0,360)
 					if direction != round(r/90):

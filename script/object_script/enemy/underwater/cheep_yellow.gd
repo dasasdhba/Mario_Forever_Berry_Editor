@@ -8,8 +8,6 @@ export var brush_border :Rect2 = Rect2(-16,-16,32,32)
 export var brush_offset :Vector2 = Vector2(16,16)
 
 onready var gravity_direction :Vector2 = Vector2.DOWN.rotated(rotation)
-onready var parent :Node = get_parent()
-
 onready var scene :Node = Berry.get_scene(self)
 	
 func _physics_process(delta) ->void:
@@ -21,7 +19,7 @@ func _physics_process(delta) ->void:
 	var p :Node = scene.get_player_nearest(self)
 	if p == null:
 		return
-	var p_pos :Vector2 = parent.global_transform.xform_inv(p.global_position)
+	var p_pos :Vector2 = Berry.get_xform_position(self,p.global_position)
 	if p_pos.x <= position.x - follow_range || p_pos.x >= position.x + follow_range:
 		return
 	if p_pos.y <= position.y - follow_range || p_pos.y >= position.y + follow_range:

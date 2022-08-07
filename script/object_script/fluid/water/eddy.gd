@@ -23,7 +23,7 @@ func _physics_process(delta) ->void:
 			var p :Node = i.get_parent()
 			if p.water && p.pipe == 0:
 				p.position += vertical_speed*Vector2.DOWN.rotated(rotation) * delta
-				var p_pos :Vector2 = get_parent().global_transform.xform_inv(p.global_position)
+				var p_pos :Vector2 = Berry.get_xform_position(self,p.global_position)
 				var hdir :Vector2 = Vector2.RIGHT.rotated(rotation)
 				var d :float = (position - p_pos).dot(hdir)
 				if abs(d) >= horizontal_speed * delta:

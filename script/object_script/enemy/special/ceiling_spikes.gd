@@ -44,9 +44,9 @@ func infinity_position() ->void:
 func check_activation() ->bool:
 	if step > 0:
 		return true
-	var player :Node = scene.get_player_nearest(self)
-	if player != null:
-		var p_pos :Vector2 = get_parent().global_transform.xform_inv(player.global_position)
+	var p :Node = scene.get_player_nearest(self)
+	if p != null:
+		var p_pos :Vector2 = Berry.get_xform_position(self,p.global_position)
 		for i in activation_areas:
 			if i.has_point(p_pos):
 				return true

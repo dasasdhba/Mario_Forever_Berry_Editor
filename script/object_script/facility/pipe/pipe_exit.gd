@@ -16,31 +16,30 @@ func _pipe_exit(i :Node, start :bool = false) ->void:
 			new_pos = global_position + $PosUpSmall.relative(false,false,true)
 		else:
 			new_pos = global_position + $PosUpBig.relative(false,false,true)
-		i.position = i.get_parent().global_transform.xform_inv(new_pos) - i.pipe_vertical*i.gravity_direction
+		i.position = Berry.get_xform_position(i,new_pos) - i.pipe_vertical*i.gravity_direction
 		i.player_pipe_exit(1,start)
 	# 上
 	elif abs(angle) >= 3*PI/4:
 		var new_pos :Vector2 = global_position + $PosDown.relative(false,false,true)
-		i.position = i.get_parent().global_transform.xform_inv(new_pos) + i.pipe_vertical*i.gravity_direction
+		i.position = Berry.get_xform_position(i,new_pos) + i.pipe_vertical*i.gravity_direction
 		i.player_pipe_exit(3,start)
 	# 右
 	elif angle >= PI/4 && angle <= 3*PI/4:
 		var new_pos :Vector2 = global_position + $PosSide.relative(false,false,true)
-		i.position = i.get_parent().global_transform.xform_inv(new_pos) - i.pipe_horizontal*i.gravity_direction.tangent()
+		i.position = Berry.get_xform_position(i,new_pos) - i.pipe_horizontal*i.gravity_direction.tangent()
 		i.player_pipe_exit(0,start)
 	# 左
 	else:
 		var new_pos :Vector2 = global_position + $PosSide.relative(false,true,true)
-		i.position = i.get_parent().global_transform.xform_inv(new_pos) + i.pipe_horizontal*i.gravity_direction.tangent()
+		i.position = Berry.get_xform_position(i,new_pos) + i.pipe_horizontal*i.gravity_direction.tangent()
 		i.player_pipe_exit(2,start)
 		
 func _ready() ->void:
 	if start_pipe:
 		var scene :Node = Berry.get_scene(self)
-		var p :Node = get_parent()
 		var rect :Rect2 = Rect2(position - 32*Vector2.ONE,64*Vector2.ONE)
 		for i in scene.current_player:
-			var i_pos :Vector2 = p.global_transform.xform_inv(i.global_position)
+			var i_pos :Vector2 = Berry.get_xform_position(self,i.global_position)
 			if rect.has_point(i_pos):
 				i.pipe = 5
 				_pipe_exit(i,true)

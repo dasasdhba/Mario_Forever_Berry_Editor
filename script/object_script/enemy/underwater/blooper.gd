@@ -18,7 +18,6 @@ var follow :bool = false
 var dive :bool = false
 var delta_position :Vector2
 
-onready var parent :Node = get_parent()
 onready var view :Node = Berry.get_view(self)
 onready var scene :Node = Berry.get_scene(self)
 onready var gravity_direction :Vector2 = Vector2.DOWN.rotated(rotation)
@@ -38,7 +37,7 @@ func _physics_process(delta):
 	var p :Node = scene.get_player_nearest(self)
 	if p == null:
 		return
-	var p_pos :Vector2 = parent.global_transform.xform_inv(p.global_position)
+	var p_pos :Vector2 = Berry.get_xform_position(self,p.global_position)
 	
 	delta_position = -position
 	

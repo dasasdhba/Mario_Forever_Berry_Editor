@@ -128,7 +128,7 @@ func _brush_process(res :Resource, sel :Array, undo :UndoRedo) ->void:
 		offset = default_offset
 		brush_last = null
 	
-	var pos :Vector2 = get_global_mouse_position() - global_position
+	var pos :Vector2 = global_transform.affine_inverse().xform(get_global_mouse_position())
 	var grid_pos :Vector2
 	grid_pos.x = floor(pos.x/grid.x)*grid.x
 	grid_pos.y = floor(pos.y/grid.y)*grid.y
