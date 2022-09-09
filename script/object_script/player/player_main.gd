@@ -400,7 +400,7 @@ func player_movement(delta) ->void:
 		move = 0
 		
 	# 通关
-	if clear:
+	if clear && !control:
 		move = clear_speed
 		move_direction = clear_direction
 		

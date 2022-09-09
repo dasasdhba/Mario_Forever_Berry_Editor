@@ -163,8 +163,9 @@ func _brush_process(res :Resource, sel :Array, undo :UndoRedo) ->void:
 				preview_node.queue_free()
 				preview_res = null
 			if preview_list.empty():
-				for i in copy_list:
-					var new :Node = i.duplicate()
+				for i in copy_list.size():
+					var new :Node = copy_list[i].duplicate()
+					new.name = "_Preview" + String(i)
 					add_child(new)
 					preview_list.append(new)
 			if !(brush_last is Array):

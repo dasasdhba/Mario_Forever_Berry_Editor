@@ -1,5 +1,5 @@
 tool
-extends Area2D
+extends Lava
 
 export var lava_color :Color = Color(0.47,0,0,1)
 export var preview_color :Color = Color(0.47,0,0,0.6)

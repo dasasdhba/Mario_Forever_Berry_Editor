@@ -3,6 +3,10 @@ extends Node
 
 var multiroom :bool = false # 是否开启多 room 管理基础功能
 
+# 网格化 Vector2
+func grid(vec :Vector2, sep :float = 16) ->Vector2:
+	return sep*((vec/sep).round())
+
 # 将向右的向量(Vector2.RIGHT)旋转指定角度并优化上下左右四个方向的精度
 func vector2_rotate_degree(deg :float) ->Vector2:
 	deg = wrapf(deg,0,360)

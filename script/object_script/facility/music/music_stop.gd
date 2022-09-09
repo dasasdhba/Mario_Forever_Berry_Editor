@@ -8,6 +8,8 @@ export var brush_border :Rect2 = Rect2(0,0,32,32)
 export var brush_offset :Vector2 = Vector2(0,0)
 
 func _physics_process(_delta) ->void:
+	if !monitoring:
+		return
 	for i in get_overlapping_areas():
 		if i.has_method("_player"):
 			stop_music()

@@ -17,7 +17,8 @@ func _process(_delta) ->void:
 	if speed >= 0:
 		direction = 1
 	$Sprite.flip_h = direction != 1
-	$Sprite/Rotation.direction = direction
+	if has_node("Sprite/Rotation"):
+		$Sprite/Rotation.direction = direction
 	
 func _physics_process(delta) ->void:
 	# 重力

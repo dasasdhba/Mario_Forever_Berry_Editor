@@ -19,6 +19,8 @@ func _ready() ->void:
 func _physics_process(_delta) ->void:
 	if mode != MODE.PLAYER:
 		return
+	if !monitoring:
+		return
 	for i in get_overlapping_areas():
 		if i.has_method("_player"):
 			setup_music()

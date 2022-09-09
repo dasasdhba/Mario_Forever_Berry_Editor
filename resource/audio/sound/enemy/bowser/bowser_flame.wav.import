@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/bowser_flame.wav-16ee65fc6f1e8ad24c6b7e3a5a9b6e1d.sample"
+
+[deps]
+
+source_file="res://resource/audio/sound/enemy/bowser/bowser_flame.wav"
+dest_files=[ "res://.import/bowser_flame.wav-16ee65fc6f1e8ad24c6b7e3a5a9b6e1d.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

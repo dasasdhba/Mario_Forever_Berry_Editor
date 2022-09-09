@@ -16,11 +16,30 @@ func inherit(target :Node2D) ->void:
 	alpha_accumulate = 0
 
 func add_sprite(target :Node2D) ->void:
-	if target is Sprite || target is AnimatedSprite:
-		var new: Node2D = target.duplicate()
-		if new is AnimatedSprite:
-			new.speed_scale = 0
-		add_child(new)
+	var new = null
+	if target is Sprite:
+		new = Sprite.new()
+		new.texture = target.texture
+	elif target is AnimatedSprite:
+		new = AnimatedSprite.new()
+		new.frames = target.frames
+		new.animation = target.animation
+		new.frame = target.frame
+		new.speed_scale = 0
+		new.playing = false
+	if new == null:
+		return
+	Berry.transform_copy(new,target)
+	new.centered = target.centered
+	new.offset = target.offset
+	new.flip_h = target.flip_h
+	new.flip_v = target.flip_v
+	new.visible = target.visible
+	new.modulate = target.modulate
+	new.self_modulate = target.self_modulate
+	new.material = target.material
+	new.use_parent_material = target.use_parent_material
+	add_child(new)
 		
 func _process(delta) ->void:
 	alpha_accumulate += alpha_speed * delta
