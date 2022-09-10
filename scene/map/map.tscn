@@ -100,7 +100,6 @@ next_scene = ExtResource( 9 )
 
 [node name="Camera" parent="." instance=ExtResource( 2 )]
 position = Vector2( -16, -24 )
-current = false
 limit_right = 1024
 mode = 3
 
