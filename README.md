@@ -5,7 +5,7 @@
 
 具体说明详见 **Wiki**，视频版（过时）：[https://www.bilibili.com/video/BV18G411W77H/](https://www.bilibili.com/video/BV18G411W77H/)
 
-完整版的说明还在咕，不过目前来说各方面都有待测试，而且还差不少东西，有生之年可能做完（
+目前大部分功能都齐了，不过仍然需要测试。后续也会不断更进过场动画与一些其他物件。
 
 # Credits
 
