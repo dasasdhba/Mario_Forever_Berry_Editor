@@ -27,7 +27,7 @@
 
 [sub_resource type="Theme" id=50]
 default_font = ExtResource( 10 )
-Label/fonts/font = null
+Label/fonts/font = ExtResource( 10 )
 
 [sub_resource type="Theme" id=1]
 Label/fonts/font = ExtResource( 7 )
@@ -49,6 +49,16 @@ flags = 4
 atlas = ExtResource( 8 )
 region = Rect2( 0, 0, 45, 64 )
 
+[sub_resource type="AtlasTexture" id=44]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 0, 256, 45, 64 )
+
+[sub_resource type="AtlasTexture" id=45]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 0, 448, 45, 64 )
+
 [sub_resource type="AtlasTexture" id=48]
 flags = 4
 atlas = ExtResource( 8 )
@@ -64,16 +74,6 @@ flags = 4
 atlas = ExtResource( 8 )
 region = Rect2( 0, 0, 45, 64 )
 
-[sub_resource type="AtlasTexture" id=44]
-flags = 4
-atlas = ExtResource( 8 )
-region = Rect2( 0, 256, 45, 64 )
-
-[sub_resource type="AtlasTexture" id=45]
-flags = 4
-atlas = ExtResource( 8 )
-region = Rect2( 0, 448, 45, 64 )
-
 [sub_resource type="SpriteFrames" id=49]
 animations = [ {
 "frames": [ SubResource( 38 ) ],
@@ -81,15 +81,15 @@ animations = [ {
 "name": "idle",
 "speed": 0.0
 }, {
-"frames": [ SubResource( 48 ), SubResource( 47 ), SubResource( 46 ) ],
-"loop": true,
-"name": "walk",
-"speed": 5.0
-}, {
 "frames": [ SubResource( 44 ), SubResource( 45 ) ],
 "loop": true,
 "name": "swim",
 "speed": 7.0
+}, {
+"frames": [ SubResource( 48 ), SubResource( 47 ), SubResource( 46 ) ],
+"loop": true,
+"name": "walk",
+"speed": 5.0
 } ]
 
 [node name="Map" type="Node2D"]
@@ -100,6 +100,7 @@ next_scene = ExtResource( 9 )
 
 [node name="Camera" parent="." instance=ExtResource( 2 )]
 position = Vector2( -16, -24 )
+current = false
 limit_right = 1024
 mode = 3
 
@@ -275,12 +276,6 @@ position = Vector2( -8, 264 )
 [node name="PathNode4" parent="Brush2D" instance=ExtResource( 18 )]
 position = Vector2( 8, 264 )
 
-[node name="PathNode5" parent="Brush2D" instance=ExtResource( 18 )]
-position = Vector2( 24, 264 )
-
-[node name="PathNode6" parent="Brush2D" instance=ExtResource( 18 )]
-position = Vector2( 40, 264 )
-
 [node name="PathNode7" parent="Brush2D" instance=ExtResource( 18 )]
 position = Vector2( 56, 264 )
 
@@ -380,6 +375,12 @@ position = Vector2( 536, 264 )
 [node name="PathNode38" parent="Brush2D" instance=ExtResource( 18 )]
 position = Vector2( 552, 264 )
 type = 1
+
+[node name="PathNode5" parent="Brush2D" instance=ExtResource( 18 )]
+position = Vector2( 24, 264 )
+
+[node name="PathNode6" parent="Brush2D" instance=ExtResource( 18 )]
+position = Vector2( 40, 264 )
 
 [node name="Player" type="AnimatedSprite" parent="."]
 position = Vector2( -16, 64 )

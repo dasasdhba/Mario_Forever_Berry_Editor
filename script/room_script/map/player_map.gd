@@ -7,7 +7,7 @@ export var speed_max :float = 400
 var once :bool = false
 var speed :float = 0
 var dir :Vector2 = Vector2.RIGHT
-var acc :bool = false
+var acc :bool = false # 加速
 var finish :bool = false
 
 signal player_finish
@@ -82,3 +82,7 @@ func _physics_process(delta :float) ->void:
 		speed = speed_max if acc else speed_normal
 		position += speed*dir * delta
 		check_path()
+	if dir == Vector2.RIGHT:
+		flip_h = false
+	elif dir == Vector2.LEFT:
+		flip_h = true
