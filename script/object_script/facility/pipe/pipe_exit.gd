@@ -42,6 +42,8 @@ func _ready() ->void:
 			var i_pos :Vector2 = Berry.get_xform_position(self,i.global_position)
 			if rect.has_point(i_pos):
 				i.pipe = 5
+				if i.global == null:
+					i.global_inherit()
 				_pipe_exit(i,true)
 
 func _physics_process(_delta) ->void:

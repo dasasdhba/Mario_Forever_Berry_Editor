@@ -107,13 +107,16 @@ func _init() ->void:
 	scene = Berry.get_scene(self)
 	if !scene.current_player.has(self):
 		scene.current_player.append(self)
-
-func _ready() ->void:
-	# 全局变量继承
+	
+# 全局变量继承
+func global_inherit() ->void:
 	if Player.has_node(player_name):
 		global = Player.get_node(player_name)
 		global.player_node = self
 		global.inherit()
+
+func _ready() ->void:
+	global_inherit()
 	
 	gravity_direction = gravity_direction.rotated(rotation)
 	
@@ -123,6 +126,8 @@ func _ready() ->void:
 		player_animation_switch()
 		if pipe == 0:
 			$Animation.z_index = z_index_normal
+	else:
+		queue_free()
 	
 	# 无敌星特效
 	move_child($StarParticles,get_child_count())
@@ -506,8 +511,6 @@ func player_movement(delta) ->void:
 	
 # 玩家动画
 func player_animation(delta) ->void:
-	if !has_node("Animation"):
-		return
 	# 方向
 	$Animation.flip_h = move_direction != 1
 	
@@ -560,6 +563,15 @@ func player_animation(delta) ->void:
 			$Animation.animation = "dive"
 	else:
 		$Animation.animation = "jump"
+		
+# 玩家动画切换
+func player_animation_switch() ->void:
+	match(state):
+		0: $Animation.current = "Small"
+		1: $Animation.current = "Big"
+		2: $Animation.current = "Fire"
+		3: $Animation.current = "Beet"
+		4: $Animation.current = "Lui"
 
 # 玩家攻击
 func player_attack() ->void:
@@ -586,15 +598,6 @@ func player_attack() ->void:
 			
 	# 无敌星
 	$AreaShared/AttackEnemy.disabled = !star
-	
-# 玩家动画切换
-func player_animation_switch() ->void:
-	match(state):
-		0: $Animation.current = "Small"
-		1: $Animation.current = "Big"
-		2: $Animation.current = "Fire"
-		3: $Animation.current = "Beet"
-		4: $Animation.current = "Lui"
 
 # 玩家踩敌人
 func player_stomp(bounce_speed :float = stomp_bounce, jump_speed :float = stomp_jump) ->void:
@@ -709,6 +712,9 @@ func player_pipe_enter(dir :int) ->void:
 	$Timer/Hurt.paused = true
 	$Timer/Star.paused = true
 	$Animation.z_index = z_index_pipe
+	if $Animation.current == "Switch":
+		$Animation/TimerSwitch.stop()
+		player_animation_switch()
 	time_set_paused(true)
 	control = false
 	pipe = dir + 1

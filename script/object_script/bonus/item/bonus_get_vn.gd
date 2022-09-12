@@ -4,6 +4,8 @@ extends Node
 onready var parent: Node = get_parent()
 
 func get_bonus(player :Node) ->void: 
+	if player.pipe || player.clear:
+		return
 	player.player_death(parent.force)
 	var new :Node = Lib.boom.instance()
 	new.position = parent.position

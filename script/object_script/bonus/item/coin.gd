@@ -33,4 +33,6 @@ func on_area_entered(area :Area2D) ->void:
 	if is_in_block():
 		return
 	if area.has_method("_player"):
+		if area.get_parent().pipe:
+			return
 		get_coin()
