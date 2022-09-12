@@ -120,6 +120,7 @@ func _ready() ->void:
 	# 动画初始化
 	if has_node("Animation"):
 		$Animation.visible = true
+		player_animation_switch()
 		if pipe == 0:
 			$Animation.z_index = z_index_normal
 	
@@ -534,12 +535,7 @@ func player_animation(delta) ->void:
 	# 切换状态
 	if !$Animation.get_node("TimerSwitch").is_stopped():
 		return
-	match(state):
-		0: $Animation.current = "Small"
-		1: $Animation.current = "Big"
-		2: $Animation.current = "Fire"
-		3: $Animation.current = "Beet"
-		4: $Animation.current = "Lui"
+	player_animation_switch()
 	
 	# 切换动画
 	if on_floor_snap:
@@ -590,6 +586,15 @@ func player_attack() ->void:
 			
 	# 无敌星
 	$AreaShared/AttackEnemy.disabled = !star
+	
+# 玩家动画切换
+func player_animation_switch() ->void:
+	match(state):
+		0: $Animation.current = "Small"
+		1: $Animation.current = "Big"
+		2: $Animation.current = "Fire"
+		3: $Animation.current = "Beet"
+		4: $Animation.current = "Lui"
 
 # 玩家踩敌人
 func player_stomp(bounce_speed :float = stomp_bounce, jump_speed :float = stomp_jump) ->void:
