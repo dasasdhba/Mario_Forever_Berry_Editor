@@ -27,6 +27,9 @@ func _ready() ->void:
 		queue_free()
 		return
 	hp.first_hp = boss.get_node("Life").health
+	
+	if !$Trigger/Music.is_connected("area_entered",self,"_on_Music_area_entered"):
+		$Trigger/Music.connect("area_entered",self,"_on_Music_area_entered")
 
 func recover() ->void:
 	hp_appear = false

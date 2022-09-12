@@ -32,6 +32,13 @@ func set_position_from_player() ->void:
 			pos += i.global_position
 		pos /= scene.current_player.size()
 		global_position = pos
+		
+func force_update_scroll() ->void:
+	var temp :bool = smoothing_enabled
+	smoothing_enabled = false
+	.force_update_scroll()
+	smoothing_enabled = temp
+	view.view_update(get_viewport())
 
 func _ready():
 	current = true
@@ -79,5 +86,4 @@ func camera_event(delta) ->void:
 			set_position_from_player()
 		MODE.FORCE:
 			# 强制滚屏
-			smoothing_enabled = false
 			global_position += force_speed*Berry.vector2_rotate_degree(force_angle) * delta

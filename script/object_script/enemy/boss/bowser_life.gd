@@ -15,6 +15,10 @@ onready var anim :AnimatedSprite = parent.get_node("AnimatedSprite")
 onready var attacked :Node = parent.get_node("AreaShared/Attacked")
 onready var stomped :RectCollision2D = parent.get_node("AreaShared/Stomped")
 
+func _ready() ->void:
+	if !attacked.is_connected("attacked",self,"_on_Attacked_attacked"):
+		attacked.connect("attacked",self,"_on_Attacked_attacked")
+
 func _physics_process(delta :float) ->void:
 	if invincible:
 		i_timer += delta

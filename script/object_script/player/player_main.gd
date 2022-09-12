@@ -149,6 +149,11 @@ func _physics_process(delta) ->void:
 		pipe_start = false
 		if pipe != 0:
 			pipe = 10
+			
+		var camera :Camera2D = view.get_current_camera(get_viewport())
+		if camera != null:
+			camera.set_position_from_player()
+			camera.force_update_scroll()
 		
 	# 开场水管音效
 	if pipe_start:
@@ -504,10 +509,14 @@ func player_movement(delta) ->void:
 		# 挤死判定
 		var crush :KinematicCollision2D = $Crush.move_and_collide(Vector2.ZERO,true,true,true)
 		if crush:
-			for i in crush.collider.get_shape_owners():
-				if !crush.collider.shape_owner_get_owner(i).one_way_collision:
-					player_death()
-					break
+			if crush.collider is TileMap:
+				player_death()
+				return
+			if crush.collider.has_method("get_shape_owners"):
+				for i in crush.collider.get_shape_owners():
+					if !crush.collider.shape_owner_get_owner(i).one_way_collision:
+						player_death()
+						break
 	
 # 玩家动画
 func player_animation(delta) ->void:
