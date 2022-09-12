@@ -34,6 +34,7 @@ func set_position_from_player() ->void:
 		global_position = pos
 
 func _ready():
+	current = true
 	if !view.camera.has(self):
 		view.camera.append(self)
 	set_position_from_player()
