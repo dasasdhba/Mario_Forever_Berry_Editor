@@ -71,12 +71,14 @@ func get_brush(node :Node) ->void:
 		offset = default_offset
 	
 func get_list_brush(list :Array) ->void:
-	get_brush(list[0])
 	var min_pos :Vector2 = Vector2(INF,INF)
 	var max_pos :Vector2 = Vector2(-INF,-INF)
 	var min_border :Vector2
+	var first_offset = null
 	for i in list:
 		get_brush(i)
+		if first_offset == null:
+			first_offset = offset
 		if min_pos.x > i.position.x+border.position.x:
 			min_pos.x = i.position.x+border.position.x
 			min_border.x = border.position.x
@@ -85,7 +87,8 @@ func get_list_brush(list :Array) ->void:
 			min_border.y = border.position.y
 		max_pos.x = max(max_pos.x,i.position.x+border.end.x)
 		max_pos.y = max(max_pos.y,i.position.y+border.end.y)
-	border = Rect2(min_border,max_pos-min_pos)
+	offset = list[0].position - min_pos
+	border = Rect2(-offset,max_pos-min_pos)
 	
 func add_child_copy(list :Array, pos :Vector2) ->void:
 	var fpos :Vector2 = list[0].position
