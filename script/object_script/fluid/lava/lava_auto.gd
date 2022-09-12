@@ -24,6 +24,9 @@ func _ready() ->void:
 	view = Berry.get_view(self)
 	height = position.y
 	target_height = position.y
+	
+	collision_update()
+	
 	var room :Node = Berry.get_room2d(self)
 	if room != null:
 		room.node_array.append(self)
@@ -56,11 +59,6 @@ func _physics_process(delta):
 	update()
 	if Engine.editor_hint:
 		return
-		
-	# 判定范围
-	$CollisionShape2D.shape.extents = view.current_limit.size
-	$CollisionShape2D.position.x = (view.current_limit.position.x + view.current_limit.end.x)/2
-	$CollisionShape2D.position.y = view.current_limit.size.y
 	
 	# 升降
 	if target_height > height:
@@ -73,3 +71,11 @@ func _physics_process(delta):
 		if position.y <= target_height:
 			position.y = target_height
 			height = target_height
+			
+	collision_update()
+
+# 判定范围更新
+func collision_update() ->void:
+	$CollisionShape2D.shape.extents = view.current_limit.size
+	$CollisionShape2D.position.x = (view.current_limit.position.x + view.current_limit.end.x)/2
+	$CollisionShape2D.position.y = view.current_limit.size.y
