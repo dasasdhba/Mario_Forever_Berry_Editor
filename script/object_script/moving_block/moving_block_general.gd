@@ -29,6 +29,9 @@ var gradient_scale :float = 1
 var gradient_behavior :Array = []
 var gradient_area :AreaShared
 
+export var brush_border :Rect2 = Rect2(-16,-16,32,32)
+export var brush_offset :Vector2 = Vector2(16,16)
+
 onready var fall_dir :Vector2 = Berry.vector2_rotate_degree(fall_angle)
 onready var view :Node = Berry.get_view(self)
 
