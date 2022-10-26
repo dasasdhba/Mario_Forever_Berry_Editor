@@ -47,14 +47,14 @@ func _physics_process(delta) ->void:
 	var jump :float = sqrt(2*jump_height*gravity_acceleration)
 	if enemy_movement(delta,speed*direction,jump):
 		direction *= -1
-		$RectHitBlock.hit_block()
+		$HitBlock.hit_block()
 		
 	delta_position += position
 	
 	# 砸砖
-	$RectHitBlock.default_direction = direction*gravity_direction.tangent()
-	$RectHitBlock/RectBoxRight.disabled = direction != 1
-	$RectHitBlock/RectBoxLeft.disabled = direction == 1
+	$HitBlock.default_direction = direction*gravity_direction.tangent()
+	$HitBlock/CollisionBoxRight.disabled = direction != 1
+	$HitBlock/CollisionBoxLeft.disabled = direction == 1
 	
 	# 出界销毁
 	if auto_destroy:

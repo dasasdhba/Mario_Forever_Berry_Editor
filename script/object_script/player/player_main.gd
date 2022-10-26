@@ -53,6 +53,7 @@ export var jump_add_move :float = 1250 # 运动跳跃加成
 export var jump_add_lui :float = 1500 # 绿果跳跃加成
 var jump_restrict :bool = false # 限制连跳
 var on_floor_snap :bool = false # 是否在地面上(动画)
+var on_ceiling_flag :bool = false # 是否顶头(用于顶砖)
 const snap_value :int = 6 # 越大越容易站在斜坡上，但判定越不精确
 
 # 踩敌人速度
@@ -351,6 +352,14 @@ func get_control(delta) ->void:
 
 # 玩家运动
 func player_movement(delta) ->void:
+	# 顶砖块
+	if on_ceiling_flag:
+		$HitBlock.hit_block(false,state == 0,true)
+		on_ceiling_flag = false
+	if gravity < 0:
+		if $HitBlock.hit_block_hidden(-gravity_direction,8,false,state == 0,true):
+			gravity = 0
+	
 	# 水
 	water = $AreaShared/WaterDetect.is_in_water()
 	$BubbleLauncher.activate = water
@@ -468,10 +477,10 @@ func player_movement(delta) ->void:
 	# 应用物理
 	velocity = move_and_slide_with_snap(velocity,gdir,-gdir,true,4,deg2rad(slope_max_angle))
 	if is_on_ceiling():
+		on_ceiling_flag = true
 		player_solid_push(gravity_direction,push_value)
 		if gravity < 0:
 			gravity = 0
-			$HitBlock.hit_block(false,state == 0,true)
 	elif is_on_floor():
 		gravity = velocity.dot(gdir)
 	if (is_on_floor() && is_on_ceiling()) || (is_on_wall() && !is_on_floor()):
@@ -480,11 +489,6 @@ func player_movement(delta) ->void:
 		var move_new :float = velocity.dot(move_direction*gdir.tangent())
 		if move_new >= 0 && move_new < move:
 			move = move_new
-	
-	# 隐藏砖
-	if gravity < 0:
-		if $HitBlock.hit_block_hidden(-gravity_direction,8,false,state == 0,true):
-			gravity = 0
 	
 	# 刷新 is_on_floor()
 	temp = position
@@ -623,14 +627,12 @@ func collision_update() ->void:
 		$CollisionShapeBig.disabled = true
 		$AreaShared.add_shape($CollisionShapeSmall,false,true)
 		$AreaTop/CollisionShapeTop.position.y = -7
-		$StompEnemy/RectBox2D.load_collision_shape($CollisionShapeSmall)
 		$Point/Bubble.position.y = -2
 	else:
 		$CollisionShapeSmall.disabled = true
 		$CollisionShapeBig.disabled = false
 		$AreaShared.add_shape($CollisionShapeBig,false,true)
 		$AreaTop/CollisionShapeTop.position.y = -33
-		$StompEnemy/RectBox2D.load_collision_shape($CollisionShapeBig)
 		$Point/Bubble.position.y = -23
 	$Crush/CollisionShapeSmall.disabled = $CollisionShapeSmall.disabled
 	$Crush/CollisionShapeBig.disabled = $CollisionShapeBig.disabled

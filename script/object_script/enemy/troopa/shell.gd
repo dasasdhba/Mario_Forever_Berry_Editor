@@ -2,7 +2,7 @@ extends Node
 
 onready var parent :Area2D = get_parent()
 onready var root: Node = parent.get_parent()
-onready var stomp :RectCollision2D = parent.get_node("Stomped")
+onready var stomp :Node = parent.get_node("Stomped")
 onready var turn: Node = parent.get_node("Turn")
 onready var atk: Node = parent.get_node("Attacked")
 

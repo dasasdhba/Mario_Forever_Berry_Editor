@@ -3,6 +3,8 @@ extends Gravity
 
 var speed :float
 var count :int = 0
+var hit_block_hint :bool = false
+
 export var speed_init :float = 100
 export var speed_base: float = 10 # CTF 单位
 export var speed_random: int = 32 # CTF 单位
@@ -20,6 +22,14 @@ func _ready() ->void:
 	speed = speed_init
 	
 func _physics_process(delta) ->void:
+	# 顶砖块
+	if hit_block_hint:
+		$HitBlock.hit_block()
+		hit_block_hint = false
+	if !$CollisionShape2D.disabled:
+		if $HitBlock.hit_block_hidden():
+			bounce()
+	
 	var water :bool = $AreaShared/WaterDetect.is_in_water()
 	# 落水与恢复
 	if water:
@@ -38,10 +48,16 @@ func _physics_process(delta) ->void:
 			$CollisionShape2D.disabled = true
 	$BubbleLauncher.activate = water
 	
-	# 重力与反弹
+	# 重力
 	gravity_process(delta,water)
+		
+	# 应用物理
+	var gdir :Vector2 = Berry.get_global_direction(self,gravity_direction)
+	var velocity :Vector2 = gravity*gdir + speed*direction*gdir.tangent()
+	move_and_slide(velocity,-gdir,true)
+	
 	if is_on_floor() || is_on_ceiling() || is_on_wall():
-		$HitBlock.hit_block()
+		hit_block_hint = true
 		bounce()
 		
 	# 累计次数
@@ -49,17 +65,7 @@ func _physics_process(delta) ->void:
 		$CollisionShape2D.disabled = true
 		if atk:
 			$AreaShared/AttackEnemy.disabled = true
-		
-	# 应用物理
-	var gdir :Vector2 = Berry.get_global_direction(self,gravity_direction)
-	var velocity :Vector2 = gravity*gdir + speed*direction*gdir.tangent()
-	move_and_slide(velocity,-gdir,true)
 	
-	# 隐藏砖
-	if !$CollisionShape2D.disabled:
-		if $HitBlock.hit_block_hidden(velocity,-1):
-			bounce()
-		
 func bounce() ->void:
 	if count >= bounce_count:
 		return

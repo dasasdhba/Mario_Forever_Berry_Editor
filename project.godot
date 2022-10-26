@@ -10,6 +10,11 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Area2D",
+"class": "AreaExact",
+"language": "GDScript",
+"path": "res://script/class/area_exact.gd"
+}, {
+"base": "Area2D",
 "class": "AreaShared",
 "language": "GDScript",
 "path": "res://script/class/area_shared.gd"
@@ -70,6 +75,7 @@ _global_script_classes=[ {
 "path": "res://script/class/water.gd"
 } ]
 _global_script_class_icons={
+"AreaExact": "res://script/class/icon/area_exact.png",
 "AreaShared": "res://script/class/icon/area_shared.png",
 "Brush2D": "res://addons/brush2d/icon.png",
 "Gravity": "res://script/class/icon/gravity.png",

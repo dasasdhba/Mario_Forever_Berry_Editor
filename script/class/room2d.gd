@@ -17,10 +17,7 @@ func _ready() ->void:
 	room2d_ready()
 
 func room2d_ready() ->void:
-	# Scene 单例初始化
 	manager.current_room = self
-	manager.current_scene = PackedScene.new()
-	manager.current_scene.pack(self)
 	# 全局设置
 	Global.pause_disabled = pause_disabled
 	Global.touch_button_disabled = touch_button_disabled

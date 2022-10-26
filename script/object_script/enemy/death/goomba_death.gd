@@ -32,5 +32,5 @@ func _on_attacked(atk :Array) ->void:
 		spr.flip_v = true
 		death.add_child(spr)
 		death.gravity = -350
-	parent.get_parent().add_child(death)
+	parent.get_parent().call_deferred("add_child",death)
 	parent.queue_free()

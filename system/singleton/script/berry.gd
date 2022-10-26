@@ -38,13 +38,17 @@ func get_xform_position(node :Node2D, pos :Vector2) ->Vector2:
 	else:
 		return pos
 
-# 将相对方向转为全局方向
-func get_global_direction(node :Node2D, dir :Vector2) ->Vector2:
+# 将相对坐标转为全局坐标
+func get_global_position(node :Node2D, pos :Vector2) ->Vector2:
 	var parent :Node = node.get_parent()
 	if parent is Node2D:
-		return parent.global_transform.basis_xform(dir).normalized()
+		return parent.global_transform.basis_xform(pos)
 	else:
-		return dir.normalized()
+		return pos
+
+# 将相对坐标转为全局方向
+func get_global_direction(node :Node2D, dir :Vector2) ->Vector2:
+	return get_global_position(node,dir).normalized()
 
 # 获取多层父节点
 func get_parent_ext(node :Node ,layer :int = 1) ->Node:

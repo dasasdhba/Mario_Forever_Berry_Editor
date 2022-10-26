@@ -13,6 +13,7 @@ onready var scene :Node = Berry.get_scene(self)
 onready var origin_position :Vector2 = position
 
 var state :int = 0
+var hit_block_flag :bool = false
 var delay :bool = false
 
 export var brush_border :Rect2 = Rect2(-32,-33,64,66)
@@ -21,7 +22,7 @@ export var brush_offset :Vector2 = Vector2(16,18)
 func _ready() ->void:
 	gravity_direction = gravity_direction.rotated(rotation)
 	$AreaShared.inherit(self)
-	$RectHitBlock.default_direction = gravity_direction
+	$HitBlock.default_direction = gravity_direction
 
 func _physics_process(delta :float) ->void:
 	# 停止
@@ -36,26 +37,30 @@ func _physics_process(delta :float) ->void:
 	
 	# 下落
 	if state == 1:
-		if !delay:
-			gravity_process(delta,$AreaShared/WaterDetect.is_in_water())
 		if hit_block:
-			$RectHitBlock.hit_block_hidden($RectHitBlock.default_direction, $RectHitBlock.default_range, true)
-		delay = false
-		if move_and_collide(gravity * delta*gravity_direction):
-			if hit_block && gravity > 0:
-				if $RectHitBlock.hit_block(true):
-					delay = true
-			if !delay:
-				state = 2
-				$Timer.start()
-				$Hit.play()
-				if shake:
-					var camera :Camera2D = view.get_current_camera()
-					if camera != null:
-						camera.shake_time = 0.15
-				
+			$HitBlock.hit_block_hidden($HitBlock.default_direction, $HitBlock.default_range, true)
+			if delay:
+				$HitBlock.hit_block(true)
+				hit_block_flag = true
+				delay = false
+				return
+		gravity_process(delta,$AreaShared/WaterDetect.is_in_water())
+		if !move_and_collide(gravity * delta*gravity_direction):
+			hit_block_flag = false
+		else:
 			gravity = 0
-			
+			if !hit_block_flag && hit_block:
+				delay = true
+				return
+			hit_block_flag = false
+			state = 2
+			$Timer.start()
+			$Hit.play()
+			if shake:
+				var camera :Camera2D = view.get_current_camera()
+				if camera != null:
+					camera.shake_time = 0.15
+
 			var gdir :Vector2 = Berry.get_global_direction(self,gravity_direction)
 			var boom :Node = boom_res.instance()
 			boom.get_node("SolidDetect").direction = gdir

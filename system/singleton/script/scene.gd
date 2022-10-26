@@ -5,7 +5,7 @@ extends CanvasLayer
 
 export var save_game_room :PackedScene = null
 
-var current_scene :PackedScene = null # 当前 Scene 的 Packed 备份
+var current_scene :String = "" # 当前 Scene 的 Path
 var current_room :Room2D = null # 当前 Room2D 节点
 var current_player :Array = [] # 当前 Room2D 的玩家
 
@@ -44,10 +44,15 @@ const restart_key :int = KEY_F2
 const save_key :int = KEY_F3
 var restart_restrict :bool = false
 var save_restrict :bool = false
-	
+
+# 初始化
+func _ready() ->void:
+	current_scene = get_tree().current_scene.filename
+
 # 更改当前 Scene
 func change_scene(new_scene :PackedScene, in_trans :int = TRANS.NONE, out_trans :int = TRANS.NONE) ->void:
 	change = true
+	current_scene = new_scene.resource_path
 	room_old = current_room
 	room_parent = current_room.get_parent()
 	scene_new = new_scene
@@ -57,7 +62,8 @@ func change_scene(new_scene :PackedScene, in_trans :int = TRANS.NONE, out_trans 
 	
 # 重新加载当前 Scene
 func restart_scene(in_trans :int = TRANS.NONE, out_trans :int = TRANS.NONE) ->void:
-	change_scene(current_scene,in_trans,out_trans)
+	var new_current :PackedScene = load(current_scene)
+	change_scene(new_current,in_trans,out_trans)
 	
 # 完全重启
 func restart_all() ->void:
