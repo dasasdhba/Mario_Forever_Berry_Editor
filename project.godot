@@ -24,6 +24,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/brush2d/brush2d.gd"
 }, {
+"base": "Node2D",
+"class": "BrushParam",
+"language": "GDScript",
+"path": "res://addons/brush2d/brush_param.gd"
+}, {
 "base": "KinematicBody2D",
 "class": "Gravity",
 "language": "GDScript",
@@ -78,6 +83,7 @@ _global_script_class_icons={
 "AreaExact": "res://script/class/icon/area_exact.png",
 "AreaShared": "res://script/class/icon/area_shared.png",
 "Brush2D": "res://addons/brush2d/icon.png",
+"BrushParam": "res://addons/brush2d/icon_param.png",
 "Gravity": "res://script/class/icon/gravity.png",
 "Lava": "res://script/class/icon/lava.png",
 "MovingBlock": "res://script/class/icon/moving_block.png",

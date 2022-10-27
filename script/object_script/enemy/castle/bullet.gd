@@ -12,9 +12,6 @@ var delta_position :Vector2 = Vector2.ZERO
 var layer_adjust :bool = false
 var layer_timer :float = 0
 
-export var brush_border :Rect2 = Rect2(-16,-16,32,32)
-export var brush_offset :Vector2 = Vector2(16,16)
-
 onready var view: Node = Berry.get_view(self)
 	
 func _physics_process(delta) ->void:

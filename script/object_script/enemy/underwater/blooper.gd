@@ -22,9 +22,6 @@ onready var view :Node = Berry.get_view(self)
 onready var scene :Node = Berry.get_scene(self)
 onready var gravity_direction :Vector2 = Vector2.DOWN.rotated(rotation)
 
-export var brush_border :Rect2 = Rect2(-16,-24,32,48)
-export var brush_offset :Vector2 = Vector2(16,24)
-
 func _physics_process(delta):
 	# 激活
 	if !activate:

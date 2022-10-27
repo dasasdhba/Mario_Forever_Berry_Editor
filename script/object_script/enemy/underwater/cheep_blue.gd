@@ -9,9 +9,6 @@ export var activate_range :float = 48 # 激活范围
 export var auto_destroy :bool = true # 是否自动销毁
 export var destroy_range :float = 32 # 自动销毁边界
 
-export var brush_border :Rect2 = Rect2(-16,-16,32,32)
-export var brush_offset :Vector2 = Vector2(16,16)
-
 onready var view: Node = Berry.get_view(self)
 onready var scene :Node = Berry.get_scene(self)
 onready var gravity_direction = Vector2.DOWN.rotated(rotation)

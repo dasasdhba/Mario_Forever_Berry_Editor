@@ -15,9 +15,6 @@ onready var origin_position :Vector2 = position
 var state :int = 0
 var hit_block_flag :bool = false
 var delay :bool = false
-
-export var brush_border :Rect2 = Rect2(-32,-33,64,66)
-export var brush_offset :Vector2 = Vector2(16,18)
 	
 func _ready() ->void:
 	gravity_direction = gravity_direction.rotated(rotation)

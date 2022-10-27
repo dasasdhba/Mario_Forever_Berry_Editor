@@ -9,9 +9,6 @@ export var pass_res :PackedScene
 
 var once :bool = false
 
-export var brush_border :Rect2 = Rect2(-32,-32,64,64)
-export var brush_offset :Vector2 = Vector2(0,0)
-
 onready var parent :Node = get_parent()
 	
 func _ready() ->void:

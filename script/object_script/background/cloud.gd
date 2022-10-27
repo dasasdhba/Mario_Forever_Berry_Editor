@@ -8,9 +8,6 @@ onready var origin_position :Vector2 = position
 onready var rand :RandomNumberGenerator = Berry.get_rand(self)
 onready var phase :float = 2*PI*rand.randf()
 
-export var brush_border :Rect2 = Rect2(0,0,32,32)
-export var brush_offset :Vector2 = Vector2(0,0)
-
 func _physics_process(delta) ->void:
 	if disabled:
 		return

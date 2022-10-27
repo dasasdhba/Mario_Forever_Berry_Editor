@@ -12,9 +12,6 @@ export(ANI) var player_ani :int = ANI.NONE
 var index :int = 1
 var once :bool = false
 
-export var brush_border :Rect2 = Rect2(-8,-8,16,16)
-export var brush_offset :Vector2 = Vector2(0,0)
-
 func _ready() ->void:
 	if Engine.editor_hint:
 		return

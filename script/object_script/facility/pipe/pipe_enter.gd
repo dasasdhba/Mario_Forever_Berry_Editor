@@ -4,8 +4,6 @@ extends Node2D
 export var exit_path :NodePath = @"" # 为空则检测子节点
 export var preview :bool = true
 export var preview_color :Color = Color(0,0.5,0,0.7)
-export var brush_border :Rect2 = Rect2(-32,-32,64,64)
-export var brush_offset :Vector2 = Vector2(0,0)
 
 var player :Array = []
 	

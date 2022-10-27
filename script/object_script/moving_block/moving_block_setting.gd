@@ -26,9 +26,6 @@ export var fall_max :float = 500
 export var fall_acceleration :float = 500
 export var fall_angle :float = 90 # 角度
 
-export var brush_border :Rect2 = Rect2(0,0,32,32)
-export var brush_offset :Vector2 = Vector2(0,0)
-
 # 用于标识
 func _moving_block_setting(block :MovingBlock) ->void:
 	if velocity_override:

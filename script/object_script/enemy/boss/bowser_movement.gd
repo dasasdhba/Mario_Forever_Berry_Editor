@@ -29,9 +29,6 @@ var jump :bool = true
 var jump_timer :float = 0
 var jump_i_random :float = 0
 
-export var brush_border :Rect2 = Rect2(-32,-36,64,72)
-export var brush_offset :Vector2 = Vector2(32,44)
-
 onready var view: Node = Berry.get_view(self)
 onready var scene :Node = Berry.get_scene(self)
 onready var rand :RandomNumberGenerator = Berry.get_rand(self)

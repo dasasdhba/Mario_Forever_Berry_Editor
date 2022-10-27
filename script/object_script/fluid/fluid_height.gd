@@ -13,9 +13,6 @@ export var preview_color :Color = Color(1,0,1,0.7)
 var target :Area2D
 var once :bool = false
 
-export var brush_border :Rect2 = Rect2(0,0,32,32)
-export var brush_offset :Vector2 = Vector2(0,0)
-
 func _ready() ->void:
 	if Engine.editor_hint:
 		return

@@ -3,9 +3,6 @@ extends Area2D
 
 enum TYPE {UP, DOWN}
 export(TYPE) var type :int = TYPE.UP
-	
-export var brush_border :Rect2 = Rect2(0,0,288,32)
-export var brush_offset :Vector2 = Vector2(0,0)
 
 # 用于标识
 func _bros_jump() ->int:

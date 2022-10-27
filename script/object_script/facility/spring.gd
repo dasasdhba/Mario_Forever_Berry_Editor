@@ -3,8 +3,6 @@ extends Area2D
 export var height_normal :float = 60.5
 export var height_jump :float = 180.5
 export var jump_time :float = 0.14
-export var brush_border :Rect2 = Rect2(-16,-24,32,48)
-export var brush_offset :Vector2 = Vector2(16,24)
 
 func _ready() ->void:
 	if !is_connected("area_entered",self,"on_area_entered"):

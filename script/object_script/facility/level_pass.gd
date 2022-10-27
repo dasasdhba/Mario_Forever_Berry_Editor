@@ -17,9 +17,6 @@ onready var room :Node = Berry.get_room2d(self)
 onready var scene :Node = room.manager
 onready var rand :RandomNumberGenerator = Berry.get_rand(self)
 
-export var brush_border :Rect2 = Rect2(-48,-144,96,288)
-export var brush_offset :Vector2 = Vector2(0,-128)
-
 # 用于标识
 func _level_pass() ->void:
 	for i in get_tree().get_nodes_in_group("fireball_player"):

@@ -33,9 +33,6 @@ var j_timer :float = 0
 var launch :bool = false
 var l_timer :float = 0
 
-export var brush_border :Rect2 = Rect2(-16,-24,32,48)
-export var brush_offset :Vector2 = Vector2(16,25)
-
 onready var view :Node = Berry.get_view(self)
 onready var rand :RandomNumberGenerator = Berry.get_rand(self)
 onready var parent :Node = get_parent()

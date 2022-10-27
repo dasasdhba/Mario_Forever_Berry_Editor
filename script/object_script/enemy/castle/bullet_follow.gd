@@ -15,9 +15,6 @@ var speed :float = 0
 var layer_adjust :bool = false
 var layer_timer :float = 0
 
-export var brush_border :Rect2 = Rect2(-16,-16,32,32)
-export var brush_offset :Vector2 = Vector2(16,16)
-
 onready var view: Node = Berry.get_view(self)
 onready var scene :Node = Berry.get_scene(self)
 	

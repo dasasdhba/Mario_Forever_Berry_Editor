@@ -1,8 +1,6 @@
 extends Node2D
 
 export var start_pipe :bool = false
-export var brush_border :Rect2 = Rect2(-32,-32,64,64)
-export var brush_offset :Vector2 = Vector2(0,0)
 
 var parent :Node = null
 	

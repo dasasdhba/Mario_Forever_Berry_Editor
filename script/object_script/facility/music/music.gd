@@ -9,9 +9,6 @@ export var reset :bool = false
 export var fade_in :bool = false
 export var fade_speed :float = 50
 
-export var brush_border :Rect2 = Rect2(0,0,32,32)
-export var brush_offset :Vector2 = Vector2(0,0)
-
 func _ready() ->void:
 	if mode == MODE.INIT:
 		setup_music()

@@ -1,9 +1,6 @@
 # 不支持旋转
 extends StaticBody2D
 
-export var brush_border :Rect2 = Rect2(-16,-32,32,32)
-export var brush_offset :Vector2 = Vector2(16,32)
-
 onready var scene :Node = Berry.get_scene(self)
 onready var view :Node = Berry.get_view(self)
 onready var camera :Camera2D = view.get_current_camera()

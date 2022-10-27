@@ -11,9 +11,6 @@ export var auto_destroy :bool = true # 是否自动销毁
 export var destroy_range :float = 48 # 自动销毁边界
 var delta_position :Vector2 = Vector2.ZERO
 
-export var brush_border :Rect2 = Rect2(-16,-16,32,32)
-export var brush_offset :Vector2 = Vector2(16,16)
-
 onready var view: Node = Berry.get_view(self)
 onready var scene :Node = Berry.get_scene(self)
 	

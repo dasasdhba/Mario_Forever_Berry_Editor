@@ -4,9 +4,6 @@ export var speed :float = 50 # 速度
 export var follow_range :float = 512 # 跟踪范围
 export var shape_name :String = "CollisionShape2D" # 使用的 shape 节点名，用于 AreaShared 初始化
 
-export var brush_border :Rect2 = Rect2(-16,-16,32,32)
-export var brush_offset :Vector2 = Vector2(16,16)
-
 onready var gravity_direction :Vector2 = Vector2.DOWN.rotated(rotation)
 onready var scene :Node = Berry.get_scene(self)
 	

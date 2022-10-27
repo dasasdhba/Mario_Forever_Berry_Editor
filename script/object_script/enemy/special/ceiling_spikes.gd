@@ -13,9 +13,6 @@ export var shake_time :float = 0.75
 
 export var preview :bool = true
 
-export var brush_border :Rect2 = Rect2(-384,-480,768,512)
-export var brush_offset :Vector2 = Vector2(320,64)
-
 var step :int = 0
 var timer :float = 0
 var speed :float = 0

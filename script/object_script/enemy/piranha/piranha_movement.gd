@@ -13,9 +13,6 @@ export var activate_range :float = 48 # 激活范围
 export var in_pipe_first :bool = false
 export var fireball_res :PackedScene
 
-export var brush_border :Rect2 = Rect2(-16,-16,32,48)
-export var brush_offset :Vector2 = Vector2(16,16)
-
 var attacked :Array = [] # 待处理的攻击判定
 
 var origin_position :Vector2
