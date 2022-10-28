@@ -1,7 +1,7 @@
 extends Area2D
 
 enum MODE {INIT, PLAYER}
-export(MODE) var mode :int = 1
+export(MODE) var mode :int = MODE.PLAYER
 export var stream :AudioStream
 export var channel :int = 1
 export var volume :float = 0

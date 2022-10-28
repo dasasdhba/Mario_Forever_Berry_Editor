@@ -2,6 +2,7 @@
 extends Node
 
 export var channel_number :int = 8
+export var auto_free_script :Script
 
 var music_channel :Array # 音乐声道，0 为无敌星音乐专用
 var fade_in :PoolRealArray
@@ -55,7 +56,6 @@ func channel_fade_cancel(channel :int = 1, volume_db :float = 0) ->void:
 	fade_out[channel] = -1
 	music_channel[channel].volume_db = volume_db
 	
-	
 # 全部声道的音量设置，会取消淡入淡出
 func music_volume_reset(volume :float = 0, star :bool = false) ->void:
 	for i in channel_number:
@@ -81,11 +81,12 @@ func music_stop(star :bool = false) ->void:
 	if star:
 		music_channel[0].stop()
 
-# 将音频复制到 Audio 播放，往往配合 audio_auto_free
+# 将音频复制到 Audio 播放
 # 用于解决部分 node 在 queue_free() 之后需要播放音频的问题以及多次播放的问题
 func play(node :Node) ->Node:
 	if node is AudioStreamPlayer || node is AudioStreamPlayer2D || node is AudioStreamPlayer3D:
 		var new :Node = node.duplicate()
+		new.set_script(auto_free_script)
 		add_child(new)
 		new.play()
 		return new
@@ -107,4 +108,3 @@ func _process(delta :float) ->void:
 				music_channel[i].stop()
 				music_channel[i].volume_db = 0
 				fade_out[i] = -1
-	

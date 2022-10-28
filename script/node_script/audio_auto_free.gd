@@ -2,7 +2,8 @@
 extends AudioStreamPlayer
 
 func _ready() ->void:
-	connect("finished",self,"on_audio_finished")
+	if !is_connected("finished",self,"on_audio_finished"):
+		connect("finished",self,"on_audio_finished")
 	
 func on_audio_finished() ->void:
 	queue_free()

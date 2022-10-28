@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=2]
+[gd_scene load_steps=46 format=2]
 
 [ext_resource path="res://resource/font/comix_heavy.res" type="DynamicFont" id=1]
 [ext_resource path="res://script/node_script/label/label_has_mouse.gd" type="Script" id=2]
@@ -8,7 +8,6 @@
 [ext_resource path="res://script/room_script/title/options.gd" type="Script" id=6]
 [ext_resource path="res://resource/audio/sound/system/menu_apply.wav" type="AudioStream" id=7]
 [ext_resource path="res://resource/audio/sound/system/menu_switch.wav" type="AudioStream" id=8]
-[ext_resource path="res://script/node_script/audio_auto_free.gd" type="Script" id=9]
 [ext_resource path="res://script/room_script/title/label_show_key.gd" type="Script" id=10]
 [ext_resource path="res://resource/image/ui/touch_button/a.png" type="Texture" id=11]
 [ext_resource path="res://resource/image/ui/touch_button/joystick.png" type="Texture" id=12]
@@ -906,7 +905,6 @@ bus = "Sound"
 [node name="Switch" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 8 )
 bus = "Sound"
-script = ExtResource( 9 )
 
 [connection signal="selected" from="OptionsMenu/MenuSelect" to="." method="_on_option_selected"]
 [connection signal="value_changed" from="OptionsMenu/Music/HSlider" to="." method="_on_volume_changed"]
