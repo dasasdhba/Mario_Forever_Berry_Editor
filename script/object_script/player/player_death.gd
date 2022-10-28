@@ -8,7 +8,7 @@ export var accleration: float = 1000
 export var stop_music :bool = true
 
 onready var room: Room2D = Berry.get_room2d(self)
-onready var scene :Node = room.manager
+onready var scene :Node = room.manager if room != null else Scene
 
 func _physics_process(delta):
 	if !activate:
@@ -24,7 +24,7 @@ func _physics_process(delta):
 				Audio.music_stop()
 			if room != null:
 				var hud: Control = room.hud
-				if hud != null:
+				if hud != null && hud.has_method("time_set_paused"):
 					hud.time_set_paused(true)
 			$TimerReset.start()
 				
@@ -43,7 +43,7 @@ func _on_TimerReset_timeout():
 	if Global.life <= 0:
 		if room != null:
 			var hud: Control = room.hud
-			if hud != null:
+			if hud != null && hud.has_node("GameOver"):
 				hud.get_node("GameOver").activate()
 				return
 	Global.life -= 1

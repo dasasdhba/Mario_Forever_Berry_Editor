@@ -14,7 +14,7 @@ var time_snd :float = 0
 
 onready var parent :Node = get_parent()
 onready var room :Node = Berry.get_room2d(self)
-onready var scene :Node = room.manager
+onready var scene :Node = room.manager if room != null else Scene
 onready var rand :RandomNumberGenerator = Berry.get_rand(self)
 
 # 用于标识
@@ -43,8 +43,9 @@ func _level_pass() ->void:
 		i.clear = true
 		i.clear_direction = direction
 		i.control = false
-	if room.hud != null:
-		room.hud.time_set_paused(true)
+	if room != null && room.hud != null:
+		if room.hud.has_method("time_set_paused"):
+			room.hud.time_set_paused(true)
 	
 func get_bonus() ->void:
 	var bonus :Node
@@ -114,7 +115,7 @@ func _on_Area2D_area_entered(area :Area2D) ->void:
 	_level_pass()
 
 func _on_Timer_timeout():
-	if room.hud == null || room.hud.level_time <= 0:
+	if room.hud == null || !room.hud.has_node("Time"):
 		$TimerJump.start()
 		return
 	time_count = true

@@ -3,7 +3,7 @@ extends Area2D
 var activate :bool = false
 
 onready var room :Room2D = Berry.get_room2d(self)
-onready var scene :Node = room.manager
+onready var scene :Node = room.manager if room != null else Scene
 
 # 用于标识
 func _checkpoint() ->bool:
@@ -12,7 +12,7 @@ func _checkpoint() ->bool:
 func _ready() ->void:
 	if !is_connected("area_entered",self,"on_area_entered"):
 		connect("area_entered",self,"on_area_entered")
-	if room.name != scene.checkpoint_room_name:
+	if room == null || room.name != scene.checkpoint_room_name:
 		return
 	var length :int = scene.current_checkpoint.size()
 	for i in length:
@@ -46,6 +46,9 @@ func on_area_entered(area :Area2D) ->void:
 	activate = true
 	$Activated.play()
 	$AnimatedSprite.animation = "activated"
+	if room == null:
+		print("Checkpoint will be invalid as there is no Room2D.")
+		return
 	if scene.checkpoint_room_name != room.name:
 		scene.current_checkpoint.clear()
 		scene.checkpoint_scene = scene.current_scene
