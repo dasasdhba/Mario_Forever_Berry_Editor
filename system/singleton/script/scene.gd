@@ -67,6 +67,7 @@ func restart_scene(in_trans :int = TRANS.NONE, out_trans :int = TRANS.NONE) ->vo
 	
 # 完全重启
 func restart_all() ->void:
+	current_scene = get_tree().current_scene.filename
 	get_tree().reload_current_scene()
 	
 # 清空 scene 数据
