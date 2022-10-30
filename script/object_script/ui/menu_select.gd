@@ -107,7 +107,7 @@ func select() ->void:
 		else:
 			select_restrict = false
 		return
-	if Input.is_action_pressed("ui_jump") || Input.is_key_pressed(KEY_ENTER) || Input.is_mouse_button_pressed(BUTTON_LEFT):
+	if Input.is_action_pressed("ui_jump") || Input.is_action_pressed("ui_accept") || Input.is_mouse_button_pressed(BUTTON_LEFT):
 		if !select_restrict:
 			select_restrict = true
 			emit_signal("selected",current)
