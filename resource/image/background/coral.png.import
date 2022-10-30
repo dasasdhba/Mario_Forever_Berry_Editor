@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/tank_inside.png-936296a7f25a12c54b471bd7dac3fa3f.stex"
+path="res://.import/coral.png-2c01048d41067b6691270d7123f53509.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resource/image/scenery/background/tank_inside.png"
-dest_files=[ "res://.import/tank_inside.png-936296a7f25a12c54b471bd7dac3fa3f.stex" ]
+source_file="res://resource/image/background/coral.png"
+dest_files=[ "res://.import/coral.png-2c01048d41067b6691270d7123f53509.stex" ]
 
 [params]
 

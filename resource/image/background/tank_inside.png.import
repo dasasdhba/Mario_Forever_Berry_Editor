@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/cloud.png-c05b79bf2b13b2778f7d84a960a5e28f.stex"
+path="res://.import/tank_inside.png-4a8faed25e3752044094b9f291248397.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resource/image/scenery/background/cloud.png"
-dest_files=[ "res://.import/cloud.png-c05b79bf2b13b2778f7d84a960a5e28f.stex" ]
+source_file="res://resource/image/background/tank_inside.png"
+dest_files=[ "res://.import/tank_inside.png-4a8faed25e3752044094b9f291248397.stex" ]
 
 [params]
 

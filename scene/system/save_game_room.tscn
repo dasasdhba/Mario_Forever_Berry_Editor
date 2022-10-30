@@ -5,7 +5,7 @@
 [ext_resource path="res://editor/facility/camera/camera.res" type="PackedScene" id=3]
 [ext_resource path="res://editor/facility/player_mario.res" type="PackedScene" id=4]
 [ext_resource path="res://resource/tileset/tile_general.tres" type="TileSet" id=5]
-[ext_resource path="res://editor/scenery/background/gradient_rect.res" type="PackedScene" id=6]
+[ext_resource path="res://editor/background/gradient_rect.res" type="PackedScene" id=6]
 [ext_resource path="res://resource/audio/music/save_game_room.ogg" type="AudioStream" id=7]
 [ext_resource path="res://resource/tileset/tile_pipe.tres" type="TileSet" id=8]
 [ext_resource path="res://resource/tileset/tile_scenery.tres" type="TileSet" id=9]
@@ -464,50 +464,55 @@ view_limit = false
 [node name="Cloud2" parent="Brush2D" instance=ExtResource( 12 )]
 position = Vector2( 192, 88 )
 frames = SubResource( 1 )
+frame = 1
 disabled = false
 
 [node name="Cloud3" parent="Brush2D" instance=ExtResource( 12 )]
 position = Vector2( 352, 136 )
 frames = SubResource( 1 )
-frame = 1
+frame = 0
 disabled = false
 
 [node name="Cloud4" parent="Brush2D" instance=ExtResource( 12 )]
 position = Vector2( 512, 56 )
 frames = SubResource( 1 )
+frame = 1
 disabled = false
 
 [node name="Cloud5" parent="Brush2D" instance=ExtResource( 12 )]
 position = Vector2( 704, 168 )
 frames = SubResource( 1 )
-frame = 1
+frame = 0
 disabled = false
 
 [node name="Cloud7" parent="Brush2D" instance=ExtResource( 12 )]
 position = Vector2( 832, 40 )
 frames = SubResource( 1 )
+frame = 1
 disabled = false
 
 [node name="Cloud8" parent="Brush2D" instance=ExtResource( 12 )]
 position = Vector2( 1024, 136 )
 frames = SubResource( 1 )
+frame = 1
 disabled = false
 
 [node name="Cloud9" parent="Brush2D" instance=ExtResource( 12 )]
 position = Vector2( 1248, 56 )
 frames = SubResource( 1 )
-frame = 2
+frame = 1
 disabled = false
 
 [node name="Cloud10" parent="Brush2D" instance=ExtResource( 12 )]
 position = Vector2( 1520, 152 )
 frames = SubResource( 1 )
-frame = 1
+frame = 0
 disabled = false
 
 [node name="Cloud11" parent="Brush2D" instance=ExtResource( 12 )]
 position = Vector2( 1792, 72 )
 frames = SubResource( 1 )
+frame = 1
 disabled = false
 
 [node name="SolidRoof" parent="Brush2D" instance=ExtResource( 33 )]

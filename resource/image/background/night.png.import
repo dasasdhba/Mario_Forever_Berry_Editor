@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/coral.png-9e19ef310cec5cf4cb3164dc56e0f573.stex"
+path="res://.import/night.png-d80a4926f4827d600c1e7b88e4b8e8cc.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resource/image/scenery/background/coral.png"
-dest_files=[ "res://.import/coral.png-9e19ef310cec5cf4cb3164dc56e0f573.stex" ]
+source_file="res://resource/image/background/night.png"
+dest_files=[ "res://.import/night.png-d80a4926f4827d600c1e7b88e4b8e8cc.stex" ]
 
 [params]
 

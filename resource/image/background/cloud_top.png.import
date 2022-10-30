@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/night.png-90419dfe9f94e16ea477fdf2a4f52f20.stex"
+path="res://.import/cloud_top.png-8a15eb769f57f2ec3d958c3a52dc755f.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resource/image/scenery/background/night.png"
-dest_files=[ "res://.import/night.png-90419dfe9f94e16ea477fdf2a4f52f20.stex" ]
+source_file="res://resource/image/background/cloud_top.png"
+dest_files=[ "res://.import/cloud_top.png-8a15eb769f57f2ec3d958c3a52dc755f.stex" ]
 
 [params]
 
