@@ -11,7 +11,6 @@ export var velocity :Vector2 = Vector2.ZERO
 export var auto_update :bool = false
 
 var draw_size :Vector2
-var tex_size :Vector2
 var global_draw_size :Vector2
 var global_tex_size :Vector2
 var view :Node
@@ -19,14 +18,13 @@ var view :Node
 func update_draw_size() ->void:
 	if texture == null || texture_scale.x == 0 || texture_scale.y == 0:
 		draw_size = Vector2.ZERO
-		tex_size = Vector2.ZERO
 		global_draw_size = Vector2.ZERO
 		global_tex_size = Vector2.ZERO
 		return
 	
 	var size :Vector2 = texture.get_size()
 	if !Engine.editor_hint && (expand_h || expand_v):
-		tex_size = Vector2(size.x*abs(texture_scale.x),size.y*abs(texture_scale.y))
+		var tex_size :Vector2 = Vector2(size.x*abs(texture_scale.x),size.y*abs(texture_scale.y))
 		global_tex_size = Berry.get_global_position(self,tex_size).abs()
 		
 		var border_size :Vector2 = view.current_border.size
@@ -75,7 +73,7 @@ func _physics_process(delta) ->void:
 	
 	if expand_h:
 		var x :float = global_draw_size.x
-		var unit :float = global_tex_size.x
+		var unit :float = max(1,global_tex_size.x)
 		if x > 0:
 			while global_position.x + unit > view.current_border.position.x:
 				global_position.x -= unit
@@ -88,7 +86,7 @@ func _physics_process(delta) ->void:
 				global_position.x += unit
 	if expand_v:
 		var y :float = global_draw_size.y
-		var unit :float = global_tex_size.y
+		var unit :float = max(1,global_tex_size.y)
 		if y > 0:
 			while global_position.y + unit > view.current_border.position.y:
 				global_position.y -= unit
