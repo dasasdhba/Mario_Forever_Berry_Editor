@@ -40,6 +40,36 @@ func _ready() ->void:
 	add_child(gradient_area)
 	collision_origin_update()
 
+func gradient_set_disabled(area :Area2D) ->bool:
+	if area.has_method("_moving_block_reverse"):
+		if reverse_mode == BEHAVIOR.STOP || reverse_mode == BEHAVIOR.TURN:
+			gradient = -1
+			return true
+	elif area.has_method("_moving_block_reflect"):
+		if reflect_mode == BEHAVIOR.STOP || reflect_mode == BEHAVIOR.TURN:
+			gradient = -1
+			return true
+	elif area.has_method("_moving_block_turn"):
+		if turn_mode == BEHAVIOR.STOP || turn_mode == BEHAVIOR.TURN:
+			gradient = -1
+			return true
+	return false
+
+func gradient_set_disabled_with_solid() ->bool:
+	var result :bool = false
+	if solid_mode == BEHAVIOR.STOP || solid_mode == BEHAVIOR.TURN:
+		var temp_layer :int = collision_layer
+		var temp_mask :int = collision_mask
+		if collision_layer & 2147483648 == 2147483648:
+			collision_layer -= 2147483648
+		collision_mask = 0
+		if move_and_collide(velocity,true,true,true):
+			gradient = -1
+			result = true
+		collision_layer = temp_layer
+		collision_mask = temp_mask
+	return result
+
 func _physics_process(delta) ->void:
 	if !delay:
 		delay = true
@@ -117,6 +147,15 @@ func _physics_process(delta) ->void:
 		return
 	
 	set_collision_position()
+	
+	# 取消渐变
+	if gradient == 0:
+		if reverse_mode == BEHAVIOR.GRADIENT || reflect_mode == BEHAVIOR.GRADIENT || turn_mode == BEHAVIOR.GRADIENT || solid_mode == BEHAVIOR.GRADIENT:
+			if !gradient_set_disabled_with_solid():
+				for i in gradient_area.get_overlapping_areas():
+					if gradient_set_disabled(i):
+						break
+	
 	# 反转
 	if reverse_mode == BEHAVIOR.STOP || reverse_mode == BEHAVIOR.TURN:
 		for i in $AreaShared.get_overlapping_areas():
@@ -129,12 +168,15 @@ func _physics_process(delta) ->void:
 				collision_mask = temp_mask
 				if reverse_mode == BEHAVIOR.STOP:
 					stop = true
+					gradient_area.position = Vector2.ZERO
 				else:
 					position -= velocity * delta
 					velocity *= -1
+					gradient_area.position = velocity*gradient_time/2
 				i._moving_block_reverse()
+				gradient = 0
 				break
-	elif reverse_mode == BEHAVIOR.GRADIENT:
+	elif reverse_mode == BEHAVIOR.GRADIENT && gradient == 0:
 		for i in gradient_area.get_overlapping_areas():
 			if i.has_method("_moving_block_reverse"):
 				gradient = 1
@@ -159,13 +201,16 @@ func _physics_process(delta) ->void:
 				collision_mask = temp_mask
 				if reflect_mode == BEHAVIOR.STOP:
 					stop = true
+					gradient_area.position = Vector2.ZERO
 				else:
 					var n :Vector2 = Vector2.RIGHT.rotated(angle)
 					velocity -= 2*velocity.dot(n)*n
 					position += velocity * delta
+					gradient_area.position = velocity*gradient_time/2
 				i._moving_block_reflect()
+				gradient = 0
 				break
-	elif reflect_mode == BEHAVIOR.GRADIENT:
+	elif reflect_mode == BEHAVIOR.GRADIENT && gradient == 0:
 		for i in gradient_area.get_overlapping_areas():
 			if i.has_method("_moving_block_reflect"):
 				var angle :float = i.get_parent().rotation
@@ -192,11 +237,14 @@ func _physics_process(delta) ->void:
 				position = i_pos
 				if turn_mode == BEHAVIOR.STOP:
 					stop = true
+					gradient_area.position = Vector2.ZERO
 				else:
 					velocity = length * Vector2.RIGHT.rotated(i.rotation)
+					gradient_area.position = velocity*gradient_time/2
 				i._moving_block_turn()
+				gradient = 0
 				break
-	elif turn_mode == BEHAVIOR.GRADIENT:
+	elif turn_mode == BEHAVIOR.GRADIENT && gradient == 0:
 		for i in gradient_area.get_overlapping_areas():
 			if !i.has_method("_moving_block_turn"):
 				continue
@@ -225,10 +273,13 @@ func _physics_process(delta) ->void:
 		if move_and_collide(velocity * delta):
 			if solid_mode == BEHAVIOR.STOP:
 				stop = true
+				gradient_area.position = Vector2.ZERO
 			else:
 				position -= velocity * delta
 				velocity *= -1
-	elif solid_mode == BEHAVIOR.GRADIENT:
+				gradient_area.position = velocity*gradient_time/2
+			gradient = 0
+	elif solid_mode == BEHAVIOR.GRADIENT && gradient == 0:
 		if move_and_collide(velocity*gradient_time/2 * delta,true,true,true):
 			gradient = 1
 			gradient_behavior.append("solid")
