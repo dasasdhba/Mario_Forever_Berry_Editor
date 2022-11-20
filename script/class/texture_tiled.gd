@@ -78,8 +78,7 @@ func _draw() ->void:
 			var j :int = 0
 			while j * size.y < abs(draw_rect.end.y):
 				var pos :Vector2 = Vector2(i * size.x, j * size.y)
-				var r :Vector2 = rect_size
-				var rect :Rect2 = Rect2(pos, r)
+				var rect :Rect2 = Rect2(pos, rect_size)
 				draw_texture_rect(texture,rect,true)
 				j += 1
 			i += 1
