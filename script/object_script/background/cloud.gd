@@ -6,7 +6,7 @@ export var radius :Vector2 = Vector2(20,10)
 
 onready var origin_position :Vector2 = position
 onready var rand :RandomNumberGenerator = Berry.get_rand(self)
-onready var phase :float = 2*PI*rand.randf()
+onready var phase :float = 360*rand.randf()
 
 func _physics_process(delta) ->void:
 	if disabled:
