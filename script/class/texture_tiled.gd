@@ -8,6 +8,7 @@ export var texture_scale :Vector2 = Vector2.ONE
 enum SPACING {PIXEL, TEXTURE}
 export(SPACING) var spacing_mode :int = SPACING.PIXEL
 export var spacing :Vector2 = Vector2.ZERO
+# 不支持 ParallaxBackground，因为这会直接修改绘制位置
 export var expand_h :bool = false # 若 Camera 的 scale 不为 1 或者在变化，则需要启用 auto_update
 export var expand_v :bool = false
 export var velocity :Vector2 = Vector2.ZERO

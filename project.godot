@@ -39,6 +39,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://script/class/lava.gd"
 }, {
+"base": "Node2D",
+"class": "Layer2D",
+"language": "GDScript",
+"path": "res://script/class/layer_2d.gd"
+}, {
 "base": "KinematicBody2D",
 "class": "MovingBlock",
 "language": "GDScript",
@@ -86,6 +91,7 @@ _global_script_class_icons={
 "BrushParam": "res://addons/brush2d/icon_param.png",
 "Gravity": "res://script/class/icon/gravity.png",
 "Lava": "res://script/class/icon/lava.png",
+"Layer2D": "res://script/class/icon/layer_2d.png",
 "MovingBlock": "res://script/class/icon/moving_block.png",
 "RectBox2D": "res://script/class/icon/rect_box2d.png",
 "RectCollision2D": "res://script/class/icon/rect_collision2d.png",
