@@ -32,6 +32,16 @@ func set_position_from_player() ->void:
 			pos += i.global_position
 		pos /= scene.current_player.size()
 		global_position = pos
+		# 支持镜头旋转，即以玩家平均旋转角度（弧度）为准
+		if rotating:
+			var rot:Array
+			var total_rot:float
+			for i in scene.current_player:
+				rot.append(i.global_rotation)
+			if !rot.empty():
+				for j in rot:
+					total_rot += j 
+			global_rotation = total_rot / scene.current_player.size()
 		
 func force_update_scroll() ->void:
 	var temp :bool = smoothing_enabled

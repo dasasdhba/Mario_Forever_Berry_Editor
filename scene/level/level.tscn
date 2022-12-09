@@ -23,6 +23,7 @@ script = ExtResource( 2 )
 
 [node name="Camera" parent="." instance=ExtResource( 3 )]
 position = Vector2( -16, -24 )
+rotating = true
 
 [node name="Music" parent="." instance=ExtResource( 10 )]
 position = Vector2( -32, 0 )
@@ -75,7 +76,8 @@ __meta__ = {
 }
 
 [node name="PlayerMario" parent="Brush2D" instance=ExtResource( 4 )]
-position = Vector2( 80, 400 )
+position = Vector2( 152, 373 )
+rotation = 0.6013
 
 [node name="Background" type="Node2D" parent="."]
 __meta__ = {
