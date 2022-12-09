@@ -9,7 +9,7 @@
 
 # Credits
 
-* HUD 字体，暂停与压顶刺原型 by x7
+* HUD 字体，镜头旋转，暂停与压顶刺原型 by x7
 * TextureFonts 插件 by ElectronicBlueberry
 * 素材 from Rainbow Engine 以及我的其他项目，少部分自制
 * 其他 by dasasdhba
