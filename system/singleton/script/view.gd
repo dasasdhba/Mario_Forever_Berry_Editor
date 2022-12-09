@@ -45,16 +45,16 @@ func view_update(viewport :Viewport = get_viewport()) ->void:
 
 # 计算给定位置是否在屏幕内
 func is_in_view_left(pos :Vector2, size :Vector2 = Vector2.ZERO) ->bool:
-	return trans.xform(pos).x > -size.x*current_zoom.x
+	return trans.xform(pos).x > -size.x / current_zoom.x
 	
 func is_in_view_right(pos :Vector2, size :Vector2 = Vector2.ZERO) ->bool:
-	return trans.xform(pos).x < current_border.size.x + size.x*current_zoom.x
+	return trans.xform(pos).x < (current_border.size.x + size.x) / current_zoom.x
 	
 func is_in_view_top(pos :Vector2, size :Vector2 = Vector2.ZERO) ->bool:
-	return trans.xform(pos).y > -size.y*current_zoom.y
+	return trans.xform(pos).y > -size.y / current_zoom.y
 	
 func is_in_view_bottom(pos :Vector2, size :Vector2 = Vector2.ZERO) ->bool:
-	return trans.xform(pos).y < current_border.size.y + size.y*current_zoom.y
+	return trans.xform(pos).y < (current_border.size.y + size.y) / current_zoom.y
 	
 func is_in_view(pos :Vector2, size :Vector2 = Vector2.ZERO) ->bool:
 	return is_in_view_left(pos,size) && is_in_view_right(pos,size) && is_in_view_top(pos,size) && is_in_view_bottom(pos,size)
