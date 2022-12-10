@@ -32,7 +32,7 @@ vec3 rgb_to_hsv(vec3 c) {
 	
 	float sat_bool = step(saturation, 0.0);
 	float a = mix(1.0 - saturation, satl, step(satl + saturation, 1.0));
-	float alpha = mix(1.0/a - 1.0, 1.0 + saturation, sat_bool);
+	float alpha = mix(1.0/(a + e) - 1.0, 1.0 + saturation, sat_bool);
 	
 	d = hsv.z - light;
 	q.x = alpha * d + mix(q.x, light, sat_bool);
