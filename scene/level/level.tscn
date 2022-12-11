@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://addons/brush2d/brush2d.gd" type="Script" id=1]
 [ext_resource path="res://script/class/room2d.gd" type="Script" id=2]
@@ -11,7 +11,6 @@
 [ext_resource path="res://resource/tileset/tile_scenery.tres" type="TileSet" id=9]
 [ext_resource path="res://editor/facility/music/music.res" type="PackedScene" id=10]
 [ext_resource path="res://resource/audio/music/thwomp_volcano.ogg" type="AudioStream" id=11]
-[ext_resource path="res://editor/enemy/piranha/piranha_red.res" type="PackedScene" id=12]
 
 [sub_resource type="Gradient" id=8]
 colors = PoolColorArray( 0, 0.501961, 1, 1, 1, 1, 1, 1 )
@@ -97,6 +96,3 @@ __meta__ = {
 layer = 125
 
 [node name="HUD" parent="HUD/HUD Layer" instance=ExtResource( 7 )]
-
-[node name="PiranhaRed" parent="." instance=ExtResource( 12 )]
-position = Vector2( 288, 385 )
