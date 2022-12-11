@@ -75,8 +75,7 @@ __meta__ = {
 }
 
 [node name="PlayerMario" parent="Brush2D" instance=ExtResource( 4 )]
-position = Vector2( 152, 373 )
-rotation = 0.6013
+position = Vector2( 80, 400 )
 
 [node name="Background" type="Node2D" parent="."]
 __meta__ = {
