@@ -12,7 +12,9 @@ onready var view :Node = Berry.get_view(self)
 
 func _scroll_process(_delta :float) ->void:
     var left :float = view.current_border.position.x
-    global_position = origin_pos + left*(Vector2.ONE - scroll_scale)
+    var top :float = view.current_border.position.y
+    global_position.x = origin_pos.x + left*(1 - scroll_scale.x)
+    global_position.y = origin_pos.y + top*(1 - scroll_scale.y)
 
 func _process(delta :float) ->void:
     if process_mode == MODE.IDLE:
