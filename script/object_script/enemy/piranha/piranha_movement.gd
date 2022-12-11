@@ -31,7 +31,7 @@ onready var height: int = 32 + max(0,stem_count)*16
 # 攻击判定标识
 func _enemy() ->void:
 	pass
-	
+
 func _ready() ->void:
 	position.y -= 16*(max(0,stem_count) - 1) 
 	origin_position = position
@@ -39,7 +39,7 @@ func _ready() ->void:
 		state = 2
 		f_count = 0
 		pos = height*scale.y
-	
+
 func _physics_process(delta) ->void:
 	# 激活
 	if !activate:
