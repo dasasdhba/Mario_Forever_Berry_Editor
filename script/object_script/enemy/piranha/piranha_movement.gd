@@ -37,6 +37,7 @@ func _ready() ->void:
 	origin_position = position
 	if in_pipe_first:
 		state = 2
+		f_count = 0
 		pos = height*scale.y
 	
 func _physics_process(delta) ->void:
