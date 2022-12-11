@@ -38,6 +38,7 @@ func view_update(viewport :Viewport = get_viewport()) ->void:
 	var center: Vector2 = c.get_camera_screen_center()
 	var size: Vector2 = c.get_viewport_rect().size
 	trans = c.get_viewport_transform()
+	trans = trans.scaled(Vector2(1/trans.get_scale().x,1/trans.get_scale().y))
 	var pos: Vector2 = Vector2(center.x - size.x*c.zoom.x/2,center.y - size.y*c.zoom.y/2)
 	current_border = Rect2(pos,Vector2(size.x*c.zoom.x,size.y*c.zoom.y))
 	current_limit = Rect2(c.limit_left,c.limit_top,c.limit_right-c.limit_left,c.limit_bottom-c.limit_top)
