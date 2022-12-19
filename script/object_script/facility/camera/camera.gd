@@ -28,20 +28,15 @@ func get_position_center(pos :Vector2) ->Vector2:
 func set_position_from_player() ->void:
 	if !scene.current_player.empty():
 		var pos :Vector2 = Vector2.ZERO
+		var rot :float = 0
 		for i in scene.current_player:
 			pos += i.global_position
+			if rotating:
+				rot += i.global_rotation
 		pos /= scene.current_player.size()
 		global_position = pos
-		# 支持镜头旋转，即以玩家平均旋转角度（弧度）为准
 		if rotating:
-			var rot:Array
-			var total_rot:float
-			for i in scene.current_player:
-				rot.append(i.global_rotation)
-			if !rot.empty():
-				for j in rot:
-					total_rot += j 
-			global_rotation = total_rot / scene.current_player.size()
+			global_rotation = rot / scene.current_player.size()
 		
 func force_update_scroll() ->void:
 	var temp :bool = smoothing_enabled
