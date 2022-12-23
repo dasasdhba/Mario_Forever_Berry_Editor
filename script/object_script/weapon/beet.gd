@@ -40,7 +40,7 @@ func _physics_process(delta) ->void:
 			$AreaShared/AttackEnemy.disabled = true
 		$BubbleLauncher.angle = -gravity_direction.angle()
 		$BubbleLauncher.offset = position
-	elif $CollisionShape2D.disabled && count <= bounce_count:
+	elif $CollisionShape2D.disabled && count < bounce_count:
 		if atk:
 			$AreaShared/AttackEnemy.disabled = false
 		$CollisionShape2D.disabled = false
